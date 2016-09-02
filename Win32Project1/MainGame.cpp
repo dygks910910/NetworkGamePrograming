@@ -51,6 +51,24 @@ void CMainGame::Render()
 	m_doubleBuffering.Present(m_hdc);
 }
 
+void CMainGame::MouseInputProcessing(const MSG& msg)
+{
+	switch (msg.message)
+	{
+	case WM_LBUTTONDOWN:
+		cout << CVector2(LOWORD(msg.lParam), HIWORD(msg.lParam));// 마우스 입력 테스트.
+		break;
+	case WM_LBUTTONUP:
+		break;
+	case WM_RBUTTONDOWN:
+		break;
+	case WM_RBUTTONUP:
+		break;
+	default:
+		break;
+	}
+}
+
 // 해제
 void CMainGame::Release()
 {

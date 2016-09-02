@@ -6,13 +6,9 @@
 class CMainGame
 {
 	HDC m_hdc;
-	//HDC m_memDC;
 	vector<CObj*> m_vObj;
-	//CObj* m_pBall;
 	CDoubleBuffering m_doubleBuffering;
 
-	//write to back DC
-	//Present
 
 public:
 	CMainGame();
@@ -20,5 +16,11 @@ public:
 	void Initialize();
 	void Progress();
 	void Render();
+/* 
+[2016/09/02 18시57분 
+작성자 : 박요한(dygks910910@daum.net)]
+설명:MouseInputMessage()마우스 입력처리함수 작성.
+*/
+	void MouseInputProcessing(const MSG& msg);
 	void Release();
 };

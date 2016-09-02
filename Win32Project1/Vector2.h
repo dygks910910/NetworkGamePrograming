@@ -1,5 +1,4 @@
 #pragma once
-#include<iostream>
 class CVector2
 {
 public:

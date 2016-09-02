@@ -1,6 +1,6 @@
-#include "Vector2.h"
-
-
+#include"stdafx.h"
+#include"Vector2.h"
+#include<math.h>
 CVector2::CVector2() :
 	x(0), y(0)
 {

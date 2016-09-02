@@ -1,3 +1,6 @@
 ﻿  Win32Project1.cpp
-  Win32Project1.vcxproj -> D:\Study\2.1\API\WInAPIFrameWork\Debug\Win32Project1.exe
-  Win32Project1.vcxproj -> D:\Study\2.1\API\WInAPIFrameWork\Debug\Win32Project1.pdb (Full PDB)
+  MainGame.cpp
+d:\project\apifornetgamep\networkgameprograming\win32project1\maingame.cpp(77): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe
+  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)

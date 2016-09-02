@@ -67,6 +67,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 				MainGame.Progress();
 				MainGame.Render();
+				/* 
+				[2016/09/02 19시00분 
+				작성자 : 박요한(dygks910910@daum.net)]
+				설명:마우스 입력처리 함수
+				*/
+				MainGame.MouseInputProcessing(msg);
 			}
 		}
 	}
