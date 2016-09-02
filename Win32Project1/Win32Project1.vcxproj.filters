@@ -25,6 +25,9 @@
     <Filter Include="소스 파일\01 DoubleBuffering">
       <UniqueIdentifier>{073e4126-4cbd-43c4-b106-f8d9c1eb9c0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99 Vector2">
+      <UniqueIdentifier>{8ba39867-5aab-4281-9626-fb98f012bc6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,6 +57,9 @@
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>소스 파일\99 Vector2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="DoubleBuffering.cpp">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>소스 파일\99 Vector2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
