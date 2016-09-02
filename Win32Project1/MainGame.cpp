@@ -50,7 +50,11 @@ void CMainGame::Render()
 	}
 	m_doubleBuffering.Present(m_hdc);
 }
-
+/* 
+[2016/09/02 19시23분 
+작성자 : 박요한(dygks910910@daum.net)]
+설명:마우스 입력처리함수 본문.
+*/
 void CMainGame::MouseInputProcessing(const MSG& msg)
 {
 	switch (msg.message)
