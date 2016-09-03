@@ -6,7 +6,6 @@
 class CMainGame
 {
 	HDC m_hdc;
-	vector<CObj*> m_vObj;
 	CDoubleBuffering m_doubleBuffering;
 
 

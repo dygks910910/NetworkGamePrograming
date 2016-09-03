@@ -1,19 +1,21 @@
 #pragma once
 
 #include "MyHeader.h"
+#include"Vector2.h"
 
 class CObj
 {
-	POINT m_ptBall;
-	int m_nBallSize;
-	int m_nBallSpeed;
+	CVector2 m_vtBallPos;
+	float m_nBallSize;
+	float m_nBallSpeed;
 
 public:
 	CObj();
 	~CObj();
 
-	void Initialize();
-	void Progress();
-	void Render(HDC);
-	void Release();
+	virtual void Initialize();
+	virtual void Progress();
+	virtual void Render(HDC);
+	virtual void Release();
+
 };

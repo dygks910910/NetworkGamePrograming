@@ -1,6 +1,14 @@
-﻿  Win32Project1.cpp
-  MainGame.cpp
-d:\project\apifornetgamep\networkgameprograming\win32project1\maingame.cpp(77): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+﻿  MainGame.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  Win32Project1.cpp
+  Player.cpp
+  Obj.cpp
+d:\project\apifornetgamep\networkgameprograming\win32project1\obj.cpp(21): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\project\apifornetgamep\networkgameprograming\win32project1\obj.cpp(22): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\project\apifornetgamep\networkgameprograming\win32project1\obj.cpp(24): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\project\apifornetgamep\networkgameprograming\win32project1\obj.cpp(25): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\project\apifornetgamep\networkgameprograming\win32project1\obj.cpp(39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
   Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe
   Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)

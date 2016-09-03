@@ -18,25 +18,25 @@ CObj::~CObj()
 */
 void CObj::Initialize()
 {
-	m_ptBall.x = rand()%800;
-	m_ptBall.y = rand()%600;
+	m_vtBallPos.x = rand() % 800;
+	m_vtBallPos.y = rand() % 600;
 
-	m_nBallSize = rand()%50;
-	m_nBallSpeed = rand()%10;
+	m_nBallSize = rand() % 50;
+	m_nBallSpeed = rand() % 10;
 }
 
 void CObj::Progress()
 {
-	m_ptBall.x += m_nBallSpeed;
+	m_vtBallPos.x += m_nBallSpeed;
 
-	if ((m_ptBall.x >= WINDOW_WIDTH - m_nBallSize) || (m_ptBall.x <= m_nBallSize))
+	if ((m_vtBallPos.x >= WINDOW_WIDTH - m_nBallSize) || (m_vtBallPos.x <= m_nBallSize))
 		m_nBallSpeed *= -1;
 }
 
 void CObj::Render(HDC hdc)
 {
-	Ellipse(hdc, m_ptBall.x - m_nBallSize, m_ptBall.y - m_nBallSize,
-		m_ptBall.x + m_nBallSize, m_ptBall.y + m_nBallSize);
+	Ellipse(hdc, m_vtBallPos.x - m_nBallSize, m_vtBallPos.y - m_nBallSize,
+		m_vtBallPos.x + m_nBallSize, m_vtBallPos.y + m_nBallSize);
 }
 
 void CObj::Release()
