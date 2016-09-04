@@ -11,6 +11,11 @@ CVector2::CVector2(float x, float y) :
 {
 }
 
+CVector2::CVector2(int x, int y)
+	:x(x),y(y)
+{
+}
+
 
 CVector2::~CVector2()
 {

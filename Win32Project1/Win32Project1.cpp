@@ -68,6 +68,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 				MainGame.Progress();
 				MainGame.Render();
 				MainGame.MouseInputProcessing(msg);
+				MainGame.KeyboardInputProcessing(msg);
 			}
 		}
 	}

@@ -7,6 +7,7 @@ public:
 public:
 	CVector2();
 	CVector2(float x,float y);
+	CVector2(int x, int y);
 	~CVector2();
 	CVector2 operator+(const CVector2& other);
 	CVector2 operator-(const CVector2& other);
