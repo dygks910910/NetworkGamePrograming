@@ -18,12 +18,11 @@ void CMainGame::Initialize()
 {
 	m_hdc = GetDC(g_hWnd);
 	RECT clientrect;
-	
 	GetClientRect(g_hWnd, &clientrect);
-	m_Ball1.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE,WINDOW_HEIGHT/2)
-		, PLAYER_SIZE, 1);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-
+	
+	m_Ball1.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2)
+		, PLAYER_SIZE, PLAYER_SPEED);
 }
 // process
 void CMainGame::Progress()
@@ -83,9 +82,14 @@ void CMainGame::KeyboardInputProcessing(const MSG& msg)
 	case WM_KEYDOWN:
 		if (msg.wParam == VK_UP)
 		{
+			m_Ball1.SetDirection(CVector2(0, 1));
+			m_Ball1.move();
 		}
 		if (msg.wParam == VK_DOWN)
 		{
+			m_Ball1.SetDirection(CVector2(0, -1));
+			m_Ball1.move();
+
 		}
 		if (msg.wParam == VK_F3)
 		{
