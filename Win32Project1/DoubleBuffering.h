@@ -32,7 +32,7 @@ public:
 };
 //obj상속된것들만 읽을수 있음.
 template<class obj>
-inline void CDoubleBuffering::WriteToBackBuffer(obj * object)
+inline void CDoubleBuffering::WriteToBackBuffer(obj * pBbject)
 {
-	object->Render(m_memDC);
+	pBbject->Render(m_memDC);
 }

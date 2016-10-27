@@ -1,15 +1,14 @@
 #pragma once
 #include "MyHeader.h"
 #include "Obj.h"
+#include"Ball.h"
 #include"DoubleBuffering.h"
-#include"Player.h"
 class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
-	CPlayer	 m_player1;
-	CPlayer	 m_player2;
-
+	CBall m_Ball1;
+	CBall m_Ball2;
 
 public:
 	CMainGame();

@@ -13,24 +13,24 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(const CVector2& pos, const float& size,const float& speed)
 {
-	m_vtBallPos = pos;
-
+	m_vPlayerPos = pos;
+	m_vMoveDirection = CVector2(0, 0);
 	m_fBallSize = size;
 	m_fBallSpeed = speed	;
 }
 
 void CPlayer::Progress()
 {
-	/*m_vtBallPos.x += m_nBallSpeed;
+	/*m_vPlayerPos.x += m_nBallSpeed;
 
-	if ((m_vtBallPos.x >= WINDOW_WIDTH - m_nBallSize) || (m_vtBallPos.x <= m_nBallSize))
+	if ((m_vPlayerPos.x >= WINDOW_WIDTH - m_nBallSize) || (m_vPlayerPos.x <= m_nBallSize))
 		m_nBallSpeed *= -1;*/
 }
 
 void CPlayer::Render(HDC hdc)
 {
-	Ellipse(hdc, m_vtBallPos.x - m_fBallSize, m_vtBallPos.y - m_fBallSize,
-		m_vtBallPos.x + m_fBallSize, m_vtBallPos.y + m_fBallSize);
+	Ellipse(hdc, m_vPlayerPos.x - m_fBallSize, m_vPlayerPos.y - m_fBallSize,
+		m_vPlayerPos.x + m_fBallSize, m_vPlayerPos.y + m_fBallSize);
 }
 
 void CPlayer::Release()
@@ -38,17 +38,17 @@ void CPlayer::Release()
 	
 }
 
-void CPlayer::moveUp()
+void CPlayer::SetDirection(const CVector2& dir)
 {
-	if (0 >= m_vtBallPos.y - m_fBallSize)
-		return;
+	m_vMoveDirection = dir;
+}
 
-	m_vtBallPos.y -= m_fBallSpeed;
-}
-void CPlayer::moveDown()
+void CPlayer::move()
 {
-	if (WINDOW_HEIGHT <= m_vtBallPos.y+m_fBallSize)
-		return;
-	std::cout << m_vtBallPos << endl;
-	m_vtBallPos.y += m_fBallSpeed;
+	if (m_vPlayerPos.x <= WINDOW_WIDTH - PLAYER_SIZE)
+	{
+			
+	}
+	m_vPlayerPos = m_vPlayerPos + (m_vMoveDirection*m_fBallSpeed);
 }
+

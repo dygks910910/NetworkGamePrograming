@@ -18,11 +18,11 @@ void CMainGame::Initialize()
 {
 	m_hdc = GetDC(g_hWnd);
 	RECT clientrect;
+	
 	GetClientRect(g_hWnd, &clientrect);
-
+	m_Ball1.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE,WINDOW_HEIGHT/2)
+		, PLAYER_SIZE, 1);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-	m_player1.Initialize(CVector2(PLAYER1_POSX, PLAYER1_POSY), PLAYER_SIZE, PLAYER_SPEED);
-	m_player2.Initialize(CVector2(PLAYER2_POSX, PLAYER2_POSY), PLAYER_SIZE, PLAYER_SPEED);
 
 }
 // process
@@ -34,9 +34,13 @@ void CMainGame::Progress()
 // 그리기
 void CMainGame::Render()
 {
-	m_doubleBuffering.WriteToBackBuffer(&m_player1);
+	/*m_doubleBuffering.WriteToBackBuffer(&m_player1);
 	m_doubleBuffering.WriteToBackBuffer(&m_player2);
+	m_doubleBuffering.Present(m_hdc);*/
+
+	m_doubleBuffering.WriteToBackBuffer(&m_Ball1);
 	m_doubleBuffering.Present(m_hdc);
+
 }
 /* 
 [2016/09/02 19시23분 
@@ -48,7 +52,7 @@ void CMainGame::MouseInputProcessing(const MSG& msg)
 	switch (msg.message)
 	{
 	case WM_LBUTTONDOWN:
-		cout << CVector2(LOWORD(msg.lParam), HIWORD(msg.lParam));// 마우스 입력 테스트.
+		cout << CVector2(LOWORD(msg.lParam), HIWORD(msg.lParam)) << endl;// 마우스 입력 테스트.
 		break;
 	case WM_LBUTTONUP:
 		break;
@@ -79,21 +83,16 @@ void CMainGame::KeyboardInputProcessing(const MSG& msg)
 	case WM_KEYDOWN:
 		if (msg.wParam == VK_UP)
 		{
-			m_player1.moveUp();
 		}
 		if (msg.wParam == VK_DOWN)
 		{
-			m_player1.moveDown();
 		}
 		if (msg.wParam == VK_F3)
 		{
-			m_player2.moveUp();
 		}
 		if (msg.wParam == VK_F2)
 		{
-			m_player2.moveDown();
 		}
-		
 		break;
 	case WM_KEYUP:
 		break;
