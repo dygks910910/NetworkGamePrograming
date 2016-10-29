@@ -21,8 +21,8 @@ void CMainGame::Initialize()
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
 	
-	m_Ball1.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2)
-		, PLAYER_SIZE, PLAYER_SPEED);
+	m_player.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
+		PLAYER_SIZE, PLAYER_SPEED);
 }
 // process
 void CMainGame::Progress()
@@ -37,7 +37,7 @@ void CMainGame::Render()
 	m_doubleBuffering.WriteToBackBuffer(&m_player2);
 	m_doubleBuffering.Present(m_hdc);*/
 
-	m_doubleBuffering.WriteToBackBuffer(&m_Ball1);
+	m_doubleBuffering.WriteToBackBuffer(&m_player);
 	m_doubleBuffering.Present(m_hdc);
 
 }
@@ -51,13 +51,15 @@ void CMainGame::MouseInputProcessing(const MSG& msg)
 	switch (msg.message)
 	{
 	case WM_LBUTTONDOWN:
-		cout << CVector2(LOWORD(msg.lParam), HIWORD(msg.lParam)) << endl;// 마우스 입력 테스트.
 		break;
 	case WM_LBUTTONUP:
 		break;
 	case WM_RBUTTONDOWN:
 		break;
 	case WM_RBUTTONUP:
+		break;
+	case WM_MOUSEMOVE:
+		m_player.MoveToMousePos(CVector2(LOWORD(msg.lParam), HIWORD(msg.lParam)),"p2");
 		break;
 	default:
 		break;
@@ -82,13 +84,9 @@ void CMainGame::KeyboardInputProcessing(const MSG& msg)
 	case WM_KEYDOWN:
 		if (msg.wParam == VK_UP)
 		{
-			m_Ball1.SetDirection(CVector2(0, 1));
-			m_Ball1.move();
 		}
 		if (msg.wParam == VK_DOWN)
 		{
-			m_Ball1.SetDirection(CVector2(0, -1));
-			m_Ball1.move();
 
 		}
 		if (msg.wParam == VK_F3)

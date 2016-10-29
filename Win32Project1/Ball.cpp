@@ -51,6 +51,8 @@ void CBall::SetDirection(const CVector2 & dir)
 	m_vMoveDirection = dir;
 }
 
+
+
 void CBall::move()
 {
 	if (m_vBallPos.x <= WINDOW_WIDTH - PLAYER_SIZE)
