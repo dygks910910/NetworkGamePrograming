@@ -52,12 +52,32 @@ void CBall::SetDirection(const CVector2 & dir)
 }
 
 
-
+/*
+2016 / 10 / 30 / 19:44
+작성자:박요한(dygks910910@daum.net)
+설명:윈도우 창에 대한 기본적인 충돌체크.
+*/
 void CBall::move()
 {
+	//오른쪽윈도우에 대한 충돌체크
 	if (m_vBallPos.x <= WINDOW_WIDTH - PLAYER_SIZE)
 	{
-
+		m_vMoveDirection.x *= -1;
+	}
+	//왼쪽윈도우에 대한 충돌체크
+	if (m_vBallPos.x >= 0 + PLAYER_SIZE)
+	{
+		m_vMoveDirection.x *= -1;
+	}
+	//아래쪽윈도우에 대한 충돌체크
+	if (m_vBallPos.y <= WINDOW_HEIGHT - PLAYER_SIZE )
+	{
+		m_vMoveDirection.y *= -1;
+	}
+	//윗쪽윈도우에 대한 충돌체크
+	if (m_vBallPos.y >= 0 + PLAYER_SIZE)
+	{
+		m_vMoveDirection.y *= -1;
 	}
 	m_vBallPos = m_vBallPos + (m_vMoveDirection*m_fBallSpeed);
 }

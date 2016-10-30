@@ -20,14 +20,15 @@ void CMainGame::Initialize()
 	RECT clientrect;
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-	
+	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, PLAYER_SPEED);
+	m_ball.SetDirection(CVector2(1, 1));
 	m_player.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 		PLAYER_SIZE, PLAYER_SPEED);
 }
 // process
 void CMainGame::Progress()
 {
-
+	m_ball.move();
 }
 
 // ±×¸®±â
@@ -38,6 +39,7 @@ void CMainGame::Render()
 	m_doubleBuffering.Present(m_hdc);*/
 
 	m_doubleBuffering.WriteToBackBuffer(&m_player);
+	m_doubleBuffering.WriteToBackBuffer(&m_ball);
 	m_doubleBuffering.Present(m_hdc);
 
 }

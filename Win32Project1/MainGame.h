@@ -8,7 +8,7 @@ class CMainGame
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
 	CPlayer	 m_player	;
-
+	CBall m_ball;
 public:
 	CMainGame();
 	~CMainGame();

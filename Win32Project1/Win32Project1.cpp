@@ -120,7 +120,6 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    HWND hWnd;
-
 	RECT rc = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, false);
 
@@ -153,12 +152,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY	- 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+/*
+2016 / 10 / 30 / 19:31
+작성자:박요한(dygks910910@daum.net)
+설명:마우스 커서를 감춤.	ShowCursor(false);
+*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
-
+	ShowCursor(false);
 	switch (message)
 	{
 	case WM_COMMAND:
