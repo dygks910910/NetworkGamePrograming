@@ -29,6 +29,7 @@ void CMainGame::Initialize()
 void CMainGame::Progress()
 {
 	m_ball.move();
+	m_collision.ifCollision(m_player, m_ball);
 }
 
 // ±×¸®±â

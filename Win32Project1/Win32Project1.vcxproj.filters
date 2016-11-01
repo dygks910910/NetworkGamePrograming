@@ -28,6 +28,9 @@
     <Filter Include="소스 파일\99 Vector2">
       <UniqueIdentifier>{8ba39867-5aab-4281-9626-fb98f012bc6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\02 Colision">
+      <UniqueIdentifier>{ded9ff1a-7512-461a-98d2-486ffff57fb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,6 +69,9 @@
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>소스 파일\02 Colision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -91,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>소스 파일\02 Colision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

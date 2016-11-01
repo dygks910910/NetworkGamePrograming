@@ -3,12 +3,16 @@
 #include "Obj.h"
 #include"Player.h"
 #include"DoubleBuffering.h"
+#include "Collision.h"
+
 class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
 	CPlayer	 m_player	;
 	CBall m_ball;
+	Collision m_collision;
+
 public:
 	CMainGame();
 	~CMainGame();
