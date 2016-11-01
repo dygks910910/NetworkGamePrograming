@@ -16,4 +16,5 @@ public:
 
 
 };
+
 std::ostream& operator<<(std::ostream & os, const CVector2& vec);

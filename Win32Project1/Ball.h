@@ -8,7 +8,7 @@
 class CBall:
 	public CObj 
 {
-	CVector2 m_vBallPos;
+	CVector2	m_vBallPos;
 	CVector2	m_vMoveDirection;
 	float m_fBallSize;
 	float m_fBallSpeed;
