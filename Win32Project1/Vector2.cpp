@@ -27,10 +27,6 @@ CVector2 CVector2::operator+(const CVector2& other)
 
 }
 
-CVector2 CVector2::operator-(const CVector2 & other)
-{
-	return CVector2(x - other.x, y - other.y);
-}
 
 CVector2 CVector2::operator*(const float & other)
 {
@@ -50,4 +46,9 @@ std::ostream& operator<<(std::ostream & os, const CVector2& vec)
 	os << "(" << vec.x << "," << vec.y << ")";
 	return os;
 	// TODO: 여기에 반환 구문을 삽입합니다.
+}
+
+CVector2 operator-(const CVector2& other1, const CVector2& other2)
+{
+	return CVector2(other1.x - other2.x, other1.y - other2.y);
 }
