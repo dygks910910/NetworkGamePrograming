@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 ﻿빌드 시작: 2016-11-01 오후 6:54:32
      1>2 노드의 "C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
+=======
+<<<<<<< HEAD
+﻿  Win32Project1.cpp
+  MainGame.cpp
+  코드를 생성하고 있습니다...
+  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe
+  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)
+=======
+﻿빌드 시작: 2016-10-31 오후 9:09:38
+     1>2 노드의 "C:\Users\Ju\Desktop\NetworkGamePrograming-master\NetworkGamePrograming-master\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
+>>>>>>> origin/master
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Collision.cpp
          Collision.cpp
@@ -19,4 +31,9 @@
 
 빌드했습니다.
 
+<<<<<<< HEAD
 경과 시간: 00:00:01.60
+=======
+경과 시간: 00:00:01.78
+>>>>>>> origin/master
+>>>>>>> origin/master

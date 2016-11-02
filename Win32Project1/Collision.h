@@ -3,12 +3,13 @@
 #include "Player.h"
 #include "Ball.h"
 
+<<<<<<< HEAD
 class Collision{
+=======
+class Collision  
+{
+>>>>>>> origin/master
 private:
-	CVector2 CVplayerPos;
-	CVector2 CVballPos;
-	CVector2 CVplayerDir;
-	CVector2 CVballDir;
 	bool beCollision;
 
 public:
