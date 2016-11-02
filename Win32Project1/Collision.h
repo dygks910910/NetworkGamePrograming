@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Ball.h"
 
-class Collision : public CObj{
+class Collision{
 private:
 	CVector2 CVplayerPos;
 	CVector2 CVballPos;

@@ -53,6 +53,8 @@ void Collision::ComputeCollision(CPlayer &player, CBall &ball) {
 
 	std::cout << "충돌 처리함수 실행" << std::endl;
 
+	std::cout << "player 방향벡터 : " << player.GetDirection() << std::endl;
+
 	CVector2 Dir;
 	CVplayerDir = player.GetDirection();	//A
 	CVballDir = ball.GetDirection();		//B
