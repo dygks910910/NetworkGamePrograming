@@ -1,28 +1,23 @@
 #pragma once
+#include "stdafx.h"
 #include "Vector2.h"
 class CMessage
 {
-public:
-	CMessage();
-	~CMessage();
 };
 
 class CMessageForPlayerInfo : public CMessage
 {
 public:
-	CMessageForPlayerInfo() {};
-	~CMessageForPlayerInfo() {};
-	CVector2 pos;
-	CVector2 dir;
+	CVector2 m_vPos;
+	CVector2 m_vDirection;
 	float speed;
+
 };
 #pragma pack
 
 class CMessageForReady : public CMessage
 {
 public:
-	CMessageForReady() {};
-	~CMessageForReady() {};
 	int playerNum;
 	bool bReady;
 };
@@ -31,15 +26,12 @@ public:
 class CMessageForRestart : public CMessage
 {
 public:
-	CMessageForRestart() {};
-	~CMessageForRestart() {};
 	bool bRestart;
 };
 
 class CMessageForBallNum : public CMessage
 {
 public:
-	CMessageForBallNum() {};
-	~CMessageForBallNum() {};
 	int iBallNum;
 };
+

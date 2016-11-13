@@ -21,10 +21,10 @@
     <ClCompile Include="Vector2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Message.cpp">
+    <ClCompile Include="SendAndMessageType.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SendAndMessageType.cpp">
+    <ClCompile Include="RecvnAndMessageType.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +36,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Message.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RecvnAndMessageType.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyFunc.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
