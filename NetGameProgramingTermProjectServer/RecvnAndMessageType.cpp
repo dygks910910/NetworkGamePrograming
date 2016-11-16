@@ -1,6 +1,9 @@
+#pragma once
 #include "RecvnAndMessageType.h"
-#include "CMyFunc.h"
+#ifdef __RECVNANDMESSAGETYPE_H
+#define __RECVNANDMESSAGETYPE_H
 
+#include "CMyFunc.h"
 CRecvnAndMessageType::CRecvnAndMessageType()
 {
 }
@@ -15,7 +18,7 @@ const int& CRecvnAndMessageType::operator()(const SOCKET& s, char *buff, const i
 	int typeOfMessage = 0;
 	int retval = 0;
 	//메시지 타입을 받기.
-	CMyFunc::recvn(s, (char*)typeOfMessage, sizeof(typeOfMessage), 0);
+		CMyFunc::recvn(s, (char*)typeOfMessage, sizeof(typeOfMessage), 0);
 	//메시지 본문을 받기.
 	switch (typeOfMessage)
 	{
@@ -23,7 +26,7 @@ const int& CRecvnAndMessageType::operator()(const SOCKET& s, char *buff, const i
 		retval = CMyFunc::recvn(s, buff, sizeof(CMessageForBallNum), flag);
 		break;
 	case e_MSG_TYPE::MSG_PLAYERINFO:
-		retval = CMyFunc::recvn(s, buff, sizeof(CMessageForPlayerInfo), flag);
+		retval = CMyFunc::recvn(s, buff, sizeof(CMessageBallInfo), flag);
 		break;
 	case e_MSG_TYPE::MSG_READY:
 		retval = CMyFunc::recvn(s, buff, sizeof(CMessageForReady), flag);
@@ -35,3 +38,4 @@ const int& CRecvnAndMessageType::operator()(const SOCKET& s, char *buff, const i
 	return retval;
 
 }
+#endif // __RECVNANDMESSAGETYPE_H

@@ -22,7 +22,7 @@ const int& CSendAndMessageType::operator()(CMessage* msg, const SOCKET& s, char 
 		//몇바이트를 보낼건지 알려주는 4바이트를 먼저 보냄.
 		retval = send(s, (char*)typeSave, sizeof(typeSave), 0);
 		//msg에 담긴 메시지를 보내줌.
-		retval += send(s, (char*)reinterpret_cast<CMessageForPlayerInfo*>(msg), sizeof(CMessageForPlayerInfo), 0);
+		retval += send(s, (char*)reinterpret_cast<CMessageBallInfo*>(msg), sizeof(CMessageBallInfo), 0);
 
 		break;
 	case e_MSG_TYPE::MSG_READY:

@@ -5,7 +5,7 @@ class CMessage
 {
 };
 
-class CMessageForPlayerInfo : public CMessage
+class CMessageBallInfo : public CMessage
 {
 public:
 	CVector2 m_vPos;

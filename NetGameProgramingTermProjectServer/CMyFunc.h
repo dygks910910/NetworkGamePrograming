@@ -1,5 +1,7 @@
 #pragma once
 #include"stdafx.h"
+#ifndef __CMFUNC_H
+#define __CMFUNC_H
 
 class CMyFunc
 {
@@ -9,6 +11,15 @@ public:
 	static const int& recvn(const SOCKET& s, char* buf, const int& len, const int& flag);
 	static void err_quit(char *msg);
 	static void err_display(char *msg);
+	static void errCheckAndErrQuit(const SOCKET& socket,char* msg)
+	{
+		if (socket == INVALID_SOCKET)
+		{
+			err_quit(msg);
+		}
+	}
+	static void errCheckAndErrDisplay(const SOCKET& socket, char* msg);
+	static void IsSocketError(const int& retval, char* msg);
 };
 
 const int& CMyFunc::recvn(const SOCKET& s, char* buf, const int& len, const int& flag)
@@ -57,3 +68,21 @@ void CMyFunc::err_display(char *msg)
 	printf("[%s] %s", msg, (char *)lpMsgBuf);
 	LocalFree(lpMsgBuf);
 }
+
+void CMyFunc::errCheckAndErrDisplay(const SOCKET& socket, char* msg)
+{
+	if (socket == INVALID_SOCKET)
+	{
+		err_display(msg);
+	}
+}
+
+void CMyFunc::IsSocketError(const int& retval, char* msg)
+{
+	if (retval == SOCKET_ERROR)
+	{
+		err_quit(msg);
+	}
+}
+
+#endif // !__CMFUNC_H
