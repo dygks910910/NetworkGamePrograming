@@ -1,8 +1,5 @@
 #pragma once
-#include"stdafx.h"
-#ifndef __CMFUNC_H
-#define __CMFUNC_H
-
+#include "stdafx.h"
 class CMyFunc
 {
 public:
@@ -11,78 +8,8 @@ public:
 	static const int& recvn(const SOCKET& s, char* buf, const int& len, const int& flag);
 	static void err_quit(char *msg);
 	static void err_display(char *msg);
-	static void errCheckAndErrQuit(const SOCKET& socket,char* msg)
-	{
-		if (socket == INVALID_SOCKET)
-		{
-			err_quit(msg);
-		}
-	}
+	static void errCheckAndErrQuit(const SOCKET& socket, char* msg);
+	
 	static void errCheckAndErrDisplay(const SOCKET& socket, char* msg);
 	static void IsSocketError(const int& retval, char* msg);
 };
-
-const int& CMyFunc::recvn(const SOCKET& s, char* buf, const int& len, const int& flag)
-{
-		int received;
-		char* ptr = buf;
-		int left = len;
-
-		while (left > 0)
-		{
-			received = recv(s, ptr, left, flag);
-			if (received == SOCKET_ERROR)
-				return SOCKET_ERROR;
-			else if (received == 0)
-				break;
-			left -= received;
-			ptr += received;
-		}
-		//printf("%d바이트 받음", received);
-		return len - left;
-}
-
-
-
-
-void CMyFunc::err_quit(char *msg)
-{
-	LPVOID lpMsgBuf;
-	FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL, WSAGetLastError(),
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPTSTR)&lpMsgBuf, 0, NULL);
-	MessageBox(NULL, (LPCTSTR)lpMsgBuf, msg, MB_ICONERROR);
-	LocalFree(lpMsgBuf);
-	exit(1);
-}
-void CMyFunc::err_display(char *msg)
-{
-	LPVOID lpMsgBuf;
-	FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL, WSAGetLastError(),
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPTSTR)&lpMsgBuf, 0, NULL);
-	printf("[%s] %s", msg, (char *)lpMsgBuf);
-	LocalFree(lpMsgBuf);
-}
-
-void CMyFunc::errCheckAndErrDisplay(const SOCKET& socket, char* msg)
-{
-	if (socket == INVALID_SOCKET)
-	{
-		err_display(msg);
-	}
-}
-
-void CMyFunc::IsSocketError(const int& retval, char* msg)
-{
-	if (retval == SOCKET_ERROR)
-	{
-		err_quit(msg);
-	}
-}
-
-#endif // !__CMFUNC_H
