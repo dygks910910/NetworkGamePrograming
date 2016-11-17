@@ -1,5 +1,9 @@
 #pragma once
-#include "stdafx.h"
+
+#include<WinSock2.h>
+#include"Vector2.h"
+#include<iostream>
+#include "Message.h"
 #include "Vector2.h"
 class CMessage
 {

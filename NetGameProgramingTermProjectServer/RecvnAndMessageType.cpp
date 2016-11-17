@@ -1,9 +1,6 @@
 #pragma once
 #include "RecvnAndMessageType.h"
-#ifdef __RECVNANDMESSAGETYPE_H
-#define __RECVNANDMESSAGETYPE_H
 
-#include "CMyFunc.h"
 CRecvnAndMessageType::CRecvnAndMessageType()
 {
 }
@@ -38,4 +35,3 @@ const int& CRecvnAndMessageType::operator()(const SOCKET& s, char *buff, const i
 	return retval;
 
 }
-#endif // __RECVNANDMESSAGETYPE_H

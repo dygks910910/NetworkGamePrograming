@@ -5,6 +5,7 @@
 작성자 : 박요한(dygks910910@daum.net)]
 설명:vector2클래스 구현
 */
+
 class CVector2
 {
 public:

@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include"CMyFunc.h"
-
+#include "RecvnAndMessageType.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
-
+//zzzzz
 void main()
 {
+	CRecvnAndMessageType recvMessageType;
 	int retval;
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa))
@@ -21,9 +21,14 @@ void main()
 	CMyFunc::IsSocketError(retval,"bind()");
 	retval = listen(listenSocket, SOMAXCONN);
 	CMyFunc::IsSocketError(retval, "listen()");
-
-
-
+	SOCKET clientsocket;
+	SOCKADDR_IN clientAddr;
+	int addrSize = sizeof(clientAddr);
+	/*while (1)
+	{
+		clientsocket = accept(clientsocket, (SOCKADDR*)&clientAddr, &addrSize);
+		CMyFunc::errCheckAndErrQuit(clientsocket, "accept()");
+	}*/
 	//
 	closesocket(listenSocket);
 	WSACleanup();
@@ -37,3 +42,4 @@ void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr)
 	serverAddr.sin_port = htons(PORT);
 
 }
+

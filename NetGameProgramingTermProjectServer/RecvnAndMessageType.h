@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include"enum.h"
+#include "CMyFunc.h"
 
 class CRecvnAndMessageType
 {
