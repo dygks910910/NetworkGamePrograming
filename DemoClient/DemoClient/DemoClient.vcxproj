@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C743A3FD-E3A5-45B4-8899-7720A0F964F8}</ProjectGuid>
+    <ProjectGuid>{65800451-DEE6-4ED9-83B7-914702E3859C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>NetGameProgramingTermProjectServer</RootNamespace>
+    <RootNamespace>DemoClient</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -71,6 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -142,21 +143,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CMyFunc.cpp" />
-    <ClCompile Include="RecvnAndMessageType.cpp" />
-    <ClCompile Include="SendAndMessageType.cpp" />
-    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\CMyFunc.cpp" />
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\RecvnAndMessageType.cpp" />
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.cpp" />
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\Vector2.cpp" />
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CMyFunc.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="enum.h" />
-    <ClInclude Include="Message.h" />
-    <ClInclude Include="RecvnAndMessageType.h" />
-    <ClInclude Include="SendAndMessageType.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\CMyFunc.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\enum.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Message.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\RecvnAndMessageType.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\stdafx.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Vector2.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

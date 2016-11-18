@@ -18,6 +18,7 @@ public:
 
 };
 #pragma pack
+class CPlayer : public CMessageBallInfo {  };
 
 class CMessageForReady : public CMessage
 {

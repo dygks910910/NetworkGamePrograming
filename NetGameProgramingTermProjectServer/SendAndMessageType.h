@@ -6,11 +6,12 @@ class CSendAndMessageType
 public:
 	CSendAndMessageType();
 	~CSendAndMessageType();
-	const int& operator()(CMessage* msg, const SOCKET& s,
+	const int& operator()(const SOCKET& s,
 		char *buff,
 		const int& len,
 		const int& flag,
 		const int& msgType);
 	
+
 };
 
