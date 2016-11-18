@@ -31,6 +31,15 @@
     <Filter Include="소스 파일\02 Colision">
       <UniqueIdentifier>{ded9ff1a-7512-461a-98d2-486ffff57fb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03 GUI">
+      <UniqueIdentifier>{0d313c14-cfaa-40be-98b3-cf7069eb15c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01-2 Player">
+      <UniqueIdentifier>{ba322bca-f58f-48dd-8f0e-28fb6ea6645d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01-1 Ball">
+      <UniqueIdentifier>{a416fda2-75da-4f66-84e1-6d32b9ed2c5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -63,14 +72,17 @@
     <ClInclude Include="Vector2.h">
       <Filter>소스 파일\99 Vector2</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>소스 파일\02 Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>소스 파일\03 GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>소스 파일\01-1 Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\01-2 Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,14 +104,17 @@
     <ClCompile Include="Vector2.cpp">
       <Filter>소스 파일\99 Vector2</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>소스 파일\02 Colision</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>소스 파일\03 GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>소스 파일\01-1 Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\01-2 Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

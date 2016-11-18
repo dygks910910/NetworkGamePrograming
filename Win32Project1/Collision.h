@@ -3,12 +3,9 @@
 #include "Player.h"
 #include "Ball.h"
 
-<<<<<<< HEAD
-class Collision{
-=======
+
 class Collision  
 {
->>>>>>> origin/master
 private:
 	bool beCollision;
 

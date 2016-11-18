@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿빌드 시작: 2016-11-01 오후 6:54:32
-     1>2 노드의 "C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
-=======
-<<<<<<< HEAD
-﻿  Win32Project1.cpp
-  MainGame.cpp
-  코드를 생성하고 있습니다...
-  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe
-  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)
-=======
-﻿빌드 시작: 2016-10-31 오후 9:09:38
-     1>2 노드의 "C:\Users\Ju\Desktop\NetworkGamePrograming-master\NetworkGamePrograming-master\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
->>>>>>> origin/master
+﻿빌드 시작: 2016-11-18 오전 7:39:43
+     1>2 노드의 "C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Collision.cpp
-         Collision.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Ball.cpp MainGame.cpp
+         MainGame.cpp
+         Ball.cpp
+     1>c:\users\ju\desktop\넷겜플 텀프\networkgameprograming\win32project1\ball.cpp(33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+         코드를 생성하고 있습니다...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Debug\Win32Project1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Debug\Win32Project1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Debug\Win32Project1.lib" /MACHINE:X86 Debug\Win32Project1.res
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Debug\Win32Project1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Debug\Win32Project1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Debug\Win32Project1.lib" /MACHINE:X86 Debug\Win32Project1.res
          Debug\Ball.obj
          Debug\DoubleBuffering.obj
          Debug\MainGame.obj
@@ -26,23 +16,11 @@
          Debug\stdafx.obj
          Debug\Vector2.obj
          Debug\Win32Project1.obj
+         Debug\GUI.obj
          Debug\Collision.obj
-         Win32Project1.vcxproj -> C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Debug\Win32Project1.exe
-     1>"C:\Users\이주\Desktop\꾀꼬리\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+         Win32Project1.vcxproj -> C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Debug\Win32Project1.exe
+     1>"C:\Users\Ju\Desktop\넷겜플 텀프\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
 
 빌드했습니다.
 
-<<<<<<< HEAD
-경과 시간: 00:00:01.60
-=======
-경과 시간: 00:00:01.78
->>>>>>> origin/master
->>>>>>> origin/master
-=======
-﻿  Vector2.cpp
-d:\project\apifornetgamep\networkgameprograming\win32project1\vector2.cpp(16): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Collision.cpp
-  LINK : D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
-  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.exe
-  Win32Project1.vcxproj -> D:\Project\APIforNetGamep\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)
->>>>>>> origin/master
+경과 시간: 00:00:01.87

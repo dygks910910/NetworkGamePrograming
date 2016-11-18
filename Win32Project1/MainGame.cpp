@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MainGame.h"
 #include "Obj.h"
+#include <stdlib.h>
+#include <time.h>
 
 CMainGame::CMainGame()
 {
@@ -20,10 +22,28 @@ void CMainGame::Initialize()
 	RECT clientrect;
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, PLAYER_SPEED);
-	m_ball.SetDirection(CVector2(1, 1));
+	int temp[2];
+	
+
+	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), BALL_SIZE, PLAYER_SPEED);
+	
+	//볼 생성시 초기방향 랜덤지정
+
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < 2; ++i)
+	{
+		temp[i] = (rand() % 3) - 1;
+		if (temp[i] == 0)
+			--i;
+	}
+	
+
+	m_ball.SetDirection(CVector2(temp[0], temp[1]));
+	printf("temp[1] = %d \t temp[2] = %d \n", temp[0], temp[1]);
+
 	m_player.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 		PLAYER_SIZE, PLAYER_SPEED);
+
 }
 // process
 void CMainGame::Progress()
@@ -39,6 +59,7 @@ void CMainGame::Render()
 	m_doubleBuffering.WriteToBackBuffer(&m_player2);
 	m_doubleBuffering.Present(m_hdc);*/
 
+	m_doubleBuffering.WriteToBackBuffer(&m_gameUI);
 	m_doubleBuffering.WriteToBackBuffer(&m_player);
 	m_doubleBuffering.WriteToBackBuffer(&m_ball);
 	m_doubleBuffering.Present(m_hdc);
@@ -54,6 +75,7 @@ void CMainGame::MouseInputProcessing(const MSG& msg)
 	switch (msg.message)
 	{
 	case WM_LBUTTONDOWN:
+		PostQuitMessage(0);
 		break;
 	case WM_LBUTTONUP:
 		break;

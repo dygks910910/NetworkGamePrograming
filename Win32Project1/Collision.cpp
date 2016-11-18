@@ -19,7 +19,6 @@ bool Collision::ifCollision(CPlayer &player, CBall &ball) {
 	double nRadius;
 
 
-
 	nDist = Distance(player.GetPosition(), ball.GetPosition()); //두 원 사이의 거리
 	nRadius = player.GetBallSize() + ball.GetBallSize(); //두 원의 반지름의 합
 
@@ -49,20 +48,44 @@ double Collision::Distance(const CVector2& p1, const CVector2& p2) {
 //충돌처리 함수
 void Collision::ComputeCollision(CPlayer &player, CBall &ball) {
 
+	player.SetDirection({ 0,0 });
 	std::cout << "충돌 처리함수 실행" << std::endl;
 
-	std::cout << "player 방향벡터 : " << player.GetDirection() << std::endl;
+	std::cout << "player 방향벡터 : " << player.GetDirection() << "\t--위치 : " << player.GetPosition() << std::endl;
+	std::cout << "ball 방향벡터 : " << ball.GetDirection() << "\t--위치 : " << ball.GetPosition() << std::endl;
 
 	CVector2 Dir;
 
-	/*
-	2016 / 11 / 2 / 17:27
-	작성자:박요한(dygks910910@daum.net)
-	설명:아직 방향은 정하지 못함.
-	*/	
-	// 방향벡터 ->AB = B - A 
+	//방향벡터 ->AB = B - A 
+	player.SetDirection(player.GetDirection() - ball.GetDirection());
 	//player.SetDirection(ball.GetDirection() - player.GetDirection());
+	Dir = player.GetDirection();
 
-	// 부딪힌 Ball 의 방향을 방향벡터로 변환하기.
+
+	//부딪힌 Ball 의 방향을 방향벡터로 변환하기.
 	ball.SetDirection(Dir);
 };
+
+/*
+//오른쪽윈도우에 대한 충돌체크
+if (m_vBallPos.x <= WINDOW_WIDTH - PLAYER_SIZE)
+{
+m_vMoveDirection.x *= -1;
+}
+//왼쪽윈도우에 대한 충돌체크
+if (m_vBallPos.x >= 0 + PLAYER_SIZE)
+{
+m_vMoveDirection.x *= -1;
+}
+//아래쪽윈도우에 대한 충돌체크
+if (m_vBallPos.y <= WINDOW_HEIGHT - PLAYER_SIZE )
+{
+m_vMoveDirection.y *= -1;
+}
+//윗쪽윈도우에 대한 충돌체크
+if (m_vBallPos.y >= 0 + PLAYER_SIZE)
+{
+m_vMoveDirection.y *= -1;
+}
+m_vBallPos = m_vBallPos + (m_vMoveDirection*m_fBallSpeed);
+*/

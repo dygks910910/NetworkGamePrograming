@@ -1,9 +1,10 @@
 #pragma once
 #include "MyHeader.h"
 #include "Obj.h"
-#include"Player.h"
-#include"DoubleBuffering.h"
+#include "Player.h"
+#include "DoubleBuffering.h"
 #include "Collision.h"
+#include "GUI.h"
 
 class CMainGame
 {
@@ -12,6 +13,7 @@ class CMainGame
 	CPlayer	 m_player	;
 	CBall m_ball;
 	Collision m_collision;
+	GUI m_gameUI;
 
 public:
 	CMainGame();

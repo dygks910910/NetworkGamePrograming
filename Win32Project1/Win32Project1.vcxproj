@@ -14,12 +14,13 @@
     <ProjectGuid>{A44257C8-9209-4EF3-B55E-A17B2C75B083}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Win32Project1</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -93,6 +94,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Win32Project1.h" />
+    <ClInclude Include="GUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
@@ -109,6 +111,7 @@
     </ClCompile>
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Win32Project1.cpp" />
+    <ClCompile Include="GUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Win32Project1.rc" />

@@ -126,7 +126,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      50, 50, rc.right - rc.left, rc.bottom - rc.top, 
+      300, 50, rc.right - rc.left, rc.bottom - rc.top, 
 	  NULL, NULL, hInstance, NULL);
 
    g_hWnd = hWnd;

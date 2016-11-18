@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Ball.h"
 
-
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {
 	m_vBallPos = pos;
@@ -79,6 +78,37 @@ void CBall::move()
 	{
 		m_vMoveDirection.y *= -1;
 	}
+
+	/*
+	//좌측 골대
+	Rectangle(hdc, 0, WINDOW_HEIGHT/3,
+					GOAL_SIZE, WINDOW_HEIGHT/3*2);
+
+	//우측 골대
+	Rectangle(hdc, WINDOW_WIDTH - GOAL_SIZE, WINDOW_HEIGHT / 3,
+		WINDOW_WIDTH, WINDOW_HEIGHT / 3 * 2);
+		*/
+	//좌측골대에 대한 충돌체크
+	//골대 위 바깥쪽
+
+	//골대 위 안쪽
+	//골인지점
+
+	//골대 아래
+
+
+
+	//우측골대에 대한 충돌체크
+	//골대 위
+
+	//골인지점
+
+	//골대 아래
+
+	//
+	//
+	/////
+	//볼 이동
 	m_vBallPos = m_vBallPos + (m_vMoveDirection*m_fBallSpeed);
 }
 

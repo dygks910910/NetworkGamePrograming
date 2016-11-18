@@ -12,6 +12,7 @@ class CBall:
 	CVector2	m_vMoveDirection;
 	float m_fBallSize;
 	float m_fBallSpeed;
+
 public:
 	const CVector2& GetPosition() { return m_vBallPos; }
 	const CVector2& GetDirection() { return m_vMoveDirection; }
