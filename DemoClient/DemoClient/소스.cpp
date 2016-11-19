@@ -12,6 +12,7 @@
 #include"enum.h"
 #define LOCAL_LOOP "127.0.0.1"
 #define PORT 9000
+#define FPS 30
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
@@ -36,8 +37,6 @@ void main()
 
 
 	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOCAL_LOOP,PORT);
-	DWORD currTime;
-	DWORD FPS;
 
 	retval = connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "connect()");
@@ -46,7 +45,7 @@ void main()
 
 	while(1)
 	{
-		if (timer.getElapsedTime() >= 1000/30 )
+		if (timer.getElapsedTime() >= 1000/FPS )
 		{
 			p1.m_vPos.x += 1;
 			p1.m_vPos.y += 1;
