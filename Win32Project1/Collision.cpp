@@ -65,27 +65,3 @@ void Collision::ComputeCollision(CPlayer &player, CBall &ball) {
 	//부딪힌 Ball 의 방향을 방향벡터로 변환하기.
 	ball.SetDirection(Dir);
 };
-
-/*
-//오른쪽윈도우에 대한 충돌체크
-if (m_vBallPos.x <= WINDOW_WIDTH - PLAYER_SIZE)
-{
-m_vMoveDirection.x *= -1;
-}
-//왼쪽윈도우에 대한 충돌체크
-if (m_vBallPos.x >= 0 + PLAYER_SIZE)
-{
-m_vMoveDirection.x *= -1;
-}
-//아래쪽윈도우에 대한 충돌체크
-if (m_vBallPos.y <= WINDOW_HEIGHT - PLAYER_SIZE )
-{
-m_vMoveDirection.y *= -1;
-}
-//윗쪽윈도우에 대한 충돌체크
-if (m_vBallPos.y >= 0 + PLAYER_SIZE)
-{
-m_vMoveDirection.y *= -1;
-}
-m_vBallPos = m_vBallPos + (m_vMoveDirection*m_fBallSpeed);
-*/

@@ -57,6 +57,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,23 +82,30 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="CMyFunc.h" />
     <ClInclude Include="Collision.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="DoubleBuffering.h" />
+    <ClInclude Include="enum.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Message.h" />
     <ClInclude Include="MyHeader.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RecvnAndMessageType.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SendAndMessageType.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Win32Project1.h" />
     <ClInclude Include="GUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="CMyFunc.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -105,10 +113,13 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RecvnAndMessageType.cpp" />
+    <ClCompile Include="SendAndMessageType.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Win32Project1.cpp" />
     <ClCompile Include="GUI.cpp" />

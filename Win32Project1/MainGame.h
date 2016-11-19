@@ -5,6 +5,7 @@
 #include "DoubleBuffering.h"
 #include "Collision.h"
 #include "GUI.h"
+#include "Timer.h"
 
 class CMainGame
 {
@@ -14,6 +15,7 @@ class CMainGame
 	CBall m_ball;
 	Collision m_collision;
 	GUI m_gameUI;
+	//CTimer m_timer;
 
 public:
 	CMainGame();

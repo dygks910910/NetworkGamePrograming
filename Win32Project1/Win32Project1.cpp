@@ -1,6 +1,8 @@
 //
 // Win32Project1.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
 //
+#include <windows.h>
+#pragma comment(lib, "Winmm.lib")
 
 #include "stdafx.h"
 #include "Win32Project1.h"
@@ -49,31 +51,45 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	MainGame.Initialize();
 
-	DWORD dwTime = GetTickCount();
+	////1차 프레임 고정 소스
+	//DWORD dwTime = GetTickCount();
+	
+	CTimer timer;
+
 
 	// 기본 메시지 루프입니다.
 	while (msg.message != WM_QUIT)
 	{
+
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
 		else
 		{
-			if (dwTime + 50 < GetTickCount())
+			if (timer.getElapsedTime() >= 1000 / FPS)
 			{
-				dwTime = GetTickCount();
-
 				MainGame.Progress();
 				MainGame.Render();
 				MainGame.MouseInputProcessing(msg);
 				MainGame.KeyboardInputProcessing(msg);
+				timer.startTimer();
 			}
-		}
-	}
+			////1차 프레임 고정 소스
+			//if (dwTime + 50 < GetTickCount())
+			//{
+			//	dwTime = GetTickCount();
 
+			//	MainGame.Progress();
+			//	MainGame.Render();
+			//	MainGame.MouseInputProcessing(msg);
+			//	MainGame.KeyboardInputProcessing(msg);
+			//}
+		}
+
+		
+	}
 	MainGame.Release();
 
 	return (int) msg.wParam;

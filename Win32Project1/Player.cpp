@@ -2,7 +2,7 @@
 #include "Player.h"
 
 
-CPlayer::CPlayer()
+CPlayer::CPlayer() : score(0)
 {
 }
 
@@ -60,6 +60,3 @@ void CPlayer::MoveToMousePos(const CVector2& MousePos, char* p1)
 		}
 			SetPosition(MousePos);
 }
-
-
-

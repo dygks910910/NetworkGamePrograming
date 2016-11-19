@@ -1,5 +1,6 @@
 #pragma once
 
+
 extern HWND g_hWnd;
 /* 
 [2016/09/03 18½Ã28ºÐ 
@@ -10,6 +11,7 @@ extern HWND g_hWnd;
 #define WINDOW_HEIGHT 300
 
 #define GOAL_SIZE 20
+#define FPS 30
 
 #define BALL_SIZE 10
 #define PLAYER_SPEED 10

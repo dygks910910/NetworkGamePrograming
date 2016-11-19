@@ -1,3 +1,4 @@
+
 #include "stdafx.h"
 #include "MainGame.h"
 #include "Obj.h"
@@ -6,6 +7,7 @@
 
 CMainGame::CMainGame()
 {
+
 }
 
 
@@ -23,7 +25,7 @@ void CMainGame::Initialize()
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
 	int temp[2];
-	
+	 
 
 	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), BALL_SIZE, PLAYER_SPEED);
 	
@@ -49,15 +51,13 @@ void CMainGame::Initialize()
 void CMainGame::Progress()
 {
 	m_ball.move();
+	m_ball.GoalCheck();
 	m_collision.ifCollision(m_player, m_ball);
 }
 
 // ±×¸®±â
 void CMainGame::Render()
 {
-	/*m_doubleBuffering.WriteToBackBuffer(&m_player1);
-	m_doubleBuffering.WriteToBackBuffer(&m_player2);
-	m_doubleBuffering.Present(m_hdc);*/
 
 	m_doubleBuffering.WriteToBackBuffer(&m_gameUI);
 	m_doubleBuffering.WriteToBackBuffer(&m_player);

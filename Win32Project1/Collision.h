@@ -3,7 +3,6 @@
 #include "Player.h"
 #include "Ball.h"
 
-
 class Collision  
 {
 private:
