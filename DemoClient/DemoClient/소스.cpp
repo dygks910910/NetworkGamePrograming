@@ -58,33 +58,10 @@ void main()
 		}
 		else
 		{
-			
+			// 딜레이를 주는 부분
 		}
-		// 딜레이를 주는 부분
 	}
-		//while (1)
-		//{
-		//	//무한 루프 
-		//	currTime = timeGetTime();
-		//	frameDelta = (currTime - lastTime) * 0.001f;
-		//	FPS = 2;                     //15(FPS)라는 숫자가 fps를 결정한다.숫자가 작을수록 더 많은 프레임을 그린다..
-		//										//컴퓨터 성능에 따라 테스트하여가장 느린 fps를 검출한 후 결정한다.
-		//	if (frameDelta >= 1 / FPS)
-		//	{
-		//		//렌더링 하는 부분.
-		//		p1.m_vPos.x+=1;
-		//		p1.m_vPos.y+=1;
-		//		p1.m_vDirection = p1.m_vDirection+CVector2(1, 1);
-		//		p1.speed++;
-		//		retval =  sendAndMsgType(clientSocket, (char*)&p1, sizeof(p1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-		//		std::cout << retval << "전송" << std::endl;
-		//		lastTime = currTime;
-		//	}
-		//	else {
-		//		Sleep(frameDelta - 1 / FPS); //넣어줘도 되고 그냥 주석 처리해도 상관 없음니다.
-		//	}
-		//}
-
+		
 	closesocket(clientSocket);
 	WSACleanup();
 }
