@@ -100,7 +100,7 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 	*/
 	//CTimer timer;
 	//int recvCount = 0;
-
+	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
 	int retval = 0;
 	while (1)
 	{
@@ -125,6 +125,8 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 			p2readyCondvar.wait(ul, [] {return bP2ReadyFlag; });
 			//std::cout << "p1WakeUp" << std::endl;
 		}
+
+		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
 		//std::cout << "1" << std::endl;
 		//std::cout << "P1플레이어 포지션" << player.m_vPos << std::endl;
 		/*std::cout << "방향" << p1.m_vDirection << std::endl;
@@ -156,6 +158,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 	int retval = 0;
 	int recvCount = 0;
 	CTimer timer;
+	//--------------------------------------------------------------------------------건드리지 말것.
 	{
 		//p1스레드가 준비될때까지 대기.
 		std::unique_lock<std::mutex> ul(p1readyMutex);
@@ -177,6 +180,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 			CMyFunc::err_display("recvP1");
 			break;
 		}
+		//--------------------------------------------------------------------------------건드리지 말것.
 
 		//std::cout << "2" << std::endl;
 
