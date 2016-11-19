@@ -6,6 +6,7 @@
 #include "Collision.h"
 #include "GUI.h"
 #include "Timer.h"
+#include "CMyFunc.h"
 
 class CMainGame
 {

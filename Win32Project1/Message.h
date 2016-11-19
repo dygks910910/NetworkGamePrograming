@@ -16,7 +16,7 @@ public:
 
 };
 
-class CPlayer : public CMessageBallInfo 
+class CPlayerInfo : public CMessageBallInfo 
 {  
 
 };
