@@ -2,6 +2,7 @@
 #pragma comment(lib,"winmm")
 #include<iostream>
 #include "CMyFunc.h"
+#include "Timer.h"
 #include "RecvnAndMessageType.h"
 #include "SendAndMessageType.h"
 #include "Vector2.h""
@@ -17,6 +18,7 @@ static DWORD lastTime = timeGetTime();
 CPlayer p1;
 void main()
 {
+	CTimer timer;
 	CSendAndMessageType sendAndMsgType;
 	int retval;
 	WSADATA wsa;
@@ -40,14 +42,11 @@ void main()
 	retval = connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "connect()");
 	std::cout << "접속성공" << std::endl;
-	
+	timer.startTimer();
 
-	int StartTick;
-	while (1)
+	while(1)
 	{
-		StartTick = GetTickCount();
-
-		while (GetTickCount() - StartTick >= 1000);      //1초마다 한번씩 들어가게끔
+		if (timer.getElapsedTime() >= 1000/30 )
 		{
 			p1.m_vPos.x += 1;
 			p1.m_vPos.y += 1;
@@ -55,6 +54,11 @@ void main()
 			p1.speed++;
 			retval = sendAndMsgType(clientSocket, (char*)&p1, sizeof(p1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 			std::cout << retval << "전송" << std::endl;
+			timer.startTimer();
+		}
+		else
+		{
+			
 		}
 		// 딜레이를 주는 부분
 	}

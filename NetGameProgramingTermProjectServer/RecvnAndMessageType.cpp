@@ -18,7 +18,7 @@ const int& CRecvnAndMessageType::operator()(const SOCKET& s, char *buff, const i
 		retval = CMyFunc::recvn(s, (char*)buff, sizeof(typeOfMessage), 0);
 		if (retval == SOCKET_ERROR)
 		{
-			CMyFunc::err_display("recvntypeOfMessage");
+			CMyFunc::err_display("recvn typeOfMessage");
 		}
 	//메시지 본문을 받기.
 	switch (typeOfMessage)

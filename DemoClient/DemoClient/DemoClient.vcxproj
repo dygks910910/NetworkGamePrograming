@@ -147,6 +147,7 @@
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\RecvnAndMessageType.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\Vector2.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\stdafx.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Vector2.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
