@@ -12,7 +12,7 @@
 #include"enum.h"
 #define LOCAL_LOOP "127.0.0.1"
 #define PORT 9000
-#define FPS 30
+#define FPS 60
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
@@ -35,17 +35,20 @@ void main()
 	clientAddr.sin_port = htons(PORT);
 	clientAddr.sin_family = AF_INET;
 
-
+	char tempBuff[10];
 	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOCAL_LOOP,PORT);
-
+	
 	retval = connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "connect()");
 	std::cout << "접속성공" << std::endl;
+	retval = CMyFunc::recvn(clientSocket, tempBuff, sizeof(tempBuff), 0);
+	CMyFunc::IsSocketError(retval, "recvn");
+	std::cout << "당신은" << tempBuff << std::endl;
 	timer.startTimer();
 
 	while(1)
 	{
-		if (timer.getElapsedTime() >= 1000/FPS )
+		if (timer.getElapsedTime() >= 1000/FPS )//프레임 안에 들어오면 수행할 작업.
 		{
 			p1.m_vPos.x += 1;
 			p1.m_vPos.y += 1;
