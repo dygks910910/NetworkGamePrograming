@@ -1,6 +1,4 @@
 
-#pragma comment(lib, "Winmm")
-#pragma comment(lib, "ws2_32")
 #include <winsock2.h>
 #include <windows.h>
 
@@ -15,8 +13,8 @@
 
 #define MAX_LOADSTRING 100
 
-#define LOCAL_IP "112.148.36.243"
-#define SERVER_IP "220.120.220.127"
+#define LOCAL_IP "127.0.0.1"
+#define SERVER_IP "127.0.0.1"
 #define SERVER_PORT 9000
 
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
