@@ -33,4 +33,9 @@ public:
 	void MouseInputProcessing(const MSG& msg);
 	void KeyboardInputProcessing(const MSG	& msg);
 	void GameTimer(const MSG& msg);
+
+	//send
+	CPlayer GetP_data() {
+		return m_player;
+	}
 };

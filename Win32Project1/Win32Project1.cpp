@@ -10,7 +10,18 @@
 #include "MyHeader.h"
 #include "MainGame.h"
 
+#include <WinSock2.h>
+#include "CMyFunc.h"
+#include "SendAndMessageType.h"
+#include "RecvnAndMessageType.h"
+
 #define MAX_LOADSTRING 100
+
+#define LOCAL_IP "112.148.36.243"
+#define SERVER_IP "220.120.220.127"
+#define SERVER_PORT 9000
+
+SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 
 // 전역 변수:
 HINSTANCE hInst;								// 현재 인스턴스입니다.
@@ -35,6 +46,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
  	// TODO: 여기에 코드를 입력합니다.
+	CTimer timer;
+
 	MSG msg;
 	msg.message = WM_NULL;
 
@@ -49,14 +62,31 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	MainGame.Initialize();
-
-	////1차 프레임 고정 소스
-	//DWORD dwTime = GetTickCount();
+	//SEND 객체 선언
+	CSendAndMessageType sendAndMsgType;
 	
-	CTimer timer;
+	int retval;
+	
+	//윈속 초기화
+	WSADATA wsa;
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
+		CMyFunc::err_quit("WSAStartup()");
+		return 1;
+	}
 
+	//socket()
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	CMyFunc::errCheckAndErrDisplay(sock, "socket()");
 
+	//connect()
+	SOCKADDR_IN serverAddr = InitSockAddrIPv4(SERVER_IP, SERVER_PORT);
+	retval = connect(sock, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
+	CMyFunc::IsSocketError(retval, "connect()");
+	
+	printf("접속성공 \n");
+
+	MainGame.Initialize();	
+	timer.startTimer();
 	// 기본 메시지 루프입니다.
 	while (msg.message != WM_QUIT)
 	{
@@ -74,23 +104,25 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 				MainGame.Render();
 				MainGame.MouseInputProcessing(msg);
 				MainGame.KeyboardInputProcessing(msg);
+				
+				//send (초당 30번 player 객체 정보를 모두 보냄)
+				retval = sendAndMsgType(sock, (char*)&MainGame.GetP_data(), sizeof(MainGame.GetP_data()), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+				std::cout << "[TCP 클라이언트]" << retval << "바이트 전송" << std::endl;
+
 				timer.startTimer();
 			}
-			////1차 프레임 고정 소스
-			//if (dwTime + 50 < GetTickCount())
-			//{
-			//	dwTime = GetTickCount();
 
-			//	MainGame.Progress();
-			//	MainGame.Render();
-			//	MainGame.MouseInputProcessing(msg);
-			//	MainGame.KeyboardInputProcessing(msg);
-			//}
+			else {
+				// 딜레이를 주는 부분
+			}
 		}
 
 		
 	}
+
 	MainGame.Release();
+	closesocket(sock);
+	WSACleanup();
 
 	return (int) msg.wParam;
 }
@@ -207,4 +239,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
+}
+
+SOCKADDR_IN InitSockAddrIPv4(const char* ServerIP, const int& ServerPort)
+{
+	SOCKADDR_IN serverAddr;
+	ZeroMemory(&serverAddr, sizeof(serverAddr));
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_addr.s_addr = inet_addr(ServerIP);
+	serverAddr.sin_port = htons(ServerPort);
+
+	return serverAddr;
 }
