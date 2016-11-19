@@ -145,6 +145,7 @@
     <ClCompile Include="CMyFunc.cpp" />
     <ClCompile Include="RecvnAndMessageType.cpp" />
     <ClCompile Include="SendAndMessageType.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="RecvnAndMessageType.h" />
     <ClInclude Include="SendAndMessageType.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

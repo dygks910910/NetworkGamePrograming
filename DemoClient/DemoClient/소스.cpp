@@ -52,7 +52,7 @@ void main()
 			p1.m_vDirection = p1.m_vDirection + CVector2(1, 1);
 			p1.speed++;
 			retval = sendAndMsgType(clientSocket, (char*)&p1, sizeof(p1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-			std::cout << retval << "전송" << std::endl;
+			//std::cout << retval << "전송" << std::endl;
 			timer.startTimer();
 		}
 		else
