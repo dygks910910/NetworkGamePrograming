@@ -1,7 +1,8 @@
 #pragma once
+
 #include <WinSock2.h>
-#include "Message.h"
 #include "stdafx.h"
+#include "Message.h"
 
 class CSendAndMessageType
 {

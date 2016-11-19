@@ -1,9 +1,10 @@
 #pragma once
+
+#include <WinSock2.h>
 #include "stdafx.h"
+#include "Message.h"
 #include "enum.h"
 #include "CMyFunc.h"
-#include "Message.h"
-#include <WinSock2.h>
 
 class CRecvnAndMessageType
 {

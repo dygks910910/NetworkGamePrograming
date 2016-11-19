@@ -1,17 +1,15 @@
-//
-// Win32Project1.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
-//
+
+#pragma comment(lib, "Winmm")
+#pragma comment(lib, "ws2_32")
+#include <winsock2.h>
 #include <windows.h>
-#pragma comment(lib, "Winmm.lib")
+
+
 
 #include "stdafx.h"
 #include "Win32Project1.h"
 
-#include "MyHeader.h"
 #include "MainGame.h"
-
-#include <WinSock2.h>
-#include "CMyFunc.h"
 #include "SendAndMessageType.h"
 #include "RecvnAndMessageType.h"
 
@@ -105,7 +103,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 				MainGame.MouseInputProcessing(msg);
 				MainGame.KeyboardInputProcessing(msg);
 				
-				//send (초당 30번 player 객체 정보를 모두 보냄)
+				//send (초당 30번 player 위치 정보 보냄)
 				retval = sendAndMsgType(sock, (char*)&MainGame.GetP_data(), sizeof(MainGame.GetP_data()), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 				std::cout << "[TCP 클라이언트]" << retval << "바이트 전송" << std::endl;
 
@@ -246,8 +244,8 @@ SOCKADDR_IN InitSockAddrIPv4(const char* ServerIP, const int& ServerPort)
 	SOCKADDR_IN serverAddr;
 	ZeroMemory(&serverAddr, sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(ServerIP);
-	serverAddr.sin_port = htons(ServerPort);
+	serverAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
+	serverAddr.sin_port = htons(SERVER_PORT);
 
 	return serverAddr;
 }
