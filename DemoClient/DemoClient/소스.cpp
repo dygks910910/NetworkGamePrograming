@@ -10,12 +10,17 @@
 #include<Windows.h>
 #include "Message.h"
 #include"enum.h"
+#include "Ball.h"
+#include "Player.h"
+
 #define LOCAL_LOOP "127.0.0.1"
 #define PORT 9000
-#define FPS 60
+#define FPS 30
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
+
+CBall g_ball;
 CPlayer p1;
 void main()
 {

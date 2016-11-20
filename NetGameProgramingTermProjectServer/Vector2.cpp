@@ -46,3 +46,8 @@ std::ostream& operator<<(std::ostream & os, const CVector2& vec)
 	return os;
 	// TODO: 여기에 반환 구문을 삽입합니다.
 }
+
+CVector2 operator-(const CVector2& v1, const CVector2& v2)
+{
+	return v1 - v2;
+}

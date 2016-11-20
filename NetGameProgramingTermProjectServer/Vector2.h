@@ -23,3 +23,4 @@ public:
 
 };
 std::ostream& operator<<(std::ostream & os, const CVector2& vec);
+CVector2 operator-(const CVector2& v1, const CVector2& v2);

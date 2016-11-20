@@ -6,27 +6,33 @@
 #include<thread>
 #include<mutex>
 #include<condition_variable>
+#include "Ball.h"
+#include<math.h>
+#include "Collision.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
 void P1Thread(const SOCKET& clientSocket, CPlayer& player);
 void P2Thread(const SOCKET& clientSocket, CPlayer& player);
 
 //zzzzz
-CPlayer p1;
-CPlayer p2;
+CPlayer g_P1;
+CPlayer g_P2;
+CBall g_Ball;
+
 CRecvnAndMessageType g_RecvMessageType;
 CSendAndMessageType g_SendMessageType;
 std::mutex writeMutex;
 
 std::mutex p1readyMutex;
 std::mutex p2readyMutex;
-
+std::mutex ballMutex;
 std::condition_variable p1readyCondvar;
 std::condition_variable p2readyCondvar;
 
 bool bP1ReadyFlag = false;
 bool bP2ReadyFlag = false;
 
+Collision g_Colision;
 void main()
 {
 	bool bP1Ready = false, bP2Ready = false;
@@ -70,8 +76,16 @@ void main()
 	CMyFunc::IsSocketError(retval, "send tempP2");
 	bP2Ready = true;
 
-	std::thread p1Thread(P1Thread, p1Socket,std::ref(p1));
-	std::thread p2Thread(P2Thread, p2Socket,std::ref(p2));
+	std::thread p1Thread(P1Thread, p1Socket,std::ref(g_P1));
+	std::thread p2Thread(P2Thread, p2Socket,std::ref(g_P2));
+
+	while (1)
+	{
+		g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
+			BALL_SIZE, PLAYER_SPEED);
+		g_Ball.Progress();
+	}
+
 
 	p1Thread.join();
 	p2Thread.join();
@@ -127,7 +141,17 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-		//std::cout << "1" << std::endl;
+		std::cout << "1" << std::endl;
+		//----------------충돌체크및 처리
+		ballMutex.lock();
+		g_Colision.ifCollision(player, g_Ball);
+		ballMutex.unlock();
+
+		//ball정보와 p1정보를 p2에게 send();
+
+
+
+
 		//std::cout << "P1플레이어 포지션" << player.m_vPos << std::endl;
 		/*std::cout << "방향" << p1.m_vDirection << std::endl;
 		std::cout << "스피드" << p1.speed << std::endl;*/
@@ -182,7 +206,13 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
 
-		//std::cout << "2" << std::endl;
+
+		//----------------충돌체크및 처리
+		ballMutex.lock();
+		g_Colision.ifCollision(player, g_Ball);
+		ballMutex.unlock();
+		//ball정보와 p1정보를 p2에게 send();
+
 
 		//std::cout << "P2플레이어 포지션" << player.m_vPos << std::endl;
 		/*std::cout << "방향" << p1.m_vDirection << std::endl;
@@ -193,14 +223,14 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		작성자:박요한(dygks910910@daum.net)
 		설명:FPS를 확인하고 싶을때 사용.
 		*/
-		recvCount++;
+		/*recvCount++;
 		if (timer.getElapsedTime() >= 1000)
 		{
 		timer.startTimer();
 		std::cout << "FPS: " << recvCount << std::endl;
 		recvCount = 0;
 		}
-		bP1ReadyFlag = false;
+		bP1ReadyFlag = false;*/
 	}
 	recvCount = 0;
 }
