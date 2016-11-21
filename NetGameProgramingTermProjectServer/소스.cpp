@@ -9,6 +9,7 @@
 #include "Ball.h"
 #include<math.h>
 #include "Collision.h"
+#include "Timer.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
 void P1Thread(const SOCKET& clientSocket, CPlayer& player);
@@ -18,7 +19,6 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player);
 CPlayer g_P1;
 CPlayer g_P2;
 CBall g_Ball;
-
 CRecvnAndMessageType g_RecvMessageType;
 CSendAndMessageType g_SendMessageType;
 std::mutex writeMutex;
@@ -35,6 +35,7 @@ bool bP2ReadyFlag = false;
 Collision g_Colision;
 void main()
 {
+	CTimer	timer;
 	bool bP1Ready = false, bP2Ready = false;
 	int retval;
 	WSADATA wsa;
@@ -78,12 +79,22 @@ void main()
 
 	std::thread p1Thread(P1Thread, p1Socket,std::ref(g_P1));
 	std::thread p2Thread(P2Thread, p2Socket,std::ref(g_P2));
+	g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
+		BALL_SIZE, PLAYER_SPEED);
+	timer.startTimer();
 
 	while (1)
 	{
-		g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
-			BALL_SIZE, PLAYER_SPEED);
-		g_Ball.Progress();
+		if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
+		{
+			g_Ball.Progress();
+			std::cout << g_Ball.GetPosition() << std::endl;
+			timer.startTimer();
+		}
+		else
+		{
+			// 딜레이를 주는 부분
+		}
 	}
 
 
@@ -115,6 +126,7 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 	//CTimer timer;
 	//int recvCount = 0;
 	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
+	CMessageBallInfo tempBallMsg;
 	int retval = 0;
 	while (1)
 	{
@@ -147,8 +159,15 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		g_Colision.ifCollision(player, g_Ball);
 		ballMutex.unlock();
 
-		//ball정보와 p1정보를 p2에게 send();
+		//ball정보와 p2정보를 p1에게 send();
+		retval = g_SendMessageType(clientSocket, (char*)&g_P2, sizeof(g_P2), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		CMyFunc::IsSocketError(retval, "sendmsg P1");
+		tempBallMsg.m_vPos = g_Ball.GetPosition();
+		tempBallMsg.m_vDirection= g_Ball.GetDirection();
+		tempBallMsg.speed = g_Ball.GetBallSpeed();
 
+		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		CMyFunc::IsSocketError(retval, "sendmsg ball");
 
 
 
@@ -180,6 +199,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 	설명:FPS변수
 	*/
 	int retval = 0;
+	CMessageBallInfo tempBallMsg;
 	int recvCount = 0;
 	CTimer timer;
 	//--------------------------------------------------------------------------------건드리지 말것.
@@ -212,6 +232,14 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		g_Colision.ifCollision(player, g_Ball);
 		ballMutex.unlock();
 		//ball정보와 p1정보를 p2에게 send();
+		retval = g_SendMessageType(clientSocket, (char*)&g_P1, sizeof(g_P1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		CMyFunc::IsSocketError(retval, "sendmsg P1");
+		tempBallMsg.m_vPos = g_Ball.GetPosition();
+		tempBallMsg.m_vDirection = g_Ball.GetDirection();
+		tempBallMsg.speed = g_Ball.GetBallSpeed();
+
+		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		CMyFunc::IsSocketError(retval, "sendmsg ball");
 
 
 		//std::cout << "P2플레이어 포지션" << player.m_vPos << std::endl;

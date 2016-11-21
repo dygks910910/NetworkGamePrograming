@@ -143,7 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\Ball.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\CMyFunc.cpp" />
+    <ClCompile Include="..\..\NetGameProgramingTermProjectServer\Obj.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\RecvnAndMessageType.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.cpp" />
     <ClCompile Include="..\..\NetGameProgramingTermProjectServer\Vector2.cpp" />
@@ -151,9 +153,11 @@
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Ball.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\CMyFunc.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\enum.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Message.h" />
+    <ClInclude Include="..\..\NetGameProgramingTermProjectServer\Obj.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\RecvnAndMessageType.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\SendAndMessageType.h" />
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\stdafx.h" />

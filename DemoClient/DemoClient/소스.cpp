@@ -11,11 +11,8 @@
 #include "Message.h"
 #include"enum.h"
 #include "Ball.h"
-#include "Player.h"
-
 #define LOCAL_LOOP "127.0.0.1"
 #define PORT 9000
-#define FPS 30
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
@@ -24,8 +21,11 @@ CBall g_ball;
 CPlayer p1;
 void main()
 {
+	CPlayer	 p2;
 	CTimer timer;
 	CSendAndMessageType sendAndMsgType;
+	CRecvnAndMessageType recvAndMsgType;
+	CMessageBallInfo tempBallInfo;
 	int retval;
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa))
@@ -61,6 +61,20 @@ void main()
 			p1.speed++;
 			retval = sendAndMsgType(clientSocket, (char*)&p1, sizeof(p1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 			//std::cout << retval << "전송" << std::endl;
+			//p2의 정보를 받기.
+			retval = recvAndMsgType(clientSocket, (char*)&p2, sizeof(p2), 0);
+			CMyFunc::IsSocketError(retval, "recv()P2");
+			//ball의 정보를 받기.
+			retval = recvAndMsgType(clientSocket, (char*)&tempBallInfo, sizeof(tempBallInfo), 0);
+			CMyFunc::IsSocketError(retval, "recv() Ball");
+
+			g_ball.SetPosition(tempBallInfo.m_vPos);
+			g_ball.SetBallSpeed(tempBallInfo.speed);
+			g_ball.SetDirection(tempBallInfo.m_vDirection);
+			std::cout << "볼 포지션" << std::endl;
+			std::cout << g_ball.GetPosition() << std::endl;
+			/*std::cout << "p2 포지션" << std::endl;
+			std::cout << p2.m_vPos << std::endl;*/
 			timer.startTimer();
 		}
 		else
