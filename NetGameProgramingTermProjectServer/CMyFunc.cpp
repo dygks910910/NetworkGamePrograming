@@ -61,11 +61,13 @@ void CMyFunc::errCheckAndErrDisplay(const SOCKET& socket, char* msg)
 	}
 }
 
-void CMyFunc::IsSocketError(const int& retval, char* msg)
+bool CMyFunc::IsSocketError(const int& retval, char* msg)
 {
 	if (retval == SOCKET_ERROR)
 	{
 		err_quit(msg);
+		return true;
 	}
+	return false;
 }
 

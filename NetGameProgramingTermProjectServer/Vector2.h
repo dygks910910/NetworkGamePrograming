@@ -19,8 +19,7 @@ public:
 	CVector2 operator-(const CVector2& other);
 	CVector2 operator*(const float& other);
 	CVector2 normalize();
-
-
 };
 std::ostream& operator<<(std::ostream & os, const CVector2& vec);
 CVector2 operator-(const CVector2& v1, const CVector2& v2);
+bool operator==(const CVector2& v1, const CVector2& v2);

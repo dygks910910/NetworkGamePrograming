@@ -41,9 +41,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector2.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\NetGameProgramingTermProjectServer\CMyFunc.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

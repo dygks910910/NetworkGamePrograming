@@ -67,14 +67,20 @@ void main()
 			//ball의 정보를 받기.
 			retval = recvAndMsgType(clientSocket, (char*)&tempBallInfo, sizeof(tempBallInfo), 0);
 			CMyFunc::IsSocketError(retval, "recv() Ball");
-
+			
+			if (strcmp(tempBuff, "p1"))
+			{
+				std::cout << "p2"<< " 의 정보:위치" << p2.m_vPos << "	 방향" << p2.m_vDirection << std::endl;
+			}
+			else 
+			{
+				std::cout << "p1" << "	 의 정보:위치" << p1.m_vPos << " 방향" << p1.m_vDirection << std::endl;
+			}
 			g_ball.SetPosition(tempBallInfo.m_vPos);
 			g_ball.SetBallSpeed(tempBallInfo.speed);
 			g_ball.SetDirection(tempBallInfo.m_vDirection);
-			std::cout << "볼 포지션" << std::endl;
-			std::cout << g_ball.GetPosition() << std::endl;
-			/*std::cout << "p2 포지션" << std::endl;
-			std::cout << p2.m_vPos << std::endl;*/
+			std::cout << "볼 포지션" << g_ball.GetPosition() <<std::endl;
+
 			timer.startTimer();
 		}
 		else

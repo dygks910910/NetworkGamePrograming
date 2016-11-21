@@ -29,15 +29,15 @@ CVector2 CVector2::operator-(const CVector2 & other)
 
 CVector2 CVector2::operator*(const float & other)
 {
-	return CVector2(x*other,y*other);
+	return CVector2(x*other, y*other);
 }
 
 
 
 CVector2 CVector2::normalize()
 {
-	float temp =  sqrt((x * x) + (y*y));
-	return CVector2(x/ temp,y/ temp);
+	float temp = sqrt((x * x) + (y*y));
+	return CVector2(x / temp, y / temp);
 }
 
 std::ostream& operator<<(std::ostream & os, const CVector2& vec)
@@ -50,4 +50,13 @@ std::ostream& operator<<(std::ostream & os, const CVector2& vec)
 CVector2 operator-(const CVector2& v1, const CVector2& v2)
 {
 	return v1 - v2;
+}
+
+bool operator==(const CVector2& v1, const CVector2& v2)
+{
+	if (v1.x == v2.x && v1.y == v2.y)
+	{
+		return true;
+	}
+	return false;
 }

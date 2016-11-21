@@ -103,6 +103,7 @@ void main()
 
 
 	closesocket(p1Socket);
+	closesocket(p2Socket);
 	closesocket(listenSocket);
 	WSACleanup();
 }
@@ -153,27 +154,34 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-		std::cout << "1" << std::endl;
+		//std::cout << "1" << std::endl;
 		//----------------충돌체크및 처리
 		ballMutex.lock();
 		g_Colision.ifCollision(player, g_Ball);
 		ballMutex.unlock();
 
-		//ball정보와 p2정보를 p1에게 send();
+		//p1에게 send(ball정보와 p2정보) ;
 		retval = g_SendMessageType(clientSocket, (char*)&g_P2, sizeof(g_P2), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg P1");
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
 		tempBallMsg.m_vDirection= g_Ball.GetDirection();
 		tempBallMsg.speed = g_Ball.GetBallSpeed();
-
+		
 		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg ball");
+		
+		/*
+		2016 / 11 / 22 / 0:02
+		작성자:박요한(dygks910910@daum.net)
+		설명:순서제어가 되면 두개의 정보가 일치해야 한다.이 값들을 클라이언트에게 전송한 값들과 비교해서
+		값이 같다면 똑같은 데이터가 전송되어 온것으로 친다.
+		*/
+		std::cout << "P1" << "	  의 정보:위치" << g_P1.m_vPos << "  방향" << g_P1.m_vDirection << std::endl;
+		std::cout << "P2" << "	  의 정보:위치" << g_P2.m_vPos << "  방향" << g_P2.m_vDirection << std::endl;
+		std::cout << "BALL" << "의 정보:위치" << g_Ball.GetPosition()<< "  방향" << g_Ball.GetDirection()<< std::endl;
 
 
 
-		//std::cout << "P1플레이어 포지션" << player.m_vPos << std::endl;
-		/*std::cout << "방향" << p1.m_vDirection << std::endl;
-		std::cout << "스피드" << p1.speed << std::endl;*/
 
 		/*
 		2016 / 11 / 20 / 4:28
