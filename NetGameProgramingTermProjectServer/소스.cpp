@@ -76,7 +76,7 @@ void main()
 	retval = send(p2Socket, tempP2, sizeof(tempP2), 0);
 	CMyFunc::IsSocketError(retval, "send tempP2");
 	bP2Ready = true;
-
+	
 	std::thread p1Thread(P1Thread, p1Socket,std::ref(g_P1));
 	std::thread p2Thread(P2Thread, p2Socket,std::ref(g_P2));
 	g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
@@ -87,8 +87,10 @@ void main()
 	{
 		if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
 		{
+			writeMutex.lock();
 			g_Ball.Progress();
-			std::cout << g_Ball.GetPosition() << std::endl;
+			writeMutex.unlock();
+			//std::cout << g_Ball.GetPosition() << std::endl;
 			timer.startTimer();
 		}
 		else
@@ -154,11 +156,14 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-		//std::cout << "1" << std::endl;
+		std::cout << "1";
 		//----------------충돌체크및 처리
-		ballMutex.lock();
-		g_Colision.ifCollision(player, g_Ball);
-		ballMutex.unlock();
+		/*if (g_Colision.ifCollision(player, g_Ball))
+		{
+			ballMutex.lock();
+			g_Colision.ComputeCollision(player, g_Ball);
+			ballMutex.unlock();
+		}*/
 
 		//p1에게 send(ball정보와 p2정보) ;
 		retval = g_SendMessageType(clientSocket, (char*)&g_P2, sizeof(g_P2), 0, e_MSG_TYPE::MSG_PLAYERINFO);
@@ -169,16 +174,21 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		
 		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg ball");
-		
+		//if (g_Colision.ifCollision(player, g_Ball))
+		//{
+		////	ballMutex.lock();
+		//	g_Colision.ComputeCollision(player, g_Ball);
+		//	//ballMutex.unlock();
+		//}
 		/*
 		2016 / 11 / 22 / 0:02
 		작성자:박요한(dygks910910@daum.net)
 		설명:순서제어가 되면 두개의 정보가 일치해야 한다.이 값들을 클라이언트에게 전송한 값들과 비교해서
 		값이 같다면 똑같은 데이터가 전송되어 온것으로 친다.
 		*/
-		std::cout << "P1" << "	  의 정보:위치" << g_P1.m_vPos << "  방향" << g_P1.m_vDirection << std::endl;
+		/*std::cout << "P1" << "	  의 정보:위치" << g_P1.m_vPos << "  방향" << g_P1.m_vDirection << std::endl;
 		std::cout << "P2" << "	  의 정보:위치" << g_P2.m_vPos << "  방향" << g_P2.m_vDirection << std::endl;
-		std::cout << "BALL" << "의 정보:위치" << g_Ball.GetPosition()<< "  방향" << g_Ball.GetDirection()<< std::endl;
+		std::cout << "BALL" << "의 정보:위치" << g_Ball.GetPosition()<< "  방향" << g_Ball.GetDirection()<< std::endl;*/
 
 
 
@@ -234,18 +244,20 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
 
-
+		std::cout << "2" ;
 		//----------------충돌체크및 처리
-		ballMutex.lock();
-		g_Colision.ifCollision(player, g_Ball);
-		ballMutex.unlock();
+	/*	if (g_Colision.ifCollision(player, g_Ball))
+		{
+			ballMutex.lock();
+			g_Colision.ComputeCollision(player, g_Ball);
+			ballMutex.unlock();
+		}*/
 		//ball정보와 p1정보를 p2에게 send();
 		retval = g_SendMessageType(clientSocket, (char*)&g_P1, sizeof(g_P1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg P1");
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
 		tempBallMsg.m_vDirection = g_Ball.GetDirection();
 		tempBallMsg.speed = g_Ball.GetBallSpeed();
-
 		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg ball");
 

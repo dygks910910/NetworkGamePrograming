@@ -70,9 +70,9 @@ void main()
 			
 			if (strcmp(tempBuff, "p1"))
 			{
-				std::cout << "p2"<< " 의 정보:위치" << p2.m_vPos << "	 방향" << p2.m_vDirection << std::endl;
+				std::cout << "p2" << " 의 정보:위치" << p2.m_vPos << "	 방향" << p2.m_vDirection << std::endl;
 			}
-			else 
+			else
 			{
 				std::cout << "p1" << "	 의 정보:위치" << p1.m_vPos << " 방향" << p1.m_vDirection << std::endl;
 			}

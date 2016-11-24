@@ -11,5 +11,5 @@ public:
 	static void errCheckAndErrQuit(const SOCKET& socket, char* msg);
 	
 	static void errCheckAndErrDisplay(const SOCKET& socket, char* msg);
-	static void IsSocketError(const int& retval, char* msg);
+	static bool IsSocketError(const int& retval, char* msg);
 };

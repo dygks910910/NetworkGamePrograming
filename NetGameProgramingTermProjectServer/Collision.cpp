@@ -24,7 +24,7 @@ bool Collision::ifCollision(const CPlayer &player, CBall &ball) {
 	nRadius = PLAYER_SIZE + ball.GetBallSize(); //두 원의 반지름의 합
 
 	if (nDist <= nRadius) {
-		ComputeCollision(player, ball);
+		//ComputeCollision(player, ball);
 		return true;
 	}
 
@@ -46,20 +46,7 @@ double Collision::Distance(const CVector2& p1, const CVector2& p2) {
 
 
 //충돌처리 함수
-void Collision::ComputeCollision(const CPlayer &player, CBall &ball) {
-
-	/*std::cout << "충돌 처리함수 실행" << std::endl;
-
-	std::cout << "player 방향벡터 : " << player.GetDirection() << "\t--위치 : " << player.GetPosition() << std::endl;
-	std::cout << "ball 방향벡터 : " << ball.GetDirection() << "\t--위치 : " << ball.GetPosition() << std::endl;
-*/
-	CVector2 Dir;
-
-	//방향벡터 ->AB = B - A 
-	//player.SetDirection(ball.GetDirection() - player.GetDirection());
-	Dir = player.m_vDirection - ball.GetDirection();
-
-
-	//부딪힌 Ball 의 방향을 방향벡터로 변환하기.
-	ball.SetDirection(Dir);
+void Collision::ComputeCollision(const CPlayer &player, CBall &ball) 
+{
+	ball.SetDirection(player.m_vDirection - ball.GetDirection());
 };
