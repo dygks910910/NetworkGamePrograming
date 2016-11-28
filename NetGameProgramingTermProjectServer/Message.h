@@ -19,6 +19,14 @@ public:
 };
 #pragma pack
 class CPlayer : public CMessageBallInfo {};
+class MSG_Temp 
+{
+public:
+	CPlayer	 p1;
+	CPlayer	 p2;
+	CPlayer ball;
+};
+#pragma pack
 class CMessageForReady : public CMessage
 {
 public:

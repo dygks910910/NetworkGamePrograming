@@ -17,8 +17,10 @@ SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
 
-CBall g_ball;
+CPlayer	 g_ball;
+int PlayerType = 0;
 CPlayer p1;
+MSG_Temp msgData;
 void main()
 {
 	CPlayer	 p2;
@@ -48,9 +50,18 @@ void main()
 	std::cout << "접속성공" << std::endl;
 	retval = CMyFunc::recvn(clientSocket, tempBuff, sizeof(tempBuff), 0);
 	CMyFunc::IsSocketError(retval, "recvn");
-	std::cout << "당신은" << tempBuff << std::endl;
-	timer.startTimer();
 
+	if (strcmp(tempBuff, "p1"))
+	{
+		PlayerType = 1;
+	}
+	else if (strcmp(tempBuff, "p2"))
+	{
+		PlayerType = 2;
+	}
+	std::cout << "당신은" << PlayerType<< std::endl;
+	timer.startTimer();
+	
 	while(1)
 	{
 		if (timer.getElapsedTime() >= 1000/FPS )//프레임 안에 들어오면 수행할 작업.
@@ -59,28 +70,24 @@ void main()
 			p1.m_vPos.y += 1;
 			p1.m_vDirection = p1.m_vDirection + CVector2(1, 1);
 			p1.speed++;
-			retval = sendAndMsgType(clientSocket, (char*)&p1, sizeof(p1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-			//std::cout << retval << "전송" << std::endl;
-			//p2의 정보를 받기.
-			retval = recvAndMsgType(clientSocket, (char*)&p2, sizeof(p2), 0);
-			CMyFunc::IsSocketError(retval, "recv()P2");
-			//ball의 정보를 받기.
-			retval = recvAndMsgType(clientSocket, (char*)&tempBallInfo, sizeof(tempBallInfo), 0);
-			CMyFunc::IsSocketError(retval, "recv() Ball");
+			retval = send(clientSocket, (char*)&p1, sizeof(p1), 0);
+			CMyFunc::IsSocketError(retval, "send p1");
 			
-			/*if (strcmp(tempBuff, "p1"))
+			//p1,p2,ball 의 정보를 다 받기.
+			retval = CMyFunc::recvn(clientSocket, (char*)&msgData, sizeof(msgData), 0);
+			CMyFunc::IsSocketError(retval, "recvn msgdata");
+			
+			g_ball = msgData.ball;
+			if (PlayerType == 1)
 			{
-				std::cout << "p2" << " 의 정보:위치" << p2.m_vPos << "	 방향" << p2.m_vDirection << std::endl;
+				p2 = msgData.p2;
 			}
-			else
+			else if (PlayerType == 2)
 			{
-				std::cout << "p1" << "	 의 정보:위치" << p1.m_vPos << " 방향" << p1.m_vDirection << std::endl;
-			}*/
-			g_ball.SetPosition(tempBallInfo.m_vPos);
-			g_ball.SetBallSpeed(tempBallInfo.speed);
-			g_ball.SetDirection(tempBallInfo.m_vDirection);
-			//std::cout << "볼 포지션" << g_ball.GetPosition() <<std::endl;
-
+				p1 = msgData.p1;
+			}
+			
+			std::cout << "플레이어 위치정보" << p1.m_vPos << " 방향" << p1.m_vDirection << " 속도" << p1.speed << std::endl;
 			timer.startTimer();
 		}
 		else

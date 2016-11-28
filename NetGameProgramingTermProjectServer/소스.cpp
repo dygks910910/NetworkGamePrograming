@@ -22,10 +22,10 @@ CBall g_Ball;
 CRecvnAndMessageType g_RecvMessageType;
 CSendAndMessageType g_SendMessageType;
 std::mutex writeMutex;
+std::mutex ballMutex;
 
 std::mutex p1readyMutex;
 std::mutex p2readyMutex;
-std::mutex ballMutex;
 std::condition_variable p1readyCondvar;
 std::condition_variable p2readyCondvar;
 
@@ -60,7 +60,7 @@ void main()
 	//retval = setsockopt(listenSocket, SOL_SOCKET, SO_SNDBUF, (char*)&optval, sizeof(optval));
 	//CMyFunc::IsSocketError(retval, "getsockopt");
 	//std::cout << "송신버퍼크기:" << optval << std::endl;
-	////수신버퍼 크기설정.--------------------------------------------------------------------------------
+	////수신버퍼 크기설정.
 	//optlen = sizeof(optval);
 	//retval = getsockopt(listenSocket, SOL_SOCKET, SO_RCVBUF, (char*)&optval, &optlen);
 	//CMyFunc::IsSocketError(retval, "getsockopt");
@@ -110,9 +110,9 @@ void main()
 	{
 		if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
 		{
-			writeMutex.lock();
+			ballMutex.lock();
 			g_Ball.Progress();
-			writeMutex.unlock();
+			ballMutex.unlock();
 			//std::cout << g_Ball.GetPosition() << std::endl;
 			timer.startTimer();
 		}
@@ -149,71 +149,51 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 	작성자:박요한(dygks910910@daum.net)
 	설명:FPS변수
 	*/
-	//CTimer timer;
-	//int recvCount = 0;
+	CTimer timer;
+	int recvCount = 0;
 	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-	CMessageBallInfo tempBallMsg;
+	MSG_Temp msg_temp;
+	CPlayer	 tempBallMsg;
 	int retval = 0;
 	while (1)
 	{
 		{
 			//자동잠금.
 			std::lock_guard<std::mutex> lg(writeMutex);
-			retval = g_RecvMessageType(clientSocket, (char*)&player, sizeof(player), 0);
+			retval = CMyFunc::recvn(clientSocket, (char*)&player, sizeof(player), 0);
+			CMyFunc::IsSocketError(retval, "recvn player");
 			bP1ReadyFlag = true;
 		}
 		//p2스레드 깨우기.
-		p1readyCondvar.notify_one();
+		p1readyCondvar.notify_all();
 		if (retval == SOCKET_ERROR)
 		{
 			CMyFunc::err_display("recvP1");
 			break;
 		}
-
-
 		{
 			//p2가 준비될떄까지 대기.
 			std::unique_lock<std::mutex> ul(p2readyMutex);
 			p2readyCondvar.wait(ul, [] {return bP2ReadyFlag; });
-			//std::cout << "p1WakeUp" << std::endl;
 		}
 
-		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-		//std::cout << "1";
-		//----------------충돌체크및 처리
-		/*if (g_Colision.ifCollision(player, g_Ball))
-		{
-			ballMutex.lock();
-			g_Colision.ComputeCollision(player, g_Ball);
-			ballMutex.unlock();
-		}*/
-
-		//p1에게 send(ball정보와 p2정보) ;
-		retval = g_SendMessageType(clientSocket, (char*)&g_P2, sizeof(g_P2), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-		CMyFunc::IsSocketError(retval, "sendmsg P1");
-		tempBallMsg.m_vPos = g_Ball.GetPosition();
-		tempBallMsg.m_vDirection= g_Ball.GetDirection();
-		tempBallMsg.speed = g_Ball.GetBallSpeed();
 		
-		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-		CMyFunc::IsSocketError(retval, "sendmsg ball");
-		//if (g_Colision.ifCollision(player, g_Ball))
-		//{
-		////	ballMutex.lock();
-		//	g_Colision.ComputeCollision(player, g_Ball);
-		//	//ballMutex.unlock();
-		//}
-		/*
-		2016 / 11 / 22 / 0:02
-		작성자:박요한(dygks910910@daum.net)
-		설명:순서제어가 되면 두개의 정보가 일치해야 한다.이 값들을 클라이언트에게 전송한 값들과 비교해서
-		값이 같다면 똑같은 데이터가 전송되어 온것으로 친다.
-		*/
-		/*std::cout << "P1" << "	  의 정보:위치" << g_P1.m_vPos << "  방향" << g_P1.m_vDirection << std::endl;
-		std::cout << "P2" << "	  의 정보:위치" << g_P2.m_vPos << "  방향" << g_P2.m_vDirection << std::endl;
-		std::cout << "BALL" << "의 정보:위치" << g_Ball.GetPosition()<< "  방향" << g_Ball.GetDirection()<< std::endl;*/
+		//p1에게 ball,p1,p2정보를 전부 전송.
+		tempBallMsg.m_vPos = g_Ball.GetPosition();
+		tempBallMsg.m_vDirection = g_Ball.GetDirection();
+		tempBallMsg.speed = g_Ball.GetBallSpeed();
 
+		ballMutex.lock();
+		msg_temp.ball = tempBallMsg;
+		ballMutex.unlock();
 
+		writeMutex.lock();
+		msg_temp.p1 = g_P1;
+		msg_temp.p2 = g_P2;
+		writeMutex.unlock();
+
+		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
+		CMyFunc::IsSocketError(retval, "send msg_temp");
 
 
 		/*
@@ -221,16 +201,16 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		작성자:박요한(dygks910910@daum.net)
 		설명:FPS를 확인하고 싶을때 사용.
 		*/
-	/*	recvCount++;
+		recvCount++;
 		if (timer.getElapsedTime() >= 1000)
 		{
-			timer.startTimer();
-			std::cout << "FPS: " << recvCount << std::endl;
+			std::cout << recvCount << std::endl;
 			recvCount = 0;
-		}*/
+			timer.startTimer();
+		}
 		bP2ReadyFlag = false;
 	}
-	/*recvCount = 0;*/
+	recvCount = 0;
 }
 void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 {
@@ -239,8 +219,9 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 	작성자:박요한(dygks910910@daum.net)
 	설명:FPS변수
 	*/
+	MSG_Temp msg_temp;
 	int retval = 0;
-	CMessageBallInfo tempBallMsg;
+	CPlayer tempBallMsg;
 	int recvCount = 0;
 	CTimer timer;
 	//--------------------------------------------------------------------------------건드리지 말것.
@@ -255,10 +236,12 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 	{
 		{
 			std::lock_guard<std::mutex> lg(writeMutex);
-			retval = g_RecvMessageType(clientSocket, (char*)&player, sizeof(player), 0);
+			//retval = g_RecvMessageType(clientSocket, (char*)&player, sizeof(player), 0);
+			retval = CMyFunc::recvn(clientSocket, (char*)&player, sizeof(player), 0);
+			CMyFunc::IsSocketError(retval, "recvn player");
 			bP2ReadyFlag = true;
 		}
-		p2readyCondvar.notify_one();
+		p2readyCondvar.notify_all();
 
 		if (retval == SOCKET_ERROR)
 		{
@@ -275,17 +258,27 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 			g_Colision.ComputeCollision(player, g_Ball);
 			ballMutex.unlock();
 		}*/
-		//ball정보와 p1정보를 p2에게 send();
-		retval = g_SendMessageType(clientSocket, (char*)&g_P1, sizeof(g_P1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		//ball정보와 p1,p2 정보를 p2에게 send();
+		/*retval = g_SendMessageType(clientSocket, (char*)&g_P1, sizeof(g_P1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg P1");
-
+*/
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
 		tempBallMsg.m_vDirection = g_Ball.GetDirection();
 		tempBallMsg.speed = g_Ball.GetBallSpeed();
 
-		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-		CMyFunc::IsSocketError(retval, "sendmsg ball");
+		ballMutex.lock();
+		msg_temp.ball = tempBallMsg;
+		ballMutex.unlock();
 
+		writeMutex.lock();
+		msg_temp.p1 = g_P1;
+		msg_temp.p2 = g_P2;
+		writeMutex.unlock();
+		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
+		CMyFunc::IsSocketError(retval, "send msg_temp");
+		/*retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
+		CMyFunc::IsSocketError(retval, "sendmsg ball");
+*/
 
 		//std::cout << "P2플레이어 포지션" << player.m_vPos << std::endl;
 		/*std::cout << "방향" << p1.m_vDirection << std::endl;
@@ -299,9 +292,9 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		recvCount++;
 		if (timer.getElapsedTime() >= 1000)
 		{
-		timer.startTimer();
 		std::cout << recvCount << std::endl;
 		recvCount = 0;
+		timer.startTimer();
 		}
 		bP1ReadyFlag = false;
 	}
