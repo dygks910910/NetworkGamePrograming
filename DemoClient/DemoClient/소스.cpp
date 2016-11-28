@@ -11,7 +11,7 @@
 #include "Message.h"
 #include"enum.h"
 #include "Ball.h"
-#define LOCAL_LOOP "127.0.0.1"
+#define LOOP_BACK "192.168.0.11"
 #define PORT 9000
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
@@ -36,12 +36,12 @@ void main()
 	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	CMyFunc::errCheckAndErrDisplay(clientSocket, "socket()");
 	SOCKADDR_IN clientAddr;
-	clientAddr.sin_addr.s_addr = inet_addr(LOCAL_LOOP);
+	clientAddr.sin_addr.s_addr = inet_addr(LOOP_BACK);
 	clientAddr.sin_port = htons(PORT);
 	clientAddr.sin_family = AF_INET;
 
 	char tempBuff[10];
-	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOCAL_LOOP,PORT);
+	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOOP_BACK,PORT);
 	
 	retval = connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "connect()");
@@ -68,18 +68,18 @@ void main()
 			retval = recvAndMsgType(clientSocket, (char*)&tempBallInfo, sizeof(tempBallInfo), 0);
 			CMyFunc::IsSocketError(retval, "recv() Ball");
 			
-			if (strcmp(tempBuff, "p1"))
+			/*if (strcmp(tempBuff, "p1"))
 			{
 				std::cout << "p2" << " 의 정보:위치" << p2.m_vPos << "	 방향" << p2.m_vDirection << std::endl;
 			}
 			else
 			{
 				std::cout << "p1" << "	 의 정보:위치" << p1.m_vPos << " 방향" << p1.m_vDirection << std::endl;
-			}
+			}*/
 			g_ball.SetPosition(tempBallInfo.m_vPos);
 			g_ball.SetBallSpeed(tempBallInfo.speed);
 			g_ball.SetDirection(tempBallInfo.m_vDirection);
-			std::cout << "볼 포지션" << g_ball.GetPosition() <<std::endl;
+			//std::cout << "볼 포지션" << g_ball.GetPosition() <<std::endl;
 
 			timer.startTimer();
 		}

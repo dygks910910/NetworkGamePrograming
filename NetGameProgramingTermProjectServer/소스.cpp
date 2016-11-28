@@ -50,6 +50,29 @@ void main()
 	InitServerSockAddrIPv4(serverAddr);
 	retval = bind(listenSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "bind()");
+	////-------송신버퍼 크기 변경.---------------------------------------------------------------------
+	//int optval,optlen;
+	//optlen = sizeof(optval);
+	//retval = getsockopt(listenSocket, SOL_SOCKET, SO_SNDBUF, (char*)&optval, &optlen);
+	//CMyFunc::IsSocketError(retval, "getsockopt");
+	//std::cout << "송신버퍼크기:" << optval << std::endl;
+	//optval *= 10;
+	//retval = setsockopt(listenSocket, SOL_SOCKET, SO_SNDBUF, (char*)&optval, sizeof(optval));
+	//CMyFunc::IsSocketError(retval, "getsockopt");
+	//std::cout << "송신버퍼크기:" << optval << std::endl;
+	////수신버퍼 크기설정.--------------------------------------------------------------------------------
+	//optlen = sizeof(optval);
+	//retval = getsockopt(listenSocket, SOL_SOCKET, SO_RCVBUF, (char*)&optval, &optlen);
+	//CMyFunc::IsSocketError(retval, "getsockopt");
+	//std::cout << "수신버퍼크기:" << optval << std::endl;
+	//optval *= 10;
+	//retval = setsockopt(listenSocket, SOL_SOCKET, SO_RCVBUF, (char*)&optval, sizeof(optval));
+	//CMyFunc::IsSocketError(retval, "getsockopt");
+	//std::cout << "수신버퍼크기:" << optval << std::endl;
+
+
+	
+	
 	retval = listen(listenSocket, SOMAXCONN);
 	CMyFunc::IsSocketError(retval, "listen()");
 	SOCKET p1Socket, p2Socket;
@@ -156,7 +179,7 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-		std::cout << "1";
+		//std::cout << "1";
 		//----------------충돌체크및 처리
 		/*if (g_Colision.ifCollision(player, g_Ball))
 		{
@@ -244,7 +267,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
 
-		std::cout << "2" ;
+		//std::cout << "2" ;
 		//----------------충돌체크및 처리
 	/*	if (g_Colision.ifCollision(player, g_Ball))
 		{
@@ -255,9 +278,11 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		//ball정보와 p1정보를 p2에게 send();
 		retval = g_SendMessageType(clientSocket, (char*)&g_P1, sizeof(g_P1), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg P1");
+
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
 		tempBallMsg.m_vDirection = g_Ball.GetDirection();
 		tempBallMsg.speed = g_Ball.GetBallSpeed();
+
 		retval = g_SendMessageType(clientSocket, (char*)&tempBallMsg, sizeof(tempBallMsg), 0, e_MSG_TYPE::MSG_PLAYERINFO);
 		CMyFunc::IsSocketError(retval, "sendmsg ball");
 
@@ -271,14 +296,14 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		작성자:박요한(dygks910910@daum.net)
 		설명:FPS를 확인하고 싶을때 사용.
 		*/
-		/*recvCount++;
+		recvCount++;
 		if (timer.getElapsedTime() >= 1000)
 		{
 		timer.startTimer();
-		std::cout << "FPS: " << recvCount << std::endl;
+		std::cout << recvCount << std::endl;
 		recvCount = 0;
 		}
-		bP1ReadyFlag = false;*/
+		bP1ReadyFlag = false;
 	}
 	recvCount = 0;
 }
