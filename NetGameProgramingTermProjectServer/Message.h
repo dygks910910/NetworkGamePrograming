@@ -19,7 +19,7 @@ public:
 };
 #pragma pack
 class CPlayer : public CMessageBallInfo {};
-class MSG_Temp 
+class MSG_GAMEINFO 
 {
 public:
 	CPlayer	 p1;

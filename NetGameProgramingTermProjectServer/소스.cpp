@@ -72,6 +72,10 @@ void main()
 	//std::cout << "수신버퍼크기:" << optval << std::endl;
 
 
+	///////////////////준비완료 상태를 알기위한변수///////////////////////////////////////////////////////
+	CMessageForReady msg_p1Ready;
+	CMessageForReady msg_p2Ready;
+	//////////////////////////////////////////////////////////////////////////
 	
 	
 	retval = listen(listenSocket, SOMAXCONN);
@@ -80,7 +84,7 @@ void main()
 	SOCKADDR_IN p1Addr, p2Addr;
 	int p1AddrSize = sizeof(p1Addr);
 	int p2AddrSize = sizeof(p2Addr);
-
+	int ballNum = 0;
 	char tempP1[10] = "p2";
 	char tempP2[10] = "p1";
 	
@@ -106,28 +110,26 @@ void main()
 			bp2Accepted = true;
 			std::cout << "p2접속";
 		}
+		////////////////////////////아유레디????//////////////////////////////////////////////
+		retval = CMyFunc::recvn(p1Socket, (char*)&msg_p1Ready, sizeof(msg_p1Ready), 0);
+		CMyFunc::IsSocketError(retval, "msg_p1ready");
+		std::cout << "p1준비완료" << std::endl;
+		retval = CMyFunc::recvn(p2Socket, (char*)&msg_p2Ready, sizeof(msg_p2Ready), 0);
+		CMyFunc::IsSocketError(retval, "msg_p2ready");
+		std::cout << "p2준비완료" << std::endl;
+		//////////////////////////////////////////////////////////////////////////
 
-		/*p1Socket = accept(listenSocket, (SOCKADDR*)&p1Addr, &p1AddrSize);
-		CMyFunc::errCheckAndErrQuit(p1Socket, "p1socket accept()");
-		std::cout << "p1접속";
-		retval = send(p1Socket, tempP1, sizeof(tempP1), 0);
-		CMyFunc::IsSocketError(retval, "send tempP1");
-		bP1Ready = true;
-
-
-		p2Socket = accept(listenSocket, (SOCKADDR*)&p2Addr, &p2AddrSize);
-		CMyFunc::errCheckAndErrQuit(p2Socket, "p2socket accept()");
-		std::cout << "p2접속";
-		retval = send(p2Socket, tempP2, sizeof(tempP2), 0);
-		CMyFunc::IsSocketError(retval, "send tempP2");
-		bP2Ready = true;
-		*/
+		/////////////////////////볼의갯수를 p1에게서 수신받아야한다./////////////////////////////////////////////////
+		retval = CMyFunc::recvn(p1Socket, (char*)&ballNum, sizeof(ballNum), 0);
+		CMyFunc::IsSocketError(retval, "recvn ballnum");
+		std::cout << "사용할 볼의 갯수:" << ballNum << std::endl;
+		//////////////////////////////////////////////////////////////////////////
+		std::cout << "게임을 시작하지" << std::endl;
 		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
 		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
 		g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
 			BALL_SIZE, PLAYER_SPEED);
 		timer.startTimer();
-	
 		while (1)
 		{
 			if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
@@ -135,10 +137,7 @@ void main()
 				ballMutex.lock();
 				g_Ball.Progress();
 				ballMutex.unlock();
-				//std::cout << g_Ball.GetPosition() << std::endl;
 				timer.startTimer();
-				//std::cout << "p1 = " << g_P1.m_vPos << std::endl;
-				//std::cout << "p2 =" << g_P2.m_vPos << std::endl;
 				if (bp1Accepted ==false ||  bp2Accepted == false)
 					break;
 			}
@@ -151,6 +150,9 @@ void main()
 		p2Thread.join();
 		closesocket(p1Socket);
 		closesocket(p2Socket);
+		ZeroMemory(&msg_p1Ready, sizeof(msg_p1Ready));
+		ZeroMemory(&msg_p2Ready, sizeof(msg_p2Ready));
+
 		bp1Accepted = false;
 		bp2Accepted = false;
 	}
@@ -177,7 +179,7 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 	CTimer timer;
 	int recvCount = 0;
 	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-	MSG_Temp msg_temp;
+	MSG_GAMEINFO msg_temp;
 	CPlayer	 tempBallMsg;
 	int retval = 0;
 	while (1)
@@ -245,7 +247,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 	작성자:박요한(dygks910910@daum.net)
 	설명:FPS변수
 	*/
-	MSG_Temp msg_temp;
+	MSG_GAMEINFO msg_temp;
 	int retval = 0;
 	CPlayer tempBallMsg;
 	int recvCount = 0;

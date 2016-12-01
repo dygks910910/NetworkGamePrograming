@@ -11,6 +11,7 @@
 #include "Message.h"
 #include"enum.h"
 #include "Ball.h"
+#include<conio.h>
 #define LOOP_BACK "127.0.0.1"
 #define PORT 9000
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
@@ -21,11 +22,13 @@ CPlayer	 g_ball;
 int PlayerType = 0;
 CPlayer p1;
 CPlayer	 p2;
-MSG_Temp msgData;
+MSG_GAMEINFO msgData;
 void main()
 {
+	int ballNum = 1;
 	ZeroMemory(&p1, sizeof(p1));
 	ZeroMemory(&p2, sizeof(p2));
+	CMessageForReady msg_ready;
 	CTimer timer;
 	CSendAndMessageType sendAndMsgType;
 	CRecvnAndMessageType recvAndMsgType;
@@ -45,8 +48,8 @@ void main()
 	clientAddr.sin_family = AF_INET;
 
 	char tempBuff[10];
-	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOOP_BACK,PORT);
-	
+	SOCKADDR_IN serverAddr = InitSockAddrIPv4(LOOP_BACK, PORT);
+
 	retval = connect(clientSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	CMyFunc::IsSocketError(retval, "connect()");
 	std::cout << "접속성공" << std::endl;
@@ -61,12 +64,27 @@ void main()
 	{
 		PlayerType = 2;
 	}
-	std::cout << "당신은p" << PlayerType<< std::endl;
-	timer.startTimer();
+	std::cout << "당신은p" << PlayerType << std::endl;
+	std::cout << "준비가 완료되면 아무키나 누르세요" << std::endl;
+	_getch();
+	msg_ready.bReady = true;
+	msg_ready.playerNum = PlayerType;
+	retval = send(clientSocket, (char*)&msg_ready, sizeof(msg_ready), 0);
+	std::cout << "준비완료메시지를 서버에 전송완료" << std::endl;
+	CMyFunc::IsSocketError(retval, "msg_ready");
 	
-	while(1)
+	///////////////////////볼의 갯수를 1p가 서버에 전송해줘야 한다.///////////////////////////////////////////////////
+	if (PlayerType == 1) {
+		std::cout << "사용할 볼의 갯수를 입력하세요(1~3):"; std::cin >> ballNum;
+	}
+	retval = send(clientSocket, (char*)&ballNum, sizeof(ballNum), 0);
+	CMyFunc::IsSocketError(retval, "send ballnum");
+	//////////////////////////////////////////////////////////////////////////
+	timer.startTimer();
+
+	while (1)
 	{
-		if (timer.getElapsedTime() >= 1000/FPS )//프레임 안에 들어오면 수행할 작업.
+		if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
 		{
 			//원래 마우스 좌표값을 받아와서 넣어주는 부분.
 			if (PlayerType == 1)
@@ -80,33 +98,33 @@ void main()
 				p2.m_vPos.x += 10;
 				p2.m_vPos.y += 10;
 				p2.m_vDirection = p2.m_vDirection + CVector2(10, 10);
-				p2.speed +=10;
+				p2.speed += 10;
 			}
 			//--------------------------------------------------------------
-			if(PlayerType == 1)
-			retval = send(clientSocket, (char*)&p1, sizeof(p1), 0);
+			if (PlayerType == 1)
+				retval = send(clientSocket, (char*)&p1, sizeof(p1), 0);
 			else if (PlayerType == 2)
 				retval = send(clientSocket, (char*)&p2, sizeof(p2), 0);
 
 			CMyFunc::IsSocketError(retval, "send p1");
-			
+
 			//p1,p2,ball 의 정보를 다 받기.
 			retval = CMyFunc::recvn(clientSocket, (char*)&msgData, sizeof(msgData), 0);
 			CMyFunc::IsSocketError(retval, "recvn msgdata");
-			
+
 			g_ball = msgData.ball;
 			if (PlayerType == 1)
 			{
 				p2 = msgData.p2;
-				std::cout << "난 p1 p2플레이어 위치정보" << p2.m_vPos << " 방향" << p2.m_vDirection << " 속도" << p2.speed << std::endl;
+				std::cout << "p2플레이어 위치정보" << p2.m_vPos << " 방향" << p2.m_vDirection << " 속도" << p2.speed << std::endl;
 			}
 			else if (PlayerType == 2)
 			{
 				p1 = msgData.p1;
-				std::cout << "난 p2 p1플레이어 위치정보" << p1.m_vPos << " 방향" << p1.m_vDirection << " 속도" << p1.speed << std::endl;
+				std::cout << "p1플레이어 위치정보" << p1.m_vPos << " 방향" << p1.m_vDirection << " 속도" << p1.speed << std::endl;
 			}
-			std::cout << "볼위치:" <<msgData.ball.m_vPos<< " 볼방향"<<msgData.ball.m_vDirection << " 볼스피드"<<msgData.ball.speed << std::endl;
-			
+			std::cout << "볼위치:" << msgData.ball.m_vPos << " 볼방향" << msgData.ball.m_vDirection << " 볼스피드" << msgData.ball.speed << std::endl;
+
 
 			timer.startTimer();
 		}
@@ -115,7 +133,7 @@ void main()
 			// 딜레이를 주는 부분
 		}
 	}
-		
+
 	closesocket(clientSocket);
 	WSACleanup();
 }
