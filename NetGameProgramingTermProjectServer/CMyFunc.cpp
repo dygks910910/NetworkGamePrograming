@@ -65,7 +65,7 @@ bool CMyFunc::IsSocketError(const int& retval, char* msg)
 {
 	if (retval == SOCKET_ERROR)
 	{
-		err_quit(msg);
+		err_display(msg);
 		return true;
 	}
 	return false;
