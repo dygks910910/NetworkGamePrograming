@@ -1,23 +1,19 @@
 #pragma once
 #include "MyHeader.h"
 #include "Obj.h"
-#include "Player.h"
-#include "DoubleBuffering.h"
-#include "Collision.h"
-#include "GUI.h"
-#include "Timer.h"
-#include "CMyFunc.h"
-
+#include"Player.h"
+#include"DoubleBuffering.h"
+#include"CMyFunc.h"
 class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
 	CPlayer	 m_player	;
 	CBall m_ball;
-	Collision m_collision;
-	GUI m_gameUI;
-	//CTimer m_timer;
-
+	WSADATA m_wsa;
+	SOCKET m_clientSocket;
+	SOCKADDR_IN m_server_Addr;
+	
 public:
 	CMainGame();
 	~CMainGame();
@@ -34,9 +30,7 @@ public:
 	void MouseInputProcessing(const MSG& msg);
 	void KeyboardInputProcessing(const MSG	& msg);
 	void GameTimer(const MSG& msg);
-
-	//send
-	CPlayer GetP_data() {
-		return m_player;
-	}
+	void SendAndRecvThread();
+	//나는야 바다의왕자.
+	
 };

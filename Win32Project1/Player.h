@@ -23,8 +23,6 @@
 class CPlayer :
 	public CBall	
 {
-	int score;
-
 public:
 	CPlayer();
 	~CPlayer();
@@ -38,11 +36,6 @@ public:
 	설명:이 함수로 player를 컨트롤.
 	*/
 	void MoveToMousePos(const CVector2& MousePos, char* p1);
-	void SetScore(int point) {
-		score += point;
-	}
-	int GetScore() {
-		return score;
-	}
+
 };
 

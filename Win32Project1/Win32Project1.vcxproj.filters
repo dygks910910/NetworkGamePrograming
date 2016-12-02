@@ -28,30 +28,6 @@
     <Filter Include="소스 파일\99 Vector2">
       <UniqueIdentifier>{8ba39867-5aab-4281-9626-fb98f012bc6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\02 Colision">
-      <UniqueIdentifier>{ded9ff1a-7512-461a-98d2-486ffff57fb6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\03 GUI">
-      <UniqueIdentifier>{0d313c14-cfaa-40be-98b3-cf7069eb15c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01-2 Player">
-      <UniqueIdentifier>{ba322bca-f58f-48dd-8f0e-28fb6ea6645d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\01-1 Ball">
-      <UniqueIdentifier>{a416fda2-75da-4f66-84e1-6d32b9ed2c5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\09 SendMessage">
-      <UniqueIdentifier>{a3b04e76-ffd3-480f-9dfa-fffee7d35753}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\08 RecvnMessage">
-      <UniqueIdentifier>{bfa71bfd-e538-4cbe-9f09-5204650171e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\04 CMyFunc">
-      <UniqueIdentifier>{d7103632-adbc-4e95-91b7-5ae4ce123154}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\00-1 Timer">
-      <UniqueIdentifier>{07893103-1e30-43df-bf70-861dac21d7b6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -81,38 +57,20 @@
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>소스 파일\99 Vector2</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>소스 파일\02 Colision</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>소스 파일\03 GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>소스 파일\01-1 Ball</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>소스 파일\01-2 Player</Filter>
-    </ClInclude>
-    <ClInclude Include="enum.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Message.h">
+    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.h">
+      <Filter>소스 파일\99 Vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SendAndMessageType.h">
-      <Filter>소스 파일\09 SendMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="RecvnAndMessageType.h">
-      <Filter>소스 파일\08 RecvnMessage</Filter>
-    </ClInclude>
-    <ClInclude Include="CMyFunc.h">
-      <Filter>소스 파일\04 CMyFunc</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>소스 파일\00-1 Timer</Filter>
+    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,32 +89,20 @@
     <ClCompile Include="DoubleBuffering.cpp">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>소스 파일\99 Vector2</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>소스 파일\02 Colision</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>소스 파일\03 GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>소스 파일\01-1 Ball</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\01-2 Player</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SendAndMessageType.cpp">
-      <Filter>소스 파일\09 SendMessage</Filter>
+    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.cpp">
+      <Filter>소스 파일\99 Vector2</Filter>
     </ClCompile>
-    <ClCompile Include="RecvnAndMessageType.cpp">
-      <Filter>소스 파일\08 RecvnMessage</Filter>
+    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CMyFunc.cpp">
-      <Filter>소스 파일\04 CMyFunc</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>소스 파일\00-1 Timer</Filter>
+    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

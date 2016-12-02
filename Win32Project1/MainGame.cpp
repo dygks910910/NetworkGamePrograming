@@ -1,13 +1,10 @@
-
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include "stdafx.h"
 #include "MainGame.h"
 #include "Obj.h"
-#include <stdlib.h>
-#include <time.h>
 
 CMainGame::CMainGame()
 {
-
 }
 
 
@@ -20,46 +17,45 @@ CMainGame::~CMainGame()
 // 초기화
 void CMainGame::Initialize()
 {
+	int retval;
+	if (WSAStartup(MAKEWORD(2, 2), &m_wsa))
+	{
+		CMyFunc::err_quit("wsaStartup");
+	}
+	m_clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+	CMyFunc::IsSocketError(retval, "socket()");
+	std::cout << "socket()" << std::endl;
+	SOCKADDR_IN serverAddr;
+	ZeroMemory(&serverAddr, sizeof(serverAddr));
+	m_server_Addr.sin_addr.s_addr = inet_addr(SERVERADDR);
+	m_server_Addr.sin_family = AF_INET;
+	m_server_Addr.sin_port = htons(PORT);
+	
+	retval = connect(m_clientSocket, (SOCKADDR*)&m_server_Addr, sizeof(m_server_Addr));
+	CMyFunc::IsSocketError(retval, "connect");
+	std::cout << "connect()" << std::endl;
 	m_hdc = GetDC(g_hWnd);
 	RECT clientrect;
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-	int temp[2];
-	 
-
-	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), BALL_SIZE, PLAYER_SPEED);
-	
-	//볼 생성시 초기방향 랜덤지정
-
-	srand((unsigned)time(NULL));
-	for (int i = 0; i < 2; ++i)
-	{
-		temp[i] = (rand() % 3) - 1;
-		if (temp[i] == 0)
-			--i;
-	}
-	
-
-	m_ball.SetDirection(CVector2(temp[0], temp[1]));
-	printf("temp[1] = %d \t temp[2] = %d \n", temp[0], temp[1]);
-
+	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, PLAYER_SPEED);
+	m_ball.SetDirection(CVector2(1, 1));
 	m_player.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 		PLAYER_SIZE, PLAYER_SPEED);
-
 }
 // process
 void CMainGame::Progress()
 {
 	m_ball.move();
-	m_ball.GoalCheck();
-	m_collision.ifCollision(m_player, m_ball);
 }
 
 // 그리기
 void CMainGame::Render()
 {
+	/*m_doubleBuffering.WriteToBackBuffer(&m_player1);
+	m_doubleBuffering.WriteToBackBuffer(&m_player2);
+	m_doubleBuffering.Present(m_hdc);*/
 
-	m_doubleBuffering.WriteToBackBuffer(&m_gameUI);
 	m_doubleBuffering.WriteToBackBuffer(&m_player);
 	m_doubleBuffering.WriteToBackBuffer(&m_ball);
 	m_doubleBuffering.Present(m_hdc);
@@ -75,7 +71,6 @@ void CMainGame::MouseInputProcessing(const MSG& msg)
 	switch (msg.message)
 	{
 	case WM_LBUTTONDOWN:
-		PostQuitMessage(0);
 		break;
 	case WM_LBUTTONUP:
 		break;

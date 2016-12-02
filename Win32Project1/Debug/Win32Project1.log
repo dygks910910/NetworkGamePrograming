@@ -1,25 +1,37 @@
 ﻿  stdafx.cpp
   Win32Project1.cpp
-d:\project\networkgameprograming\win32project1\win32project1.cpp(245): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(1850): note: 'inet_addr' 선언을 참조하십시오.
-  Vector2.cpp
-d:\project\networkgameprograming\win32project1\vector2.cpp(16): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Timer.cpp
-d:\project\networkgameprograming\win32project1\timer.cpp(24): warning C4244: 'return': '__int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SendAndMessageType.cpp
-  RecvnAndMessageType.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(20): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(29): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(35): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(42): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(50): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
+  d:\project\networkgameprograming\win32project1\myheader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
   Player.cpp
   Obj.cpp
   MainGame.cpp
-  GUI.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(20): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(29): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(35): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(42): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(50): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
+  d:\project\networkgameprograming\win32project1\myheader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
   DoubleBuffering.cpp
+  Vector2.cpp
+  Timer.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\timer.cpp(23): warning C4244: 'return': '__int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   CMyFunc.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(20): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(29): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(35): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(42): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(50): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
   Ball.cpp
 d:\project\networkgameprograming\win32project1\ball.cpp(34): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
-d:\project\networkgameprograming\win32project1\cmyfunc.cpp(23): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
-d:\project\networkgameprograming\win32project1\cmyfunc.cpp(30): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
-d:\project\networkgameprograming\win32project1\recvnandmessagetype.cpp(55): warning C4172: 지역 변수 또는 임시: retval의 주소를 반환하고 있습니다.
-d:\project\networkgameprograming\win32project1\sendandmessagetype.cpp(62): warning C4172: 지역 변수 또는 임시: retval의 주소를 반환하고 있습니다.
-  Collision.cpp
-LINK : fatal error LNK1104: 'ws2_32.lib, Winmm.lib' 파일을 열 수 없습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\cmyfunc.cpp(23): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\cmyfunc.cpp(30): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\vector2.cpp(53): warning C4717: 'operator-': 모든 제어 경로에서 재귀적입니다. 함수로 인해 런타임 스택 오버플로가 발생합니다.
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.exe
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)
