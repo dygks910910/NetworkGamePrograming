@@ -4,17 +4,30 @@
 #include"Player.h"
 #include"DoubleBuffering.h"
 #include"CMyFunc.h"
+#include"Timer.h"
+#include<thread>
+#include<mutex>
+
 class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
-	CPlayer	 m_player	;
-	CBall m_ball;
+	
 	WSADATA m_wsa;
 	SOCKET m_clientSocket;
 	SOCKADDR_IN m_server_Addr;
-	
+	std::thread* m_threadForSendRecv;
+	int m_ballNum;
+	int m_playerType;
+
+	std::mutex m_ballMutex;
+	std::mutex m_playerMutex;
+
 public:
+	CPlayer	 m_p1;
+	CPlayer	 m_p2;
+	CBall m_ball;
+
 	CMainGame();
 	~CMainGame();
 	void Initialize();
@@ -30,7 +43,7 @@ public:
 	void MouseInputProcessing(const MSG& msg);
 	void KeyboardInputProcessing(const MSG	& msg);
 	void GameTimer(const MSG& msg);
-	void SendAndRecvThread();
-	//나는야 바다의왕자.
 	
 };
+
+void SendAndRecvThread(const int& player_type,CPlayer& p1,CPlayer& p2,CBall& ball,const SOCKET& sock);

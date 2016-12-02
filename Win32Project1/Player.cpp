@@ -11,9 +11,10 @@ CPlayer::~CPlayer()
 {
 }
 
-void CPlayer::Initialize(const CVector2& pos, const float& size,const float& speed)
+void CPlayer::Initialize(const CVector2& pos, const float& size, const float& speed, const int& playerType)
 {
 	CBall::Initialize(pos, size, speed);
+	m_playerType = playerType;
 }
 
 void CPlayer::Progress()
@@ -38,10 +39,10 @@ void CPlayer::Release()
 작성자:박요한(dygks910910@daum.net)
 설명:마우스의 포지션에 따라서 플레이어의 위치가 바뀜.플레이어의 위치가 반을 넘어갈순 없음.따라서 1p면 우반부를,2p면 좌반부를 사용함.
 */
-void CPlayer::MoveToMousePos(const CVector2& MousePos, char* p1)
+void CPlayer::MoveToMousePos(const CVector2& MousePos)
 {
 
-		if (p1 == "p1")
+		if (m_playerType == 1)
 		{
 			if (MousePos.x <= WINDOW_WIDTH / 2)
 			{
@@ -49,7 +50,7 @@ void CPlayer::MoveToMousePos(const CVector2& MousePos, char* p1)
 				return;
 			}
 		}
-		if (p1 == "p2")
+		if (m_playerType == 2)
 		{
 			if (MousePos.x >= WINDOW_WIDTH / 2)
 			{
