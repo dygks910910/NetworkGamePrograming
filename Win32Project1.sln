@@ -20,6 +20,7 @@ Global
 		{A44257C8-9209-4EF3-B55E-A17B2C75B083}.Release|Win32.ActiveCfg = Release|Win32
 		{A44257C8-9209-4EF3-B55E-A17B2C75B083}.Release|Win32.Build.0 = Release|Win32
 		{A44257C8-9209-4EF3-B55E-A17B2C75B083}.Release|x64.ActiveCfg = Release|Win32
+		{A44257C8-9209-4EF3-B55E-A17B2C75B083}.Release|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

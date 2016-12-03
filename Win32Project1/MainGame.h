@@ -7,7 +7,7 @@
 #include"Timer.h"
 #include<thread>
 #include<mutex>
-
+#include "GUI.h"
 class CMainGame
 {
 	HDC m_hdc;
@@ -21,7 +21,7 @@ class CMainGame
 	SOCKADDR_IN m_server_Addr;
 	std::mutex m_ballMutex;
 	std::mutex m_playerMutex;
-
+	CGUI	m_GUI;
 public:
 	CPlayer	 m_localPlayer;
 	CPlayer	 m_otherPlayer;

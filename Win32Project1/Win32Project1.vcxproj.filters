@@ -72,6 +72,9 @@
     <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +105,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

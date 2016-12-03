@@ -87,6 +87,7 @@
     <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.h" />
     <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.h" />
     <ClInclude Include="DoubleBuffering.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MyHeader.h" />
     <ClInclude Include="Obj.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.cpp" />
     <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.cpp" />
     <ClCompile Include="DoubleBuffering.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />

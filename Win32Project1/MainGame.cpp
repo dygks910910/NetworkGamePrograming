@@ -58,7 +58,7 @@ void CMainGame::Initialize()
 	std::cout << "ready" << std::endl;
 	//////////////////////////////ball의 갯수////////////////////////////////////////////
 	if (m_playerType == 1) {
-		std::cout << "사용할 볼의 갯수를 입력하세요(1~3):";// std::cin >> m_ballNum;
+		std::cout << "사용할 볼의 갯수를 입력하세요:";std::cin >> m_ballNum;
 	}
 	retval = send(m_clientSocket, (char*)&m_ballNum, sizeof(m_ballNum), 0);
 	CMyFunc::IsSocketError(retval, "send ballnum");
@@ -102,7 +102,7 @@ void CMainGame::Render()
 	/*m_doubleBuffering.WriteToBackBuffer(&m_player1);
 	m_doubleBuffering.WriteToBackBuffer(&m_player2);
 	m_doubleBuffering.Present(m_hdc);*/
-
+	m_doubleBuffering.WriteToBackBuffer(&m_GUI);
 	m_doubleBuffering.WriteToBackBuffer(&m_localPlayer);
 	m_doubleBuffering.WriteToBackBuffer(&m_otherPlayer);
 	m_doubleBuffering.WriteToBackBuffer(&m_ball);

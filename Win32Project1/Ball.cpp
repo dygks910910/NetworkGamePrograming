@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "Ball.h"
-
+#include"MyHeader.h"
 
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {
 	m_vBallPos = pos;
-	m_vMoveDirection = CVector2(0, 0);
+	m_vMoveDirection = normalize(CVector2(rand(), rand()));
 	m_fBallSize = size;
 	m_fBallSpeed = speed;
 }

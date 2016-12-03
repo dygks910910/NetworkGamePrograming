@@ -8,9 +8,8 @@ extern HWND g_hWnd;
 */
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 300
-
+#define PLAYER_SIZE 15
 #define PLAYER_SPEED 10
-#define PLAYER_SIZE 10
 #define PLAYER1_POSX WINDOW_WIDTH - PLAYER_SIZE
 #define PLAYER1_POSY WINDOW_HEIGHT/2 
 #define PLAYER2_POSX 0 + PLAYER_SIZE
@@ -18,3 +17,4 @@ extern HWND g_hWnd;
 #define FPS 30
 #define SERVERADDR "192.168.2.100"
 #define PORT 9000
+#define GOAL_SIZE 30

@@ -2,29 +2,10 @@
 MainGame.cpp(1): warning C4603: '_WINSOCK_DEPRECATED_NO_WARNINGS': 매크로가 정의되지 않았거나 미리 컴파일된 헤더 사용 후와 정의가 다릅니다.
   MainGame.cpp(1): note: 여기에서 정의하지 않고 미리 컴파일된 헤더에 매크로 추가
   MainGame.cpp(2): note: 미리 컴파일된 헤더 사용
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(19): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(23): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(32): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(45): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(60): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(66): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
 d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
   d:\project\networkgameprograming\win32project1\MyHeader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
 MainGame.cpp(30): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
   C:\Program Files (x86)\Windows Kits\8.1\Include\um\WinSock2.h(1850): note: 'inet_addr' 선언을 참조하십시오.
-  Win32Project1.cpp
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(19): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(23): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(32): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(45): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(60): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\Message.h(66): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
-  d:\project\networkgameprograming\win32project1\MyHeader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
 Ball.obj : error LNK2001: "public: __thiscall CVector2::CVector2(float,float)" (??0CVector2@@QAE@MM@Z) 외부 기호를 확인할 수 없습니다.
 Ball.obj : error LNK2001: "public: __thiscall CVector2::~CVector2(void)" (??1CVector2@@QAE@XZ) 외부 기호를 확인할 수 없습니다.
 Ball.obj : error LNK2001: "public: class CVector2 __thiscall CVector2::operator+(class CVector2 const &)" (??HCVector2@@QAE?AV0@ABV0@@Z) 외부 기호를 확인할 수 없습니다.
