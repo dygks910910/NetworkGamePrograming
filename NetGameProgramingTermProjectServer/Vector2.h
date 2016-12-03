@@ -16,10 +16,15 @@ public:
 	CVector2(float x,float y);
 	~CVector2();
 	CVector2 operator+(const CVector2& other);
-	CVector2 operator-(const CVector2& other);
 	CVector2 operator*(const float& other);
-	CVector2 normalize();
 };
 std::ostream& operator<<(std::ostream & os, const CVector2& vec);
 CVector2 operator-(const CVector2& v1, const CVector2& v2);
 bool operator==(const CVector2& v1, const CVector2& v2);
+float distanceVector(const CVector2& v1, const CVector2& v2);
+/*
+2016 / 12 / 4 / 3:27
+작성자:박요한(dygks910910@daum.net)
+설명:정규화 시켜주는 함수.
+*/
+CVector2	normalize(const CVector2& vec);

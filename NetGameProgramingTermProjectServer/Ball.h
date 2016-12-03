@@ -18,7 +18,6 @@ public:
 	const CVector2& GetDirection() { return m_vMoveDirection; }
 	const float& GetBallSize() { return m_fBallSize; }
 	const float& GetBallSpeed() { return m_fBallSpeed; }
-
 	void SetPosition(const CVector2& pos) { m_vBallPos = pos; }
 	void SetDirection(const CVector2& dir);
 	void SetBallSpeed(const float& speed) { m_fBallSpeed = speed; }

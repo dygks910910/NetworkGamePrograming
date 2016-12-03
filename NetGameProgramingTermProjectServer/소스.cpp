@@ -14,6 +14,7 @@
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
 void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player);
 void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player);
+void CheckCollision();
 
 //zzzzz
 CPlayerMsg g_P1;
@@ -135,6 +136,7 @@ void main()
 			{
 				ballMutex.lock();
 				g_Ball.Progress();
+				CheckCollision();
 				ballMutex.unlock();
 				timer.startTimer();
 				if (bp1Accepted ==false ||  bp2Accepted == false)
@@ -320,4 +322,23 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		}
 	}
 	recvCount = 0;
+}
+
+
+void CheckCollision()
+{
+	CVector2 tempvector;
+	if (distanceVector(g_P1.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
+	{
+		std::cout << "p1과 충돌" << std::endl;
+		tempvector = g_Ball.GetPosition() - g_P1.m_vPos;
+		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
+	}
+	else if (distanceVector(g_P2.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
+	{
+		std::cout << "p2와 충돌" << std::endl;
+		tempvector = g_Ball.GetPosition() - g_P2.m_vPos;
+		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
+
+	}
 }
