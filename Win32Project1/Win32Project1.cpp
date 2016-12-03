@@ -1,25 +1,14 @@
-
-#pragma comment(lib, "Winmm")
-#pragma comment(lib, "ws2_32")
-#include <winsock2.h>
-#include <windows.h>
-
-
+//
+// Win32Project1.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
+//
 
 #include "stdafx.h"
 #include "Win32Project1.h"
 
+#include "MyHeader.h"
 #include "MainGame.h"
-#include "SendAndMessageType.h"
-#include "RecvnAndMessageType.h"
-
+#include"Timer.h"
 #define MAX_LOADSTRING 100
-
-#define LOCAL_IP "112.148.36.243"
-#define SERVER_IP "220.120.220.127"
-#define SERVER_PORT 9000
-
-SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 
 // 전역 변수:
 HINSTANCE hInst;								// 현재 인스턴스입니다.
@@ -29,7 +18,7 @@ TCHAR szWindowClass[MAX_LOADSTRING] ;			// 기본 창 클래스 이름입니다.
 HWND g_hWnd;
 
 CMainGame MainGame;
-
+CTimer	timer;
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
@@ -44,8 +33,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
  	// TODO: 여기에 코드를 입력합니다.
-	CTimer timer;
-
 	MSG msg;
 	msg.message = WM_NULL;
 
@@ -60,40 +47,19 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	//SEND 객체 선언
-	CSendAndMessageType sendAndMsgType;
-	
-	int retval;
-	
-	//윈속 초기화
-	WSADATA wsa;
-	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
-		CMyFunc::err_quit("WSAStartup()");
-		return 1;
-	}
+	MainGame.Initialize();
 
-	//socket()
-	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-	CMyFunc::errCheckAndErrDisplay(sock, "socket()");
-
-	//connect()
-	SOCKADDR_IN serverAddr = InitSockAddrIPv4(SERVER_IP, SERVER_PORT);
-	retval = connect(sock, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
-	CMyFunc::IsSocketError(retval, "connect()");
-	
-	printf("접속성공 \n");
-
-	MainGame.Initialize();	
+	DWORD dwTime = GetTickCount();
 	timer.startTimer();
 	// 기본 메시지 루프입니다.
 	while (msg.message != WM_QUIT)
 	{
-
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+
 		else
 		{
 			if (timer.getElapsedTime() >= 1000 / FPS)
@@ -102,25 +68,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 				MainGame.Render();
 				MainGame.MouseInputProcessing(msg);
 				MainGame.KeyboardInputProcessing(msg);
-				
-				//send (초당 30번 player 위치 정보 보냄)
-				retval = sendAndMsgType(sock, (char*)&MainGame.GetP_data(), sizeof(MainGame.GetP_data()), 0, e_MSG_TYPE::MSG_PLAYERINFO);
-				std::cout << "[TCP 클라이언트]" << retval << "바이트 전송" << std::endl;
-
 				timer.startTimer();
 			}
-
-			else {
-				// 딜레이를 주는 부분
-			}
 		}
-
-		
 	}
 
 	MainGame.Release();
-	closesocket(sock);
-	WSACleanup();
 
 	return (int) msg.wParam;
 }
@@ -172,7 +125,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      300, 50, rc.right - rc.left, rc.bottom - rc.top, 
+      50, 50, rc.right - rc.left, rc.bottom - rc.top, 
 	  NULL, NULL, hInstance, NULL);
 
    g_hWnd = hWnd;
@@ -237,15 +190,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
-}
-
-SOCKADDR_IN InitSockAddrIPv4(const char* ServerIP, const int& ServerPort)
-{
-	SOCKADDR_IN serverAddr;
-	ZeroMemory(&serverAddr, sizeof(serverAddr));
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
-	serverAddr.sin_port = htons(SERVER_PORT);
-
-	return serverAddr;
 }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Ball.h"
-#include "Player.h"
+
 
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {
@@ -79,54 +79,8 @@ void CBall::move()
 	{
 		m_vMoveDirection.y *= -1;
 	}
-
-	
-
-	//º¼ ÀÌµ¿
 	m_vBallPos = m_vBallPos + (m_vMoveDirection*m_fBallSpeed);
 }
-
-//°ñ´ë¿¡ Ãæµ¹½Ã ÇÃ·¹ÀÌ¾î´Â 1Æ÷ÀÎÆ® µæÁ¡.
-void CBall::GoalCheck() 
-{
-	/*°ñ´ë ÄÚµå Âü°í****
-	//ÁÂÃø °ñ´ë
-	Rectangle(hdc, 
-	0, 
-	WINDOW_HEIGHT/3,
-	GOAL_SIZE, 
-	WINDOW_HEIGHT/3 * 2
-	);
-
-	//¿ìÃø °ñ´ë
-	Rectangle(hdc, 
-	WINDOW_WIDTH - GOAL_SIZE, 
-	WINDOW_HEIGHT / 3,
-	WINDOW_WIDTH, 
-	WINDOW_HEIGHT / 3 * 2
-	);
-	*/
-
-	//ÁÂÃø°ñ´ë °ñÃ¼Å©
-	if (m_vBallPos.x >= 0 && m_vBallPos.x <= GOAL_SIZE
-		&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
-	{
-		printf("ÁÂÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [2P 1Á¡È¹µæ]\n");
-	}
-
-	//¿ìÃø°ñ´ë °ñÃ¼Å©
-	if (m_vBallPos.x >= WINDOW_WIDTH - GOAL_SIZE && m_vBallPos.x <= WINDOW_WIDTH
-		&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
-	{
-		printf("¿ìÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [1P 1Á¡È¹µæ]\n");
-	}
-
-}
-
-
-
-
-
 
 CBall::CBall()
 {

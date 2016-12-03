@@ -1,24 +1,34 @@
 #pragma once
 #include "MyHeader.h"
 #include "Obj.h"
-#include "Player.h"
-#include "DoubleBuffering.h"
-#include "Collision.h"
-#include "GUI.h"
-#include "Timer.h"
-#include "CMyFunc.h"
+#include"Player.h"
+#include"DoubleBuffering.h"
+#include"CMyFunc.h"
+#include"Timer.h"
+#include<thread>
+#include<mutex>
 
 class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
-	CPlayer	 m_player	;
-	CBall m_ball;
-	Collision m_collision;
-	GUI m_gameUI;
-	//CTimer m_timer;
+	
+	
+	std::thread* m_threadForSendRecv;
+	
+	WSADATA m_wsa;
+	SOCKET m_clientSocket;
+	SOCKADDR_IN m_server_Addr;
+	std::mutex m_ballMutex;
+	std::mutex m_playerMutex;
 
 public:
+	CPlayer	 m_localPlayer;
+	CPlayer	 m_otherPlayer;
+	CBall m_ball;
+	int m_playerType;
+	int m_ballNum;
+
 	CMainGame();
 	~CMainGame();
 	void Initialize();
@@ -33,10 +43,9 @@ public:
 */
 	void MouseInputProcessing(const MSG& msg);
 	void KeyboardInputProcessing(const MSG	& msg);
-	void GameTimer(const MSG& msg);
-
-	//send
-	CPlayer GetP_data() {
-		return m_player;
-	}
+	
 };
+
+void SendAndRecvThread(const int& player_type,CPlayer& localPlayer,CPlayer& otherPlayer,CBall& ball,const SOCKET& sock);
+static std::mutex ballMutex;
+static std::mutex playerMutex;
