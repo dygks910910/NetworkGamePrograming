@@ -23,12 +23,11 @@
 class CPlayer :
 	public CBall	
 {
-	int score;
-
+	int m_playerType;
 public:
 	CPlayer();
 	~CPlayer();
-	virtual void Initialize(const CVector2& pos, const float& size, const float& speed) ;
+	virtual void Initialize(const CVector2& pos, const float& size, const float& speed, const int& playerType) ;
 	virtual void Progress() ;
 	virtual void Render(HDC) ;
 	virtual void Release();
@@ -37,12 +36,7 @@ public:
 	작성자 : 박요한(dygks910910@daum.net)]
 	설명:이 함수로 player를 컨트롤.
 	*/
-	void MoveToMousePos(const CVector2& MousePos, char* p1);
-	void SetScore(int point) {
-		score += point;
-	}
-	int GetScore() {
-		return score;
-	}
+	void MoveToMousePos(const CVector2& MousePos);
+
 };
 

@@ -1,52 +1,51 @@
-﻿빌드 시작: 2016-11-20 오전 1:34:52
-     1>2 노드의 "C:\Users\Ju\Desktop\시발넷겜플\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트(Build 대상)입니다.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yc"stdafx.h" /Fp"Debug\Win32Project1.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Ball.cpp CMyFunc.cpp DoubleBuffering.cpp MainGame.cpp Obj.cpp Player.cpp RecvnAndMessageType.cpp SendAndMessageType.cpp Timer.cpp Vector2.cpp Win32Project1.cpp GUI.cpp
-         GUI.cpp
-         Win32Project1.cpp
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\win32project1.cpp(247): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-         c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(1850): note: 'inet_addr' 선언을 참조하십시오.
-         Vector2.cpp
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\vector2.cpp(16): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-         Timer.cpp
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\timer.cpp(24): warning C4244: 'return': '__int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-         SendAndMessageType.cpp
-         RecvnAndMessageType.cpp
-         Player.cpp
-         Obj.cpp
-         MainGame.cpp
-         DoubleBuffering.cpp
-         CMyFunc.cpp
-         Ball.cpp
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\ball.cpp(34): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-         코드를 생성하고 있습니다...
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\cmyfunc.cpp(23): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\cmyfunc.cpp(30): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\recvnandmessagetype.cpp(55): warning C4172: 지역 변수 또는 임시: retval의 주소를 반환하고 있습니다.
-     1>c:\users\ju\desktop\시발넷겜플\networkgameprograming\win32project1\sendandmessagetype.cpp(62): warning C4172: 지역 변수 또는 임시: retval의 주소를 반환하고 있습니다.
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Collision.cpp
-         Collision.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ju\Desktop\시발넷겜플\NetworkGamePrograming\Debug\Win32Project1.exe" /INCREMENTAL /NOLOGO "ws2_32.lib, Winmm.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Ju\Desktop\시발넷겜플\NetworkGamePrograming\Debug\Win32Project1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ju\Desktop\시발넷겜플\NetworkGamePrograming\Debug\Win32Project1.lib" /MACHINE:X86 Debug\Win32Project1.res
-         Debug\Ball.obj
-         Debug\CMyFunc.obj
-         Debug\DoubleBuffering.obj
-         Debug\MainGame.obj
-         Debug\Obj.obj
-         Debug\Player.obj
-         Debug\RecvnAndMessageType.obj
-         Debug\SendAndMessageType.obj
-         Debug\stdafx.obj
-         Debug\Timer.obj
-         Debug\Vector2.obj
-         Debug\Win32Project1.obj
-         Debug\GUI.obj
-         Debug\Collision.obj
-     1>LINK : fatal error LNK1104: 'ws2_32.lib, Winmm.lib' 파일을 열 수 없습니다.
-     1>"C:\Users\Ju\Desktop\시발넷겜플\NetworkGamePrograming\Win32Project1\Win32Project1.vcxproj" 프로젝트를 빌드했습니다(Build 대상). - 실패
-
-빌드하지 못했습니다.
-
-경과 시간: 00:00:10.92
+﻿  stdafx.cpp
+  Win32Project1.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(15): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(31): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(46): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(59): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
+  d:\project\networkgameprograming\win32project1\myheader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
+  Player.cpp
+  Obj.cpp
+  MainGame.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(15): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(31): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(46): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(59): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(18): warning C4005: 'PLAYER_SIZE': 매크로 재정의
+  d:\project\networkgameprograming\win32project1\myheader.h(13): note: 'PLAYER_SIZE'의 이전 정의를 참조하십시오.
+  DoubleBuffering.cpp
+  Vector2.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(15): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(31): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(46): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(59): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+  Timer.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\timer.cpp(23): warning C4244: 'return': '__int64'에서 'double'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(15): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(31): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(46): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(59): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+  CMyFunc.cpp
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(15): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(31): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(38): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(46): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(53): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\message.h(59): warning C4081: '('이(가) 있어야 하는데 'newline'이(가) 있습니다.
+  Ball.cpp
+d:\project\networkgameprograming\win32project1\ball.cpp(34): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\cmyfunc.cpp(23): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\cmyfunc.cpp(30): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.exe
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)
