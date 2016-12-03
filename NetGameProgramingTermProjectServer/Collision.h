@@ -9,7 +9,7 @@ private:
 public:
 	Collision();
 	~Collision();
-	bool ifCollision(const CPlayer &player, CBall &ball); //const?
+	bool ifCollision(const CPlayerMsg &player, CBall &ball); //const?
 	double Distance(const CVector2& p1, const CVector2& p2);
-	void ComputeCollision(const CPlayer &player, CBall &ball);
+	void ComputeCollision(const CPlayerMsg &player, CBall &ball);
 };

@@ -27,3 +27,4 @@ void CTimer::startTimer()
 {
 	startTime = std::chrono::high_resolution_clock::now();
 }
+#include"stdafx.h"

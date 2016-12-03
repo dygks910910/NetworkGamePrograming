@@ -13,7 +13,7 @@ Collision::~Collision() {
 };
 
 
-bool Collision::ifCollision(const CPlayer &player, CBall &ball) {
+bool Collision::ifCollision(const CPlayerMsg &player, CBall &ball) {
 	
 	//두 원 사이의 거리를 구하여 그 거리가 두원의 반지름의 합보다 작을경우 충돌로 판단
 	double nDist;
@@ -46,7 +46,7 @@ double Collision::Distance(const CVector2& p1, const CVector2& p2) {
 
 
 //충돌처리 함수
-void Collision::ComputeCollision(const CPlayer &player, CBall &ball) 
+void Collision::ComputeCollision(const CPlayerMsg &player, CBall &ball)
 {
 	ball.SetDirection(player.m_vDirection - ball.GetDirection());
 };

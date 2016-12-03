@@ -12,17 +12,17 @@
 #include"enum.h"
 #include "Ball.h"
 #include<conio.h>
-#define LOOP_BACK "127.0.0.1"
+#define LOOP_BACK "192.168.2.100"
 #define PORT 9000
 SOCKADDR_IN InitSockAddrIPv4(const char* ipAddr, const int& port);
 static DWORD frameDelta = 0;
 static DWORD lastTime = timeGetTime();
 
-CPlayer	 g_ball;
+CPlayerMsg	 g_ball;
 int PlayerType = 0;
-CPlayer p1;
-CPlayer	 p2;
-MSG_GAMEINFO msgData;
+CPlayerMsg p1;
+CPlayerMsg	 p2;
+CMsg_PlayerAndBall msgData;
 void main()
 {
 	int ballNum = 1;
@@ -91,14 +91,14 @@ void main()
 			{
 				p1.m_vPos.x += 1;
 				p1.m_vPos.y += 1;
-				p1.m_vDirection = p1.m_vDirection + CVector2(1, 1);
-				p1.speed++;
+				p1.m_vDirection = p1.m_vDirection + CVector2(10, 10);
+				p1.speed+= 100;
 			}
 			else if (PlayerType == 2) {
-				p2.m_vPos.x += 10;
-				p2.m_vPos.y += 10;
-				p2.m_vDirection = p2.m_vDirection + CVector2(10, 10);
-				p2.speed += 10;
+				p2.m_vPos.x -= 1;
+				p2.m_vPos.y -= 1;
+				p2.m_vDirection = p2.m_vDirection - CVector2(10, 10);
+				p2.speed -= 100;
 			}
 			//--------------------------------------------------------------
 			if (PlayerType == 1)
@@ -106,22 +106,29 @@ void main()
 			else if (PlayerType == 2)
 				retval = send(clientSocket, (char*)&p2, sizeof(p2), 0);
 
-			CMyFunc::IsSocketError(retval, "send p1");
-
+			if (CMyFunc::IsSocketError(retval, "send p")) {
+				std::cout << "서버에 접속할수 없습니다" << std::endl;
+				break;
+			}
 			//p1,p2,ball 의 정보를 다 받기.
+			
 			retval = CMyFunc::recvn(clientSocket, (char*)&msgData, sizeof(msgData), 0);
-			CMyFunc::IsSocketError(retval, "recvn msgdata");
-
+			if (CMyFunc::IsSocketError(retval, "recvn msgdata")) {
+				std::cout << "서버에 접속할수 없습니다"<< std::endl;
+				break;
+			}
 			g_ball = msgData.ball;
 			if (PlayerType == 1)
 			{
 				p2 = msgData.p2;
-				std::cout << "p2플레이어 위치정보" << p2.m_vPos << " 방향" << p2.m_vDirection << " 속도" << p2.speed << std::endl;
+				std::cout << "p1플레이어 위치정보" << p1.m_vPos << " 방향" << p1.m_vDirection << " 속도" << p1.speed << std::endl ;
+				std::cout << "p2플레이어 위치정보" << p2.m_vPos << " 방향" << p2.m_vDirection << " 속도" << p2.speed << std::endl << std::endl;
 			}
 			else if (PlayerType == 2)
 			{
 				p1 = msgData.p1;
 				std::cout << "p1플레이어 위치정보" << p1.m_vPos << " 방향" << p1.m_vDirection << " 속도" << p1.speed << std::endl;
+				std::cout << "p2플레이어 위치정보" << p2.m_vPos << " 방향" << p2.m_vDirection << " 속도" << p2.speed << std::endl << std::endl;
 			}
 			std::cout << "볼위치:" << msgData.ball.m_vPos << " 볼방향" << msgData.ball.m_vDirection << " 볼스피드" << msgData.ball.speed << std::endl;
 

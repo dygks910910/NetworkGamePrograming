@@ -148,8 +148,6 @@
     <ClCompile Include="CMyFunc.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Obj.cpp" />
-    <ClCompile Include="RecvnAndMessageType.cpp" />
-    <ClCompile Include="SendAndMessageType.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="소스.cpp" />
@@ -163,8 +161,6 @@
     <ClInclude Include="enum.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Obj.h" />
-    <ClInclude Include="RecvnAndMessageType.h" />
-    <ClInclude Include="SendAndMessageType.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />

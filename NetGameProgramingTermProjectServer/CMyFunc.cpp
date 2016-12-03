@@ -71,3 +71,4 @@ bool CMyFunc::IsSocketError(const int& retval, char* msg)
 	return false;
 }
 
+#include"stdafx.h"

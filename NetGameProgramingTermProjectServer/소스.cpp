@@ -12,15 +12,13 @@
 #include "Timer.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
-void P1Thread(const SOCKET& clientSocket, CPlayer& player);
-void P2Thread(const SOCKET& clientSocket, CPlayer& player);
+void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player);
+void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player);
 
 //zzzzz
-CPlayer g_P1;
-CPlayer g_P2;
+CPlayerMsg g_P1;
+CPlayerMsg g_P2;
 CBall g_Ball;
-CRecvnAndMessageType g_RecvMessageType;
-CSendAndMessageType g_SendMessageType;
 std::mutex writeMutex;
 std::mutex ballMutex;
 
@@ -77,10 +75,10 @@ void main()
 	CMessageForReady msg_p2Ready;
 	//////////////////////////////////////////////////////////////////////////
 	
-	
+	///////////////////////////볼갯수추가하려면 배열을 사용할것임./////////////////////////////////////
 	retval = listen(listenSocket, SOMAXCONN);
 	CMyFunc::IsSocketError(retval, "listen()");
-	SOCKET p1Socket, p2Socket,tempSocket;
+	SOCKET p1Socket, p2Socket;
 	SOCKADDR_IN p1Addr, p2Addr;
 	int p1AddrSize = sizeof(p1Addr);
 	int p2AddrSize = sizeof(p2Addr);
@@ -125,10 +123,11 @@ void main()
 		std::cout << "사용할 볼의 갯수:" << ballNum << std::endl;
 		//////////////////////////////////////////////////////////////////////////
 		std::cout << "게임을 시작하지" << std::endl;
-		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
-		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
+		
 		g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
 			BALL_SIZE, PLAYER_SPEED);
+		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
+		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
 		timer.startTimer();
 		while (1)
 		{
@@ -169,28 +168,32 @@ void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr)
 
 }
 
-void P1Thread(const SOCKET& clientSocket,CPlayer& player)
+void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 {
 	/*
 	2016 / 11 / 20 / 8:39
 	작성자:박요한(dygks910910@daum.net)
 	설명:FPS변수
 	*/
+
 	CTimer timer;
 	int recvCount = 0;
 	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
-	MSG_GAMEINFO msg_temp;
-	CPlayer	 tempBallMsg;
+	CMsg_PlayerAndBall msg_temp;
+	CPlayerMsg	 tempBallMsg;
 	int retval = 0;
-	while (1)
+	while (bp1Accepted && bp2Accepted)
 	{
 		{
 			//자동잠금.
 			std::lock_guard<std::mutex> lg(writeMutex);
-			retval = CMyFunc::recvn(clientSocket, (char*)&player, sizeof(player), 0);
+			retval = recv(clientSocket, (char*)&player, sizeof(player), 0);
 			bP1ReadyFlag = true;
 		}
-		CMyFunc::IsSocketError(retval, "recvn player");
+		if (CMyFunc::IsSocketError(retval, "recvn player")) {
+			bp1Accepted = false;
+			break;
+		}
 		//p2스레드 깨우기.
 		p1readyCondvar.notify_one();
 		if (retval == SOCKET_ERROR)
@@ -209,6 +212,7 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		std::cout << "1";
 
 		//p1에게 ball,p1,p2정보를 전부 전송.
+		
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
 		tempBallMsg.m_vDirection = g_Ball.GetDirection();
 		tempBallMsg.speed = g_Ball.GetBallSpeed();
@@ -218,12 +222,16 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 		ballMutex.unlock();
 
 		writeMutex.lock();
-		msg_temp.p1 = g_P1;
-		msg_temp.p2 = g_P2;
+		msg_temp.p1= g_P1;
+		msg_temp.p2= g_P2;
 		writeMutex.unlock();
 
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
-		CMyFunc::IsSocketError(retval, "send msg_temp");
+		if (CMyFunc::IsSocketError(retval, "send msg_temp"))
+		{
+			bp1Accepted = false;
+			break;
+		}
 
 		/*
 		2016 / 11 / 20 / 4:28
@@ -240,16 +248,16 @@ void P1Thread(const SOCKET& clientSocket,CPlayer& player)
 	}
 	recvCount = 0;
 }
-void P2Thread(const SOCKET& clientSocket, CPlayer& player)
+void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 {
 	/*
 	2016 / 11 / 20 / 8:39
 	작성자:박요한(dygks910910@daum.net)
 	설명:FPS변수
 	*/
-	MSG_GAMEINFO msg_temp;
+	CMsg_PlayerAndBall msg_temp;
 	int retval = 0;
-	CPlayer tempBallMsg;
+	CPlayerMsg tempBallMsg;
 	int recvCount = 0;
 	CTimer timer;
 	//--------------------------------------------------------------------------------건드리지 말것.
@@ -259,11 +267,11 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		p1readyCondvar.wait(ul, [] {return bP1ReadyFlag; });
 		//std::cout << "p2WakeUP" << std::endl;
 	}
-	while (1)
+	while (bp1Accepted && bp2Accepted)
 	{
 		{
 			std::lock_guard<std::mutex> lg(writeMutex);
-			retval = CMyFunc::recvn(clientSocket, (char*)&player, sizeof(player), 0);
+			retval = recv(clientSocket, (char*)&player, sizeof(player), 0);
 			bP2ReadyFlag = true;
 		}
 		p2readyCondvar.notify_one();
@@ -294,7 +302,10 @@ void P2Thread(const SOCKET& clientSocket, CPlayer& player)
 		msg_temp.p2 = g_P2;
 		writeMutex.unlock();
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
-		CMyFunc::IsSocketError(retval, "send msg_temp");
+		if (CMyFunc::IsSocketError(retval, "send msg_temp")) {
+			bp2Accepted = false;
+			break;
+		}
 	/*
 		2016 / 11 / 20 / 4:28
 		작성자:박요한(dygks910910@daum.net)

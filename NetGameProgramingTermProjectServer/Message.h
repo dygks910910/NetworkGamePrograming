@@ -1,33 +1,43 @@
 #pragma once
 
-#include<WinSock2.h>
 #include"Vector2.h"
 #include<iostream>
 #include "Message.h"
 #include "Vector2.h"
-class CMessage
-{
-};
 
-class CMessageBallInfo : public CMessage
+class CMessageBallInfo
 {
 public:
 	CVector2 m_vPos;
 	CVector2 m_vDirection;
 	float speed;
-
 };
 #pragma pack
-class CPlayer : public CMessageBallInfo {};
-class MSG_GAMEINFO 
+
+class CPlayerMsg : public CMessageBallInfo {};
+
+class CMsg_PlayerAndBall 
 {
 public:
-	CPlayer	 p1;
-	CPlayer	 p2;
-	CPlayer ball;
+	CPlayerMsg	 p1;
+	CPlayerMsg	 p2;
+	CPlayerMsg ball;
 };
-#pragma pack
-class CMessageForReady : public CMessage
+class CMsg_PlayerAndBall2 : public CMsg_PlayerAndBall
+{
+public:
+	CPlayerMsg ball2;
+};
+#pragma  pack
+
+class CMsg_PlayerAndBall3 : public CMsg_PlayerAndBall2
+{
+public:
+	CPlayerMsg ball3;
+};
+#pragma  pack
+
+class CMessageForReady 
 {
 public:
 	int playerNum;
@@ -35,15 +45,15 @@ public:
 };
 #pragma pack
 
-class CMessageForRestart : public CMessage
+class CMessageForRestart 
 {
 public:
 	bool bRestart;
 };
-
-class CMessageForBallNum : public CMessage
+#pragma pack
+class CMessageForBallNum 
 {
 public:
 	int iBallNum;
 };
-
+#pragma pack
