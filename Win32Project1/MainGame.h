@@ -13,20 +13,21 @@ class CMainGame
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
 	
+	
+	std::thread* m_threadForSendRecv;
+	
 	WSADATA m_wsa;
 	SOCKET m_clientSocket;
 	SOCKADDR_IN m_server_Addr;
-	std::thread* m_threadForSendRecv;
-	int m_ballNum;
-	int m_playerType;
-
 	std::mutex m_ballMutex;
 	std::mutex m_playerMutex;
 
 public:
-	CPlayer	 m_p1;
-	CPlayer	 m_p2;
+	CPlayer	 m_localPlayer;
+	CPlayer	 m_otherPlayer;
 	CBall m_ball;
+	int m_playerType;
+	int m_ballNum;
 
 	CMainGame();
 	~CMainGame();
@@ -42,8 +43,9 @@ public:
 */
 	void MouseInputProcessing(const MSG& msg);
 	void KeyboardInputProcessing(const MSG	& msg);
-	void GameTimer(const MSG& msg);
 	
 };
 
-void SendAndRecvThread(const int& player_type,CPlayer& p1,CPlayer& p2,CBall& ball,const SOCKET& sock);
+void SendAndRecvThread(const int& player_type,CPlayer& localPlayer,CPlayer& otherPlayer,CBall& ball,const SOCKET& sock);
+static std::mutex ballMutex;
+static std::mutex playerMutex;
