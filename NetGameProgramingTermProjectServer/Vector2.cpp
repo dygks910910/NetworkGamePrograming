@@ -22,7 +22,6 @@ CVector2 CVector2::operator+(const CVector2& other)
 
 }
 
-
 CVector2 CVector2::operator*(const float & other)
 {
 	return CVector2(x*other, y*other);
@@ -41,6 +40,7 @@ std::ostream& operator<<(std::ostream & os, const CVector2& vec)
 CVector2 operator-(const CVector2& v1, const CVector2& v2)
 {
 	return CVector2(v1.x - v2.x, v1.y - v2.y);
+
 }
 
 /*
@@ -56,8 +56,8 @@ float distanceVector(const CVector2& a, const CVector2& b)
 
 CVector2 normalize(const CVector2& vec)
 {
-	 float temp = sqrt((vec.x * vec.x) + (vec.y*vec.y));
-	 return CVector2(vec.x / temp, vec.y / temp);
+	float temp = sqrt((vec.x * vec.x) + (vec.y*vec.y));
+	return CVector2(vec.x / temp, vec.y / temp);
 }
 
 bool operator==(const CVector2& v1, const CVector2& v2)

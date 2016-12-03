@@ -12,7 +12,7 @@ public:
 	CVector2 m_vDirection;
 	float speed;
 };
-#pragma pack
+#pragma pack()
 
 class CPlayerMsg : public CMessageBallInfo {};
 
@@ -28,14 +28,14 @@ class CMsg_PlayerAndBall2 : public CMsg_PlayerAndBall
 public:
 	CPlayerMsg ball2;
 };
-#pragma  pack
+#pragma  pack()
 
 class CMsg_PlayerAndBall3 : public CMsg_PlayerAndBall2
 {
 public:
 	CPlayerMsg ball3;
 };
-#pragma  pack
+#pragma  pack()
 
 class CMessageForReady 
 {
@@ -43,17 +43,17 @@ public:
 	int playerNum;
 	bool bReady;
 };
-#pragma pack
+#pragma pack()
 
 class CMessageForRestart 
 {
 public:
 	bool bRestart;
 };
-#pragma pack
+#pragma pack()
 class CMessageForBallNum 
 {
 public:
 	int iBallNum;
 };
-#pragma pack
+#pragma pack()

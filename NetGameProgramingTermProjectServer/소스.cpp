@@ -97,7 +97,7 @@ void main()
 			CMyFunc::errCheckAndErrQuit(p1Socket, "p1socket accept()");
 			retval = send(p1Socket, tempP1, sizeof(tempP1), 0);
 			CMyFunc::IsSocketError(retval, "send tempP1");
-			std::cout << "p1접속";
+			std::cout << "p1접속" << std::endl;
 			bp1Accepted = true;
 		}
 		if (bp2Accepted == false)
@@ -107,7 +107,7 @@ void main()
 			retval = send(p2Socket, tempP2, sizeof(tempP2), 0);
 			CMyFunc::IsSocketError(retval, "send tempP2");
 			bp2Accepted = true;
-			std::cout << "p2접속";
+			std::cout << "p2접속" << std::endl;
 		}
 		////////////////////////////아유레디????//////////////////////////////////////////////
 		retval = CMyFunc::recvn(p1Socket, (char*)&msg_p1Ready, sizeof(msg_p1Ready), 0);
@@ -211,7 +211,7 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		}
 		//-----------------------------------------------------------------------건드리지 말것.
 
-		std::cout << "1";
+		//std::cout << "1";
 
 		//p1에게 ball,p1,p2정보를 전부 전송.
 		
@@ -284,7 +284,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 			break;
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
-		std::cout << "2";
+		//std::cout << "2";
 
 		//std::cout << "2" ;
 		//----------------충돌체크및 처리
@@ -330,13 +330,13 @@ void CheckCollision()
 	CVector2 tempvector;
 	if (distanceVector(g_P1.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
 	{
-		std::cout << "p1과 충돌" << std::endl;
+		//std::cout << "p1과 충돌" << std::endl;
 		tempvector = g_Ball.GetPosition() - g_P1.m_vPos;
 		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
 	}
 	else if (distanceVector(g_P2.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
 	{
-		std::cout << "p2와 충돌" << std::endl;
+		//std::cout << "p2와 충돌" << std::endl;
 		tempvector = g_Ball.GetPosition() - g_P2.m_vPos;
 		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
 

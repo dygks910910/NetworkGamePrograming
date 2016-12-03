@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Ball.h"
-
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {
 	m_vBallPos = pos;
