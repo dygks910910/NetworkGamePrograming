@@ -178,7 +178,7 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 	*/
 
 	CTimer timer;
-	int recvCount = 0;
+	//int recvCount = 0;
 	//------------------------------------------------------------------------------------------------------------------------------------------------건드리지 말것.
 	CMsg_PlayerAndBall msg_temp;
 	CPlayerMsg	 tempBallMsg;
@@ -210,7 +210,6 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		}
 		//-----------------------------------------------------------------------건드리지 말것.
 
-		std::cout << "1";
 
 		//p1에게 ball,p1,p2정보를 전부 전송.
 		
@@ -237,15 +236,16 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		작성자:박요한(dygks910910@daum.net)
 		설명:FPS를 확인하고 싶을때 사용.
 		*/
-		recvCount++;
-		if (timer.getElapsedTime() >= 1000)
-		{
-			//std::cout << recvCount << std::endl;
-			recvCount = 0;
-			timer.startTimer();
-		}
+		//recvCount++;
+		//if (timer.getElapsedTime() >= 1000)
+		//{
+		//	//std::cout << recvCount << std::endl;
+		//	recvCount = 0;
+		//	timer.startTimer();
+		//}
+		std::cout << "1";
 	}
-	recvCount = 0;
+	//recvCount = 0;
 }
 void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 {
@@ -257,7 +257,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 	CMsg_PlayerAndBall msg_temp;
 	int retval = 0;
 	CPlayerMsg tempBallMsg;
-	int recvCount = 0;
+	//int recvCount = 0;
 	CTimer timer;
 	//--------------------------------------------------------------------------------건드리지 말것.
 	{
@@ -281,7 +281,6 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 			break;
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
-		std::cout << "2";
 
 		//std::cout << "2" ;
 		//----------------충돌체크및 처리
@@ -308,15 +307,16 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		작성자:박요한(dygks910910@daum.net)
 		설명:FPS를 확인하고 싶을때 사용.
 		*/
-		recvCount++;
-		if (timer.getElapsedTime() >= 1000)
-		{
-		//std::cout << recvCount << std::endl;
-		recvCount = 0;
-		timer.startTimer();
-		}
+		//recvCount++;
+		//if (timer.getElapsedTime() >= 1000)
+		//{
+		////std::cout << recvCount << std::endl;
+		//recvCount = 0;
+		//timer.startTimer();
+		//}
+		std::cout << "2";
 	}
-	recvCount = 0;
+	/*recvCount = 0;*/
 }
 
 
