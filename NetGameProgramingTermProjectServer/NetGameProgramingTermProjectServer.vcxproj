@@ -146,7 +146,6 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="CMyFunc.cpp" />
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="CMyFunc.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Collision.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Obj.h" />

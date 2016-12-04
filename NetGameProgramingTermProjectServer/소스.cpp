@@ -8,7 +8,6 @@
 #include<condition_variable>
 #include "Ball.h"
 #include<math.h>
-#include "Collision.h"
 #include "Timer.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
@@ -20,7 +19,8 @@ void CheckCollision();
 CPlayerMsg g_P1;
 CPlayerMsg g_P2;
 CBall g_Ball;
-std::mutex writeMutex;
+std::mutex p1Mutex;
+std::mutex p2Mutex;
 std::mutex ballMutex;
 
 std::mutex p1readyMutex;
@@ -32,7 +32,6 @@ bool bP1ReadyFlag = false;
 bool bP2ReadyFlag = false;
 bool bp1Accepted = false;
 bool bp2Accepted = false;
-Collision g_Colision;
 void main()
 {
 	
@@ -144,7 +143,7 @@ void main()
 			}
 			else
 			{
-				// 딜레이를 주는 부분
+				Sleep(1000 / FPS - timer.getElapsedTime());
 			}
 		}
 		p1Thread.join();
@@ -188,7 +187,7 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 	{
 		{
 			//자동잠금.
-			std::lock_guard<std::mutex> lg(writeMutex);
+			std::lock_guard<std::mutex> lg(p1Mutex);
 			retval = recv(clientSocket, (char*)&player, sizeof(player), 0);
 			bP1ReadyFlag = true;
 		}
@@ -211,22 +210,20 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		}
 		//-----------------------------------------------------------------------건드리지 말것.
 
-		//std::cout << "1";
+		std::cout << "1";
 
 		//p1에게 ball,p1,p2정보를 전부 전송.
 		
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
-		tempBallMsg.m_vDirection = g_Ball.GetDirection();
-		tempBallMsg.speed = g_Ball.GetBallSpeed();
 
 		ballMutex.lock();
 		msg_temp.ball = tempBallMsg;
 		ballMutex.unlock();
 
-		writeMutex.lock();
+		p1Mutex.lock();
 		msg_temp.p1= g_P1;
 		msg_temp.p2= g_P2;
-		writeMutex.unlock();
+		p1Mutex.unlock();
 
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp"))
@@ -272,7 +269,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 	while (bp1Accepted && bp2Accepted)
 	{
 		{
-			std::lock_guard<std::mutex> lg(writeMutex);
+			std::lock_guard<std::mutex> lg(p1Mutex);
 			retval = recv(clientSocket, (char*)&player, sizeof(player), 0);
 			bP2ReadyFlag = true;
 		}
@@ -284,7 +281,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 			break;
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
-		//std::cout << "2";
+		std::cout << "2";
 
 		//std::cout << "2" ;
 		//----------------충돌체크및 처리
@@ -292,17 +289,15 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		//ball정보와 p1,p2 정보를 p2에게 send();
 
 		tempBallMsg.m_vPos = g_Ball.GetPosition();
-		tempBallMsg.m_vDirection = g_Ball.GetDirection();
-		tempBallMsg.speed = g_Ball.GetBallSpeed();
 
 		ballMutex.lock();
 		msg_temp.ball = tempBallMsg;
 		ballMutex.unlock();
 
-		writeMutex.lock();
+		p1Mutex.lock();
 		msg_temp.p1 = g_P1;
 		msg_temp.p2 = g_P2;
-		writeMutex.unlock();
+		p1Mutex.unlock();
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp")) {
 			bp2Accepted = false;
