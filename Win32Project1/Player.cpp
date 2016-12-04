@@ -27,7 +27,25 @@ void CPlayer::Progress()
 
 void CPlayer::Render(HDC hdc)
 {
-	CBall::Render(hdc);
+	//펜과 브러시의 오브젝트를 생성한다
+	HPEN myPen, oldPen;
+	HBRUSH myBrush, oldBrush;
+	//펜을 생성한다. 
+	myPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+	//펜을 선택하고 과거에 dc가 가지고 있는 펜의 모양은 old펜에 넣어준다.
+	oldPen = (HPEN)SelectObject(hdc, myPen);
+	myBrush = CreateSolidBrush(RGB(255, 0, 255));
+	oldBrush = (HBRUSH)SelectObject(hdc, myBrush);
+
+	Ellipse(hdc, m_vBallPos.x - m_fBallSize, m_vBallPos.y - m_fBallSize,
+		m_vBallPos.x + m_fBallSize, m_vBallPos.y + m_fBallSize);
+
+	//예전의 펜값을 다시 dc에 지정해준다. 
+	SelectObject(hdc, oldPen);
+	SelectObject(hdc, oldBrush);
+	//쓰고난 펜을 삭제해준다.
+	DeleteObject(myPen);
+	DeleteObject(myBrush);
 }
 
 void CPlayer::Release()

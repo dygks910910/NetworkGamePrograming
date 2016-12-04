@@ -1,6 +1,7 @@
 #pragma once
 
 extern HWND g_hWnd;
+
 /* 
 [2016/09/03 18시28분 
 작성자 : 박요한(dygks910910@daum.net)]

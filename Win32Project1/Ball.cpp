@@ -27,7 +27,7 @@ void CBall::Render(HDC hdc)
 	myPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 	//펜을 선택하고 과거에 dc가 가지고 있는 펜의 모양은 old펜에 넣어준다.
 	oldPen = (HPEN)SelectObject(hdc, myPen);
-	myBrush = CreateSolidBrush(RGB(255, 0, 0));
+	myBrush = CreateSolidBrush(RGB(255, 255, 0));
 	oldBrush = (HBRUSH)SelectObject(hdc, myBrush);
 
 	Ellipse(hdc, m_vBallPos.x - m_fBallSize, m_vBallPos.y - m_fBallSize,

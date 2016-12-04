@@ -49,7 +49,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	MainGame.Initialize();
 
-	DWORD dwTime = GetTickCount();
 	timer.startTimer();
 	// 기본 메시지 루프입니다.
 	while (msg.message != WM_QUIT)
@@ -67,8 +66,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 				MainGame.Progress();
 				MainGame.Render();
 				MainGame.MouseInputProcessing(msg);
-				MainGame.KeyboardInputProcessing(msg);
+				//MainGame.KeyboardInputProcessing(msg);
 				timer.startTimer();
+			}
+			else
+			{
+				Sleep(1000 / FPS - timer.getElapsedTime());
 			}
 		}
 	}

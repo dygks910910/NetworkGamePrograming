@@ -8,14 +8,15 @@
 class CDoubleBuffering
 {
 private:
-	HDC m_memDC;
-	HBITMAP m_hPreBit;
+	HBITMAP hMyBitmap;
 	RECT m_clientRect;
+	HBITMAP hOldBitmap;
+	HDC backMemDC, MemDC;
 public:
 	CDoubleBuffering();
 	~CDoubleBuffering();
 public:
-	HDC GetmemDC() { return m_memDC; }
+	HDC GetmemDC() { return backMemDC; }
 	void Initialize(HDC hdc,RECT clientRect);
 	template<class obj>
 	void WriteToBackBuffer(obj* object);
@@ -24,15 +25,12 @@ public:
 	작성자 : 박요한(dygks910910@daum.net)]
 	설명:전면버퍼로 present한후 멤버들을 초기화시켜줘야 한다.
 	*/
-	void Present(HDC hdc)
-	{
-		BitBlt(hdc, 0, 0, m_clientRect.right, m_clientRect.bottom,m_memDC, 0, 0, SRCCOPY);
-		Initialize(hdc, m_clientRect);
-	}
+	void Present(HDC hdc);
+	void Release();
 };
 //obj상속된것들만 읽을수 있음.
 template<class obj>
 inline void CDoubleBuffering::WriteToBackBuffer(obj * pBbject)
 {
-	pBbject->Render(m_memDC);
+	pBbject->Render(backMemDC);
 }

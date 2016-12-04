@@ -12,16 +12,14 @@ class CMainGame
 {
 	HDC m_hdc;
 	CDoubleBuffering m_doubleBuffering;
-	
-	
 	std::thread* m_threadForSendRecv;
-	
 	WSADATA m_wsa;
 	SOCKET m_clientSocket;
 	SOCKADDR_IN m_server_Addr;
 	std::mutex m_ballMutex;
 	std::mutex m_playerMutex;
 	CGUI	m_GUI;
+	CTimer m_time;
 public:
 	CPlayer	 m_localPlayer;
 	CPlayer	 m_otherPlayer;
