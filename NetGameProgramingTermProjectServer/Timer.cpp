@@ -4,6 +4,7 @@
 
 CTimer::CTimer()
 {
+	restTime = 100;
 }
 
 
@@ -23,8 +24,25 @@ double CTimer::getElapsedTime()
 	return mill.count();
 }
 
+
+int CTimer::getElapsedTimeSec()
+{
+	std::chrono::high_resolution_clock::time_point nowtime = std::chrono::high_resolution_clock::now();
+	std::chrono::seconds mill = std::chrono::duration_cast<std::chrono::seconds>(nowtime - startTime);
+	return mill.count();
+}
+
 void CTimer::startTimer()
 {
 	startTime = std::chrono::high_resolution_clock::now();
 }
+
+const int& CTimer::countDown(const int& countSec)
+{
+	restTime = countSec - getElapsedTimeSec();
+	if (countSec - getElapsedTimeSec() <= 0)
+		return 0; 
+	return countSec - getElapsedTimeSec();
+}
+
 #include"stdafx.h"

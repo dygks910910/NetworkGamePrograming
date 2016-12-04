@@ -10,7 +10,7 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 300
 
-#define GOAL_SIZE 20
+#define GOAL_SIZE 50
 #define FPS 30
 
 #define BALL_SIZE 10

@@ -22,7 +22,7 @@ CBall g_Ball;
 std::mutex p1Mutex;
 std::mutex p2Mutex;
 std::mutex ballMutex;
-
+int g_ballnum;
 std::mutex p1readyMutex;
 std::mutex p2readyMutex;
 std::condition_variable p1readyCondvar;
@@ -75,14 +75,12 @@ void main()
 	CMessageForReady msg_p2Ready;
 	//////////////////////////////////////////////////////////////////////////
 	
-	///////////////////////////볼갯수추가하려면 배열을 사용할것임./////////////////////////////////////
 	retval = listen(listenSocket, SOMAXCONN);
 	CMyFunc::IsSocketError(retval, "listen()");
 	SOCKET p1Socket, p2Socket;
 	SOCKADDR_IN p1Addr, p2Addr;
 	int p1AddrSize = sizeof(p1Addr);
 	int p2AddrSize = sizeof(p2Addr);
-	int ballNum = 0;
 	char tempP1[10] = "p2";
 	char tempP2[10] = "p1";
 	
@@ -118,9 +116,14 @@ void main()
 		//////////////////////////////////////////////////////////////////////////
 
 		/////////////////////////볼의갯수를 p1에게서 수신받아야한다./////////////////////////////////////////////////
-		retval = CMyFunc::recvn(p1Socket, (char*)&ballNum, sizeof(ballNum), 0);
+		std::cout << "사용할 볼의 갯수(1~3):";
+		std::cin >> g_ballnum;
+		retval = send(p1Socket, (char*)&g_ballnum, sizeof(g_ballnum), 0);
 		CMyFunc::IsSocketError(retval, "recvn ballnum");
-		std::cout << "사용할 볼의 갯수:" << ballNum << std::endl;
+		retval = send(p2Socket, (char*)&g_ballnum, sizeof(g_ballnum), 0);
+		CMyFunc::IsSocketError(retval, "recvn ballnum");
+
+		std::cout << "사용할 볼의 갯수:" << g_ballnum << std::endl;
 		//////////////////////////////////////////////////////////////////////////
 		std::cout << "게임을 시작하지" << std::endl;
 		

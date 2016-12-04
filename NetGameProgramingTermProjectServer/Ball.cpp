@@ -107,18 +107,18 @@ void CBall::GoalCheck()
 	*/
 
 	//ÁÂÃø°ñ´ë °ñÃ¼Å©
-	if (m_vBallPos.x >= 0 && m_vBallPos.x <= GOAL_SIZE
-		&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
-	{
-		printf("ÁÂÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [2P 1Á¡È¹µæ]\n");
-	}
+	//if (m_vBallPos.x >= 0 && m_vBallPos.x <= GOAL_SIZE
+	//	&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
+	//{
+	//	printf("ÁÂÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [2P 1Á¡È¹µæ]\n");
+	//}
 
-	//¿ìÃø°ñ´ë °ñÃ¼Å©
-	if (m_vBallPos.x >= WINDOW_WIDTH - GOAL_SIZE && m_vBallPos.x <= WINDOW_WIDTH
-		&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
-	{
-		printf("¿ìÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [1P 1Á¡È¹µæ]\n");
-	}
+	////¿ìÃø°ñ´ë °ñÃ¼Å©
+	//if (m_vBallPos.x >= WINDOW_WIDTH - GOAL_SIZE && m_vBallPos.x <= WINDOW_WIDTH
+	//	&& m_vBallPos.y >= WINDOW_HEIGHT / 3 && m_vBallPos.y <= WINDOW_HEIGHT / 3 * 2)
+	//{
+	//	printf("¿ìÃø°ñ´ë¿¡ °ñÀÌ µé¾î°¬½À´Ï´Ù!! [1P 1Á¡È¹µæ]\n");
+	//}
 
 }
 CBall::CBall()
