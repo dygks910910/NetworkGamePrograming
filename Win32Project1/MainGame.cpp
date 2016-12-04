@@ -59,10 +59,8 @@ void CMainGame::Initialize()
 	retval = send(m_clientSocket, (char*)&msg_ready, sizeof(msg_ready), 0);
 	std::cout << "ready" << std::endl;
 	//////////////////////////////ball의 갯수////////////////////////////////////////////
-	if (m_playerType == 1) {
-		std::cout << "사용할 볼의 갯수를 입력하세요:";std::cin >> m_ballNum;
-	}
-	retval = send(m_clientSocket, (char*)&m_ballNum, sizeof(m_ballNum), 0);
+
+	retval = recv(m_clientSocket, (char*)&m_ballNum, sizeof(m_ballNum), 0);
 	CMyFunc::IsSocketError(retval, "send ballnum");
 	//////////////////////////////////////////////////////////////////////////
 	
@@ -85,23 +83,34 @@ void CMainGame::Initialize()
 		m_otherPlayer.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 			PLAYER_SIZE, PLAYER_SPEED, 1);
 	}
-	m_time.startTimer();
+	m_countTimer.startTimer();
 	//retval = recv(m_clientSocket, (char*)&gameStart, sizeof(gameStart), 0);
 	//if (gameStart)
-		m_threadForSendRecv = new std::thread(SendAndRecvThread, m_playerType, std::ref(m_localPlayer),
-			std::ref(m_otherPlayer), std::ref(m_ball),m_clientSocket);
+	m_threadForSendRecv = new std::thread([&]() {SendAndRecvThread(); });
 
 }
 // process
 void CMainGame::Progress()
 {
 	//m_ball.move();
+	m_GUI.countSec = m_countTimer.countDown(180);
+	if (m_ball.GetPosition().x >= WINDOW_WIDTH -PLAYER_SIZE && 
+		m_ball.GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
+		m_ball.GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+	{
+		m_GUI.p1Score += 1;
+	}
+	if (m_ball.GetPosition().x <= PLAYER_SIZE &&
+		m_ball.GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE && 
+		m_ball.GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+	{
+		m_GUI.p2Score += 1;
+	}
 }
 
 // 그리기
 void CMainGame::Render()
 {
-	
 	/*m_doubleBuffering.WriteToBackBuffer(&m_player1);
 	m_doubleBuffering.WriteToBackBuffer(&m_player2);
 	m_doubleBuffering.Present(m_hdc);*/
@@ -190,9 +199,8 @@ void CMainGame::Release()
 
 }
 
-void SendAndRecvThread(const int& player_type, CPlayer& localPlayer, CPlayer& otherPlayer, CBall& ball, const SOCKET& sock)
+void CMainGame::SendAndRecvThread()
 {
-	
 	int retval;
 	CTimer timer;
 	CPlayerMsg tempLocalPlayerMsg;
@@ -215,7 +223,7 @@ void SendAndRecvThread(const int& player_type, CPlayer& localPlayer, CPlayer& ot
 			//////////////////////////////////////////////////////////////////////////
 			//local 플레이어의 위치방향정보를 보내기.
 			//if (player_type == 1) {
-				tempLocalPlayerMsg.m_vPos = localPlayer.GetPosition();
+				tempLocalPlayerMsg.m_vPos = m_localPlayer.GetPosition();
 		//	}
 			/*else if (player_type == 2)
 			{
@@ -226,16 +234,16 @@ void SendAndRecvThread(const int& player_type, CPlayer& localPlayer, CPlayer& ot
 				playerMutex.unlock();
 			}*/
 
-			retval = send(sock, (char*)&tempLocalPlayerMsg, sizeof(tempLocalPlayerMsg), 0);//CplayerMsg로 전송해야함.
+			retval = send(m_clientSocket, (char*)&tempLocalPlayerMsg, sizeof(tempLocalPlayerMsg), 0);//CplayerMsg로 전송해야함.
 			if (CMyFunc::IsSocketError(retval, "sendTEmpLocalPlayerMsg"))break;
 			//////////////////////////////////////////////////////////////////////////
-			retval = recv(sock, (char*)&msgData, sizeof(msgData), 0);
+			retval = recv(m_clientSocket, (char*)&msgData, sizeof(msgData), 0);
 			if (CMyFunc::IsSocketError(retval, "recvn msgdata")) {
 				std::cout << "서버에 접속할수 없습니다" << std::endl;
 				break;
 			}
 			
-			if (player_type == 1)
+			if (m_playerType == 1)
 			{
 				playerMutex.lock();
 				/*
@@ -243,19 +251,19 @@ void SendAndRecvThread(const int& player_type, CPlayer& localPlayer, CPlayer& ot
 				작성자:박요한(dygks910910@daum.net)
 				설명:포지션값이 m_vDirection 값으로 들어가는 문제발생//////////////////////////////////////////////////////////////////////////
 				*/
-				otherPlayer.SetPosition(msgData.p2.m_vPos);
+				m_otherPlayer.SetPosition(msgData.p2.m_vPos);
 				//std::cout << msgData.p2.m_vPos << std::endl;
 				playerMutex.unlock();
 			}
-			else if (player_type == 2)
+			else if (m_playerType == 2)
 			{
 				playerMutex.lock();
-				otherPlayer.SetPosition(msgData.p1.m_vPos);
+				m_otherPlayer.SetPosition(msgData.p1.m_vPos);
 				//std::cout << msgData.p1.m_vPos << std::endl;
 				playerMutex.unlock();
 			}
 			ballMutex.lock();
-			ball.SetPosition(msgData.ball.m_vPos);
+			m_ball.SetPosition(msgData.ball.m_vPos);
 			ballMutex.unlock();
 
 			timer.startTimer();
@@ -263,6 +271,24 @@ void SendAndRecvThread(const int& player_type, CPlayer& localPlayer, CPlayer& ot
 		else
 		{
 			Sleep(1000 / FPS - timer.getElapsedTime());
+		}
+		/////////////////////종료조건/////////////////////////////////////////////////////
+		if (m_countTimer.restTime <= 0 || m_GUI.p1Score >= 3 || m_GUI.p2Score >= 3)
+		{
+			if (m_GUI.p1Score >= 3)
+			{
+				MessageBox(g_hWnd, "승리", "p1승리", MB_OK);
+			}
+			if (m_countTimer.restTime <= 0)
+			{
+				MessageBox(g_hWnd, "무승부", "무승부", MB_OK);
+			}
+			if (m_GUI.p2Score >= 3)
+			{
+				MessageBox(g_hWnd, "승리", "p2승리", MB_OK);
+			}
+			exit(1);
+			return;
 		}
 	}
 }

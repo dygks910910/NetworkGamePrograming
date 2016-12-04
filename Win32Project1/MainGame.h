@@ -19,7 +19,7 @@ class CMainGame
 	std::mutex m_ballMutex;
 	std::mutex m_playerMutex;
 	CGUI	m_GUI;
-	CTimer m_time;
+	CTimer m_countTimer;
 public:
 	CPlayer	 m_localPlayer;
 	CPlayer	 m_otherPlayer;
@@ -33,6 +33,7 @@ public:
 	void Progress();
 	void Render();
 	void Release();
+	void SendAndRecvThread();
 
 /* 
 [2016/09/02 18½Ã57ºÐ 
@@ -43,7 +44,5 @@ public:
 	void KeyboardInputProcessing(const MSG	& msg);
 	
 };
-
-void SendAndRecvThread(const int& player_type,CPlayer& localPlayer,CPlayer& otherPlayer,CBall& ball,const SOCKET& sock);
 static std::mutex ballMutex;
 static std::mutex playerMutex;

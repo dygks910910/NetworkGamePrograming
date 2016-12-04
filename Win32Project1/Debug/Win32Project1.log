@@ -1,5 +1,4 @@
 ﻿  MainGame.cpp
-d:\project\networkgameprogramingserver\netgameprogramingtermprojectserver\stdafx.h(13): warning C4005: 'GOAL_SIZE': 매크로 재정의
-  d:\project\networkgameprograming\win32project1\myheader.h(21): note: 'GOAL_SIZE'의 이전 정의를 참조하십시오.
-d:\project\networkgameprograming\win32project1\maingame.cpp(265): warning C4244: '인수': 'double'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-LINK : fatal error LNK1168: D:\Project\NetworkGamePrograming\Debug\Win32Project1.exe을(를) 쓰기용으로 열 수 없습니다.
+d:\project\networkgameprograming\win32project1\maingame.cpp(273): warning C4244: '인수': 'double'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.exe
+  Win32Project1.vcxproj -> D:\Project\NetworkGamePrograming\Debug\Win32Project1.pdb (Full PDB)

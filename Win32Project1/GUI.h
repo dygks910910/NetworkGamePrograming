@@ -9,5 +9,8 @@ public:
 	virtual void Progress();
 	virtual void Render(HDC);
 	virtual void Release();
+	int countSec;
+	int p1Score;
+	int p2Score;
 };
 
