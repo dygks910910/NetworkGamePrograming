@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+#include "myHeader.h"
 #include"enum.h"
 #include "CMyFunc.h"
 

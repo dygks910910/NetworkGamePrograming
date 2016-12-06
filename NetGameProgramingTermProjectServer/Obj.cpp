@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "myHeader.h"
 #include "Obj.h"
 
 

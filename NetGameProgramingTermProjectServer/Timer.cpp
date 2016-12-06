@@ -45,4 +45,3 @@ const int& CTimer::countDown(const int& countSec)
 	return countSec - getElapsedTimeSec();
 }
 
-#include"stdafx.h"

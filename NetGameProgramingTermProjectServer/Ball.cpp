@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "myHeader.h"
 #include "Ball.h"
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {

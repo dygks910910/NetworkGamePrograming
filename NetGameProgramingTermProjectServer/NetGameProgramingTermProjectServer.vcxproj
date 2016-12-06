@@ -159,7 +159,7 @@
     <ClInclude Include="enum.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Obj.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="myHeader.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>

@@ -8,11 +8,11 @@
 #include "Message.h"
 
 #define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 300
+#define WINDOW_HEIGHT 600
 
 #define GOAL_SIZE 50
 #define FPS 30
-
+#define MAX_BALL_NUM 3
 #define BALL_SIZE 10
 #define PLAYER_SPEED 10
 #define PLAYER1_POSX WINDOW_WIDTH - PLAYER_SIZE

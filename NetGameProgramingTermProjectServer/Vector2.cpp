@@ -68,4 +68,3 @@ bool operator==(const CVector2& v1, const CVector2& v2)
 	}
 	return false;
 }
-#include"stdafx.h"

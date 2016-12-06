@@ -1,9 +1,8 @@
 #pragma once
-
 #include"Vector2.h"
 #include<iostream>
 #include "Message.h"
-#include "Vector2.h"
+#include "myHeader.h"
 
 class CMessageBallInfo
 {
@@ -19,8 +18,10 @@ class CMsg_PlayerAndBall
 public:
 	CPlayerMsg	 p1;
 	CPlayerMsg	 p2;
-	CPlayerMsg ball;
+	CPlayerMsg ball[3];
 };
+#pragma pack()
+
 //
 //class CMsg_PlayerAndBall2 : public CMsg_PlayerAndBall
 //{

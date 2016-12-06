@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+#include "myHeader.h"
 class CMyFunc
 {
 public:

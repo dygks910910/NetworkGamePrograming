@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "myHeader.h"
 #include "RecvnAndMessageType.h"
 #include "Message.h"
 #include "Timer.h"
@@ -18,7 +18,7 @@ void CheckCollision();
 //zzzzz
 CPlayerMsg g_P1;
 CPlayerMsg g_P2;
-CBall g_Ball;
+CBall g_Ball[3];
 std::mutex p1Mutex;
 std::mutex p2Mutex;
 std::mutex ballMutex;
@@ -126,9 +126,14 @@ void main()
 		std::cout << "사용할 볼의 갯수:" << g_ballnum << std::endl;
 		//////////////////////////////////////////////////////////////////////////
 		std::cout << "게임을 시작하지" << std::endl;
-		
-		g_Ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
-			BALL_SIZE, PLAYER_SPEED);
+		for (int i = 0; i < g_ballnum; ++i) {
+			g_Ball[i].Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
+				BALL_SIZE, PLAYER_SPEED);
+		}
+		g_Ball[0].SetDirection(CVector2(1, 1));
+		g_Ball[1].SetDirection(CVector2(-1, -1));
+		g_Ball[2].SetDirection(CVector2(-1, 1));
+
 		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
 		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
 		timer.startTimer();
@@ -137,7 +142,8 @@ void main()
 			if (timer.getElapsedTime() >= 1000 / FPS)//프레임 안에 들어오면 수행할 작업.
 			{
 				ballMutex.lock();
-				g_Ball.Progress();
+				for(int i = 0 ; i < g_ballnum;++i)
+				g_Ball[i].Progress();
 				CheckCollision();
 				ballMutex.unlock();
 				timer.startTimer();
@@ -146,7 +152,8 @@ void main()
 			}
 			else
 			{
-				Sleep(1000 / FPS - timer.getElapsedTime());
+				CheckCollision();
+				/*Sleep(1000 / FPS - timer.getElapsedTime());*/
 			}
 		}
 		p1Thread.join();
@@ -212,14 +219,16 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 			p2readyCondvar.wait(ul, [] {return bP2ReadyFlag; });
 		}
 		//-----------------------------------------------------------------------건드리지 말것.
-
+		std::cout << "1";
 
 		//p1에게 ball,p1,p2정보를 전부 전송.
-		
-		tempBallMsg.m_vPos = g_Ball.GetPosition();
 
 		ballMutex.lock();
-		msg_temp.ball = tempBallMsg;
+		for (int i = 0; i < g_ballnum; ++i) 
+		{
+			tempBallMsg.m_vPos = g_Ball[i].GetPosition();
+			msg_temp.ball[i] = tempBallMsg;
+		}
 		ballMutex.unlock();
 
 		p1Mutex.lock();
@@ -285,15 +294,18 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		}
 		//--------------------------------------------------------------------------------건드리지 말것.
 
-		//std::cout << "2" ;
+		std::cout << "2" ;
 		//----------------충돌체크및 처리
 
 		//ball정보와 p1,p2 정보를 p2에게 send();
 
-		tempBallMsg.m_vPos = g_Ball.GetPosition();
 
 		ballMutex.lock();
-		msg_temp.ball = tempBallMsg;
+		for(int i = 0 ; i <g_ballnum ; ++i)
+		{
+			tempBallMsg.m_vPos = g_Ball[i].GetPosition();
+			msg_temp.ball[i] = tempBallMsg;
+		}
 		ballMutex.unlock();
 
 		p1Mutex.lock();
@@ -326,17 +338,20 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 void CheckCollision()
 {
 	CVector2 tempvector;
-	if (distanceVector(g_P1.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
+	for (int i = 0; i < g_ballnum; ++i) 
 	{
-		//std::cout << "p1과 충돌" << std::endl;
-		tempvector = g_Ball.GetPosition() - g_P1.m_vPos;
-		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
-	}
-	else if (distanceVector(g_P2.m_vPos, g_Ball.GetPosition()) <= PLAYER_SIZE*2)
-	{
-		//std::cout << "p2와 충돌" << std::endl;
-		tempvector = g_Ball.GetPosition() - g_P2.m_vPos;
-		g_Ball.SetDirection(normalize(tempvector) + normalize(g_Ball.GetDirection()));
+		if (distanceVector(g_P1.m_vPos, g_Ball[i].GetPosition()) <= PLAYER_SIZE * 2)
+		{
+			//std::cout << "p1과 충돌" << std::endl;
+			tempvector = g_Ball[i].GetPosition() - g_P1.m_vPos;
+			g_Ball[i].SetDirection(normalize(tempvector) + normalize(g_Ball[i].GetDirection()));
+		}
+		else if (distanceVector(g_P2.m_vPos, g_Ball[i].GetPosition()) <= PLAYER_SIZE * 2)
+		{
+			//std::cout << "p2와 충돌" << std::endl;
+			tempvector = g_Ball[i].GetPosition() - g_P2.m_vPos;
+			g_Ball[i].SetDirection(normalize(tempvector) + normalize(g_Ball[i].GetDirection()));
 
+		}
 	}
 }
