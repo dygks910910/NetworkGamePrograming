@@ -68,8 +68,10 @@ void CMainGame::Initialize()
 	RECT clientrect;
 	GetClientRect(g_hWnd, &clientrect);
 	m_doubleBuffering.Initialize(m_hdc, clientrect);
-	m_ball.Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, PLAYER_SPEED);
-	m_ball.SetDirection(CVector2(1, 1));
+	for (int i = 0; i < m_ballNum; ++i) {
+		m_ball[i].Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, PLAYER_SPEED);
+	}
+
 	if (m_playerType == 1) {
 		m_localPlayer.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 			PLAYER_SIZE, PLAYER_SPEED, m_playerType);
@@ -94,17 +96,20 @@ void CMainGame::Progress()
 {
 	//m_ball.move();
 	m_GUI.countSec = m_countTimer.countDown(180);
-	if (m_ball.GetPosition().x >= WINDOW_WIDTH -PLAYER_SIZE && 
-		m_ball.GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
-		m_ball.GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+	for (int i = 0; i < m_ballNum; ++i) 
 	{
-		m_GUI.p1Score += 1;
-	}
-	if (m_ball.GetPosition().x <= PLAYER_SIZE &&
-		m_ball.GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE && 
-		m_ball.GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
-	{
-		m_GUI.p2Score += 1;
+		if (m_ball[i].GetPosition().x >= WINDOW_WIDTH - PLAYER_SIZE &&
+			m_ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
+			m_ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+		{
+			m_GUI.p1Score += 1;
+		}
+		if (m_ball[i].GetPosition().x <= PLAYER_SIZE &&
+			m_ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
+			m_ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+		{
+			m_GUI.p2Score += 1;
+		}
 	}
 }
 
@@ -117,7 +122,10 @@ void CMainGame::Render()
 	m_doubleBuffering.WriteToBackBuffer(&m_GUI);
 	m_doubleBuffering.WriteToBackBuffer(&m_localPlayer);
 	m_doubleBuffering.WriteToBackBuffer(&m_otherPlayer);
-	m_doubleBuffering.WriteToBackBuffer(&m_ball);
+	for (int i = 0; i < m_ballNum; ++i)
+	{
+		m_doubleBuffering.WriteToBackBuffer(&m_ball[i]);
+	}
   	m_doubleBuffering.Present(m_hdc);
 
 }
@@ -233,7 +241,6 @@ void CMainGame::SendAndRecvThread()
 				tempLocalPlayerMsg.speed = otherPlayer.GetBallSpeed();
 				playerMutex.unlock();
 			}*/
-
 			retval = send(m_clientSocket, (char*)&tempLocalPlayerMsg, sizeof(tempLocalPlayerMsg), 0);//CplayerMsg로 전송해야함.
 			if (CMyFunc::IsSocketError(retval, "sendTEmpLocalPlayerMsg"))break;
 			//////////////////////////////////////////////////////////////////////////
@@ -263,7 +270,10 @@ void CMainGame::SendAndRecvThread()
 				playerMutex.unlock();
 			}
 			ballMutex.lock();
-			m_ball.SetPosition(msgData.ball.m_vPos);
+			for (int i = 0; i < m_ballNum; ++i)
+			{
+				m_ball[i].SetPosition(msgData.ball[i].m_vPos);
+			}
 			ballMutex.unlock();
 
 			timer.startTimer();

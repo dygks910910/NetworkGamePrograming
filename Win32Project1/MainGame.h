@@ -23,7 +23,7 @@ class CMainGame
 public:
 	CPlayer	 m_localPlayer;
 	CPlayer	 m_otherPlayer;
-	CBall m_ball;
+	CBall m_ball[3];
 	int m_playerType;
 	int m_ballNum;
 

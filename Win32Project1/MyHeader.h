@@ -7,8 +7,9 @@ extern HWND g_hWnd;
 작성자 : 박요한(dygks910910@daum.net)]
 변경내용:해상도 1024x400으로 변경 게임에 더욱 적합한것같음.
 */
+
 #define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 300
+#define WINDOW_HEIGHT 600
 #define PLAYER_SIZE 15
 #define PLAYER_SPEED 10
 #define PLAYER1_POSX WINDOW_WIDTH - PLAYER_SIZE
