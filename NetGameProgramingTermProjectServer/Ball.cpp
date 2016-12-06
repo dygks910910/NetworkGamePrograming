@@ -3,9 +3,15 @@
 void CBall::Initialize(const CVector2 & pos, const float & size, const float & speed)
 {
 	m_vBallPos = pos;
-	m_vMoveDirection = CVector2(1, 1);
 	m_fBallSize = size;
 	m_fBallSpeed = speed;
+}
+
+void CBall::Initialize()
+{
+	m_vBallPos = CVector2(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
+	m_fBallSize = PLAYER_SIZE;
+	m_fBallSpeed = BALL_SPEED;
 }
 
 void CBall::Progress()

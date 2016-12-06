@@ -3,7 +3,7 @@
 #include<iostream>
 #include "Message.h"
 #include "myHeader.h"
-
+const int MAX_BALLNUM = 6;
 class CMessageBallInfo
 {
 public:
@@ -18,7 +18,11 @@ class CMsg_PlayerAndBall
 public:
 	CPlayerMsg	 p1;
 	CPlayerMsg	 p2;
-	CPlayerMsg ball[3];
+	CPlayerMsg ball[MAX_BALLNUM];
+	//firstWORD´Â p1Score
+	int p1Score;
+	int p2Score;
+	int countTime;
 };
 #pragma pack()
 

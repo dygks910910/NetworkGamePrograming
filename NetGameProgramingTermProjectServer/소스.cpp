@@ -9,16 +9,18 @@
 #include "Ball.h"
 #include<math.h>
 #include "Timer.h"
+#include "RandomEngine.h"
 #define PORT 9000
 void  InitServerSockAddrIPv4(SOCKADDR_IN& serverAddr);
 void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player);
 void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player);
 void CheckCollision();
 
+CRandomEngine randomEngine;
 //zzzzz
 CPlayerMsg g_P1;
 CPlayerMsg g_P2;
-CBall g_Ball[3];
+CBall g_Ball[MAX_BALLNUM];
 std::mutex p1Mutex;
 std::mutex p2Mutex;
 std::mutex ballMutex;
@@ -32,9 +34,11 @@ bool bP1ReadyFlag = false;
 bool bP2ReadyFlag = false;
 bool bp1Accepted = false;
 bool bp2Accepted = false;
+
+int g_p1Score=0;
+int g_p2Score=0;
 void main()
 {
-	
 	CTimer	timer;
 	int retval;
 	WSADATA wsa;
@@ -115,24 +119,30 @@ void main()
 		std::cout << "p2준비완료" << std::endl;
 		//////////////////////////////////////////////////////////////////////////
 
-		/////////////////////////볼의갯수를 p1에게서 수신받아야한다./////////////////////////////////////////////////
-		std::cout << "사용할 볼의 갯수(1~3):";
-		std::cin >> g_ballnum;
+		/////////////////////////볼의갯수를 입력./////////////////////////////////////////////////
+		while (1)
+		{
+			std::cout << "사용할 볼의 갯수(1~ " << MAX_BALLNUM << "):";
+			std::cin >> g_ballnum;
+			if (g_ballnum >= 1 && g_ballnum <= MAX_BALLNUM)
+			{
+				break;
+			}
+			std::cin.clear();
+		}
 		retval = send(p1Socket, (char*)&g_ballnum, sizeof(g_ballnum), 0);
 		CMyFunc::IsSocketError(retval, "recvn ballnum");
 		retval = send(p2Socket, (char*)&g_ballnum, sizeof(g_ballnum), 0);
 		CMyFunc::IsSocketError(retval, "recvn ballnum");
-
-		std::cout << "사용할 볼의 갯수:" << g_ballnum << std::endl;
+		
 		//////////////////////////////////////////////////////////////////////////
 		std::cout << "게임을 시작하지" << std::endl;
 		for (int i = 0; i < g_ballnum; ++i) {
 			g_Ball[i].Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
-				BALL_SIZE, PLAYER_SPEED);
+				BALL_SIZE, BALL_SPEED);
+			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1,1),
+				randomEngine.GetRandomNumFloat(-1,1)));
 		}
-		g_Ball[0].SetDirection(CVector2(1, 1));
-		g_Ball[1].SetDirection(CVector2(-1, -1));
-		g_Ball[2].SetDirection(CVector2(-1, 1));
 
 		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
 		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
@@ -255,7 +265,6 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		//	recvCount = 0;
 		//	timer.startTimer();
 		//}
-		std::cout << "1";
 	}
 	//recvCount = 0;
 }
@@ -312,6 +321,8 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		msg_temp.p1 = g_P1;
 		msg_temp.p2 = g_P2;
 		p1Mutex.unlock();
+		msg_temp.p1Score = g_p1Score;
+		msg_temp.p2Score = g_p2Score;
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp")) {
 			bp2Accepted = false;
@@ -329,7 +340,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		//recvCount = 0;
 		//timer.startTimer();
 		//}
-		std::cout << "2";
+		//std::cout << "2";
 	}
 	/*recvCount = 0;*/
 }
@@ -345,13 +356,31 @@ void CheckCollision()
 			//std::cout << "p1과 충돌" << std::endl;
 			tempvector = g_Ball[i].GetPosition() - g_P1.m_vPos;
 			g_Ball[i].SetDirection(normalize(tempvector) + normalize(g_Ball[i].GetDirection()));
+			
 		}
 		else if (distanceVector(g_P2.m_vPos, g_Ball[i].GetPosition()) <= PLAYER_SIZE * 2)
 		{
 			//std::cout << "p2와 충돌" << std::endl;
 			tempvector = g_Ball[i].GetPosition() - g_P2.m_vPos;
 			g_Ball[i].SetDirection(normalize(tempvector) + normalize(g_Ball[i].GetDirection()));
-
+		}
+		if (g_Ball[i].GetPosition().x >= WINDOW_WIDTH - PLAYER_SIZE &&
+			g_Ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
+			g_Ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+		{
+			g_p1Score+= 1;
+			g_Ball[i].Initialize();
+			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1, 1),
+				randomEngine.GetRandomNumFloat(-1, 1)));
+		}
+		if (g_Ball[i].GetPosition().x <= PLAYER_SIZE &&
+			g_Ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
+			g_Ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
+		{
+			g_p2Score+= 1;
+			g_Ball[i].Initialize();
+			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1, 1), 
+				randomEngine.GetRandomNumFloat(-1, 1)));
 		}
 	}
 }

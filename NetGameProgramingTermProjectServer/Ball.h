@@ -23,6 +23,7 @@ public:
 	void SetBallSpeed(const float& speed) { m_fBallSpeed = speed; }
 	void SetBallSize(const float& size) { m_fBallSize = size; }
 	virtual void Initialize(const CVector2& pos, const float& size, const float& speed);
+	virtual void Initialize() ;
 	virtual void Progress();
 	virtual void Render(HDC);
 	virtual void Release();

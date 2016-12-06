@@ -12,8 +12,20 @@ CVector2::CVector2(float x, float y) :
 }
 
 
+CVector2::CVector2(const CVector2& other)
+{
+	this->x = other.x;
+	this->y = other.y;
+}
+
 CVector2::~CVector2()
 {
+}
+
+void CVector2::createRandomVal()
+{
+	x = rand();
+	y = rand();
 }
 
 CVector2 CVector2::operator+(const CVector2& other)

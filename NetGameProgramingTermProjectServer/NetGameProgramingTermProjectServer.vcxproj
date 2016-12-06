@@ -147,6 +147,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="CMyFunc.cpp" />
     <ClCompile Include="Obj.cpp" />
+    <ClCompile Include="RandomEngine.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="소스.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="myHeader.h" />
+    <ClInclude Include="RandomEngine.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
