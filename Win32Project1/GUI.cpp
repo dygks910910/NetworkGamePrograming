@@ -16,7 +16,7 @@ CGUI::~CGUI()
 
 void CGUI::Initialize()
 {
-
+	countSec = 180;
 }
 
 void CGUI::Progress()

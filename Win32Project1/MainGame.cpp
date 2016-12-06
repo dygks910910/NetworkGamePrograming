@@ -85,7 +85,7 @@ void CMainGame::Initialize()
 		m_otherPlayer.Initialize(CVector2(WINDOW_WIDTH - PLAYER_SIZE, WINDOW_HEIGHT / 2),
 			PLAYER_SIZE, PLAYER_SPEED, 1);
 	}
-	m_countTimer.startTimer();
+	//m_countTimer.startTimer();
 	//retval = recv(m_clientSocket, (char*)&gameStart, sizeof(gameStart), 0);
 	//if (gameStart)
 	m_threadForSendRecv = new std::thread([&]() {SendAndRecvThread(); });
@@ -95,7 +95,7 @@ void CMainGame::Initialize()
 void CMainGame::Progress()
 {
 	//m_ball.move();
-	m_GUI.countSec = m_countTimer.countDown(180);
+	/*m_GUI.countSec = m_countTimer.countDown(180);
 	for (int i = 0; i < m_ballNum; ++i) 
 	{
 		if (m_ball[i].GetPosition().x >= WINDOW_WIDTH - PLAYER_SIZE &&
@@ -110,7 +110,7 @@ void CMainGame::Progress()
 		{
 			m_GUI.p2Score += 1;
 		}
-	}
+	}*/
 }
 
 // 弊府扁
@@ -283,16 +283,16 @@ void CMainGame::SendAndRecvThread()
 			Sleep(1000 / FPS - timer.getElapsedTime());
 		}
 		/////////////////////辆丰炼扒/////////////////////////////////////////////////////
-		if (m_countTimer.restTime <= 0 || m_GUI.p1Score >= 3 || m_GUI.p2Score >= 3)
+		if (/*m_countTimer.restTime <= 0 ||*/ m_GUI.p1Score >= 3 || m_GUI.p2Score >= 3)
 		{
 			if (m_GUI.p1Score >= 3)
 			{
 				MessageBox(g_hWnd, "铰府", "p1铰府", MB_OK);
 			}
-			if (m_countTimer.restTime <= 0)
+		/*	if (m_countTimer.restTime <= 0)
 			{
 				MessageBox(g_hWnd, "公铰何", "公铰何", MB_OK);
-			}
+			}*/
 			if (m_GUI.p2Score >= 3)
 			{
 				MessageBox(g_hWnd, "铰府", "p2铰府", MB_OK);

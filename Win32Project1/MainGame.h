@@ -19,14 +19,14 @@ class CMainGame
 	std::mutex m_ballMutex;
 	std::mutex m_playerMutex;
 	CGUI	m_GUI;
-	CTimer m_countTimer;
+	//CTimer m_countTimer;
 public:
 	CPlayer	 m_localPlayer;
 	CPlayer	 m_otherPlayer;
-	CBall m_ball[3];
+	CBall m_ball[MAX_BALLNUM];
 	int m_playerType;
 	int m_ballNum;
-
+	bool m_bGameOver;
 	CMainGame();
 	~CMainGame();
 	void Initialize();
