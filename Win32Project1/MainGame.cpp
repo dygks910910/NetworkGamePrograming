@@ -277,7 +277,7 @@ void CMainGame::SendAndRecvThread()
 				m_ball[i].SetPosition(msgData.ball[i].m_vPos);
 			}
 			ballMutex.unlock();
-
+			m_GUI.countSec = msgData.countTime;
 			timer.startTimer();
 		}
 		else
@@ -291,11 +291,11 @@ void CMainGame::SendAndRecvThread()
 			{
 				MessageBox(g_hWnd, "铰府", "p1铰府", MB_OK);
 			}
-		/*	if (m_countTimer.restTime <= 0)
+			else if (msgData.countTime <= 0)
 			{
 				MessageBox(g_hWnd, "公铰何", "公铰何", MB_OK);
-			}*/
-			if (msgData.p2Score >= 3)
+			}
+			else if (msgData.p2Score >= 3)
 			{
 				MessageBox(g_hWnd, "铰府", "p2铰府", MB_OK);
 			}
