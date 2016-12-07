@@ -249,7 +249,9 @@ void CMainGame::SendAndRecvThread()
 				std::cout << "¼­¹ö¿¡ Á¢¼ÓÇÒ¼ö ¾ø½À´Ï´Ù" << std::endl;
 				break;
 			}
-			
+			m_GUI.p1Score = msgData.p1Score;
+			m_GUI.p2Score = msgData.p2Score;
+
 			if (m_playerType == 1)
 			{
 				playerMutex.lock();
@@ -285,7 +287,7 @@ void CMainGame::SendAndRecvThread()
 		/////////////////////Á¾·áÁ¶°Ç/////////////////////////////////////////////////////
 		if (/*m_countTimer.restTime <= 0 ||*/ m_GUI.p1Score >= 3 || m_GUI.p2Score >= 3)
 		{
-			if (m_GUI.p1Score >= 3)
+			if (msgData.p1Score >= 3)
 			{
 				MessageBox(g_hWnd, "½Â¸®", "p1½Â¸®", MB_OK);
 			}
@@ -293,7 +295,7 @@ void CMainGame::SendAndRecvThread()
 			{
 				MessageBox(g_hWnd, "¹«½ÂºÎ", "¹«½ÂºÎ", MB_OK);
 			}*/
-			if (m_GUI.p2Score >= 3)
+			if (msgData.p2Score >= 3)
 			{
 				MessageBox(g_hWnd, "½Â¸®", "p2½Â¸®", MB_OK);
 			}
