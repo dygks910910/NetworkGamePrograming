@@ -23,12 +23,14 @@ CPlayerMsg g_P2;
 CBall g_Ball[MAX_BALLNUM];
 std::mutex p1Mutex;
 std::mutex p2Mutex;
+std::mutex scoreMutex;
 std::mutex ballMutex;
 int g_ballnum;
 std::mutex p1readyMutex;
 std::mutex p2readyMutex;
 std::condition_variable p1readyCondvar;
 std::condition_variable p2readyCondvar;
+
 
 bool bP1ReadyFlag = false;
 bool bP2ReadyFlag = false;
@@ -245,7 +247,10 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		msg_temp.p1= g_P1;
 		msg_temp.p2= g_P2;
 		p1Mutex.unlock();
-
+		scoreMutex.lock();
+		msg_temp.p1Score = g_p1Score;
+		msg_temp.p2Score = g_p2Score;
+		scoreMutex.unlock();
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp"))
 		{
@@ -321,8 +326,10 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		msg_temp.p1 = g_P1;
 		msg_temp.p2 = g_P2;
 		p1Mutex.unlock();
+		scoreMutex.lock();
 		msg_temp.p1Score = g_p1Score;
 		msg_temp.p2Score = g_p2Score;
+		scoreMutex.unlock();
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp")) {
 			bp2Accepted = false;
@@ -368,7 +375,9 @@ void CheckCollision()
 			g_Ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
 			g_Ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
 		{
+			scoreMutex.lock();
 			g_p1Score+= 1;
+			scoreMutex.unlock();
 			g_Ball[i].Initialize();
 			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1, 1),
 				randomEngine.GetRandomNumFloat(-1, 1)));
@@ -377,7 +386,9 @@ void CheckCollision()
 			g_Ball[i].GetPosition().y < WINDOW_HEIGHT / 2 + GOAL_SIZE &&
 			g_Ball[i].GetPosition().y > WINDOW_HEIGHT / 2 - GOAL_SIZE)
 		{
+			scoreMutex.lock();
 			g_p2Score+= 1;
+			scoreMutex.unlock();
 			g_Ball[i].Initialize();
 			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1, 1), 
 				randomEngine.GetRandomNumFloat(-1, 1)));
