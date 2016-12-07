@@ -30,7 +30,7 @@ std::mutex p1readyMutex;
 std::mutex p2readyMutex;
 std::condition_variable p1readyCondvar;
 std::condition_variable p2readyCondvar;
-
+CTimer	countTimer;
 
 bool bP1ReadyFlag = false;
 bool bP2ReadyFlag = false;
@@ -138,14 +138,14 @@ void main()
 		CMyFunc::IsSocketError(retval, "recvn ballnum");
 		
 		//////////////////////////////////////////////////////////////////////////
-		std::cout << "게임을 시작하지" << std::endl;
 		for (int i = 0; i < g_ballnum; ++i) {
 			g_Ball[i].Initialize(CVector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
 				BALL_SIZE, BALL_SPEED);
 			g_Ball[i].SetDirection(CVector2(randomEngine.GetRandomNumFloat(-1,1),
 				randomEngine.GetRandomNumFloat(-1,1)));
 		}
-
+		std::cout << "게임을 시작하지" << std::endl;
+		countTimer.startTimer();
 		std::thread p1Thread(P1Thread, p1Socket, std::ref(g_P1));
 		std::thread p2Thread(P2Thread, p2Socket, std::ref(g_P2));
 		timer.startTimer();
@@ -251,6 +251,7 @@ void P1Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		msg_temp.p1Score = g_p1Score;
 		msg_temp.p2Score = g_p2Score;
 		scoreMutex.unlock();
+		msg_temp.countTime = countTimer.countDown(COUNTDOWN_TIME);
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp"))
 		{
@@ -330,6 +331,7 @@ void P2Thread(const SOCKET& clientSocket, CPlayerMsg& player)
 		msg_temp.p1Score = g_p1Score;
 		msg_temp.p2Score = g_p2Score;
 		scoreMutex.unlock();
+		msg_temp.countTime = countTimer.countDown(COUNTDOWN_TIME);
 		retval = send(clientSocket, (char*)&msg_temp, sizeof(msg_temp), 0);
 		if (CMyFunc::IsSocketError(retval, "send msg_temp")) {
 			bp2Accepted = false;

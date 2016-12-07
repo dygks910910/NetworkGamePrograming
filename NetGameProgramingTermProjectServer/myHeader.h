@@ -10,6 +10,7 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 600
 
+#define COUNTDOWN_TIME 180
 #define GOAL_SIZE 50
 #define FPS 30
 #define BALL_SIZE 10
