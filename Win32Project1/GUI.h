@@ -1,5 +1,6 @@
 #pragma once
 #include"Obj.h"
+
 class CGUI : public CObj
 {
 public:

@@ -28,6 +28,9 @@
     <Filter Include="소스 파일\99 Vector2">
       <UniqueIdentifier>{8ba39867-5aab-4281-9626-fb98f012bc6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{874db1d8-49a3-4843-95b2-2a8554b77cc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -51,29 +54,29 @@
     <ClInclude Include="MainGame.h">
       <Filter>소스 파일\00 MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Obj.h">
-      <Filter>소스 파일\01 Obj</Filter>
-    </ClInclude>
     <ClInclude Include="DoubleBuffering.h">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.h">
-      <Filter>소스 파일\99 Vector2</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="GUI.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Ball.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\CMyFunc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Obj.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Timer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Vector2.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,29 +89,29 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일\00 MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Obj.cpp">
-      <Filter>소스 파일\01 Obj</Filter>
-    </ClCompile>
     <ClCompile Include="DoubleBuffering.cpp">
       <Filter>소스 파일\01 DoubleBuffering</Filter>
-    </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Vector2.cpp">
-      <Filter>소스 파일\99 Vector2</Filter>
-    </ClCompile>
-    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\Timer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="D:\Project\NetworkGameProgramingServer\NetGameProgramingTermProjectServer\CMyFunc.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Ball.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\CMyFunc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Obj.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Timer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Vector2.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

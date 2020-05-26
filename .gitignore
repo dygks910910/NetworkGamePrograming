@@ -47,3 +47,9 @@ Temporary Items
 .apdisk
 
 .vs/Win32Project1/v14/.suo
+*.ipch
+*.db
+*.opendb
+*.pdb
+*.tlog
+*.pch

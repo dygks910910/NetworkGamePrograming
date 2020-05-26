@@ -1,6 +1,5 @@
 #pragma once
 
-#include "MyHeader.h"
 #include"Vector2.h"
 
 class CObj
